@@ -1,6 +1,7 @@
+import React from "react";
+import "./globals.css";
 import type { Metadata } from "next";
 import { Bellota_Text, Kalam, Noto_Sans_TC } from "next/font/google";
-import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 

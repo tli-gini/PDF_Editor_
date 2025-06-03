@@ -2,7 +2,7 @@ import HomepageCard from "@/components/HomepageCard";
 
 export default function Home() {
   return (
-    <section className="min-h-screen pt-32 pb-10 px-6 md:px-20 bg-background text-primary]">
+    <section className="min-h-screen px-6 pt-32 pb-10 md:px-20 bg-background text-primary">
       <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
         <HomepageCard
           title="Split / Merge / Organize"
