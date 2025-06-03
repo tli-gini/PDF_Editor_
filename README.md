@@ -1,4 +1,4 @@
-# 📄 PDF*Editor*
+# 📄 PDF Editor
 
 A lightweight PDF editing UI, built with Next.js and Tailwind CSS, supporting dark mode and bilingual interface.
 
@@ -15,14 +15,14 @@ A lightweight PDF editing UI, built with Next.js and Tailwind CSS, supporting da
 
 ## 🧰 Tech Stack
 
-| **Layer**  | **Tool / Library**                                                                     |
-| ---------- | -------------------------------------------------------------------------------------- |
-| Framework  | [Next.js (App Router)](https://nextjs.org/docs/app)                                    |
-| Language   | TypeScript                                                                             |
-| Styling    | Tailwind CSS + Custom CSS Variables                                                    |
-| Fonts      | Google Fonts via `next/font`                                                           |
-| Icon Set   | Material Symbols (Rounded)                                                             |
-| PDF Engine | [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF) (external, self-hosted) |
+| **Layer**  | **Tool / Library**                                              |
+| ---------- | --------------------------------------------------------------- |
+| Framework  | [Next.js (App Router)](https://nextjs.org/docs/app)             |
+| Language   | TypeScript                                                      |
+| Styling    | Tailwind CSS + Custom CSS Variables                             |
+| Fonts      | Google Fonts via `next/font`                                    |
+| Icon Set   | Material Symbols (Rounded)                                      |
+| PDF Engine | [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF)  |
 
 ---
 

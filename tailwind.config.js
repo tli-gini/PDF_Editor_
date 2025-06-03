@@ -6,7 +6,16 @@ module.exports = {
     "./styles/**/*.{css,scss}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "var(--color-primary)",
+        "primary-light": "var(--color-primary-light)",
+        secondary: "var(--color-secondary)",
+        background: "var(--color-background)",
+        white: "var(--color-white)",
+        black: "var(--color-black)",
+      },
+    },
   },
   plugins: [],
 };

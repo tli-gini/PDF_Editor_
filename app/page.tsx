@@ -1,9 +1,30 @@
+import HomepageCard from "@/components/HomepageCard";
+
 export default function Home() {
   return (
-    <div className="grid min-h-[100svh] grid-rows-[20px_1fr_20px] items-center justify-items-center px-8 py-20 gap-16 md:px-20">
-      <main className="flex flex-col gap-8 row-start-2 text-[14px] leading-6 tracking-tight">
-        <div className="flex flex-col sm:flex-row gap-4"></div>
-      </main>
-    </div>
+    <section className="min-h-screen pt-32 pb-10 px-6 md:px-20 bg-background text-primary]">
+      <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
+        <HomepageCard
+          title="Split / Merge / Organize"
+          href="/(tools)/structure"
+          imageSrc="/img/structure.png"
+        />
+        <HomepageCard
+          title="Convert from PDF"
+          href="/(tools)/convert"
+          imageSrc="/img/from-pdf.png"
+        />
+        <HomepageCard
+          title="Sign & Security"
+          href="/(tools)/security"
+          imageSrc="/img/security.png"
+        />
+        <HomepageCard
+          title="View & Edit"
+          href="/(tools)/editor"
+          imageSrc="/img/editor.png"
+        />
+      </div>
+    </section>
   );
 }
