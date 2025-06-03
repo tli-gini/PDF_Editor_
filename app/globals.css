@@ -1,0 +1,53 @@
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-bellota: "Bellota Text", cursive;
+  --font-kalam: "Kalam", cursive;
+  --font-noto-tc: "Noto Sans TC", sans-serif;
+
+  --color-primary: #c96c5e;
+  --color-primary-light: #c96c5e4d;
+  --color-secondary: #0b0d63;
+  --color-background: #fdf0e6;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --box-shadow: 0 3px 15px #c96c5e4d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #1a1a1a;
+    --color-primary: #fca5a5;
+    --color-secondary: #e0e7ff;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --box-shadow: 0 3px 15px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.font-bellota {
+  font-family: var(--font-bellota);
+}
+.font-kalam {
+  font-family: var(--font-kalam);
+}
+.font-noto {
+  font-family: var(--font-noto-tc);
+}
+
+html,
+body {
+  @apply max-w-full overflow-x-hidden font-bellota bg-[var(--color-background)] text-[var(--color-secondary)];
+}
+
+* {
+  @apply box-border p-0 m-0;
+}
+
+a {
+  @apply text-inherit no-underline;
+}
