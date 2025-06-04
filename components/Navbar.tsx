@@ -5,19 +5,19 @@ import React from "react";
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 w-full h-24 flex items-center justify-center bg-background shadow-[0_3px_15px_#c96c5e4d] z-[100]">
+    <nav className="fixed top-0 w-full h-22 flex items-center justify-center bg-background shadow-[0_3px_15px_#c96c5e4d] z-[100]">
       <div className="flex items-center justify-between mx-[26px] my-[10px] w-[1200px]">
         <Link href="/">
           <div className="flex gap-4">
             <Image
               src="/img/half-tr-pdf-logo.png"
               alt="logo"
-              width={60}
-              height={60}
-              className="object-cover w-[60px] h-[60px]"
+              width={56}
+              height={56}
+              className="object-cover w-[56px] h-[56px]"
             />
             <div className="flex items-center">
-              <div className="text-4xl font-bold text-secondary">
+              <div className="text-3xl font-bold text-secondary">
                 PDF_Editor_
               </div>
             </div>

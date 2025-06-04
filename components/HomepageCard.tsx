@@ -22,7 +22,7 @@ export default function HomepageCard({
       {/* Title + arrow */}
       <div className="flex items-center gap-2">
         <span className="text-lg font-semibold">{title}</span>
-        <span className="text-base transition-transform material-symbols-outlined group-hover:translate-x-1">
+        <span className="text-xs transition-transform material-symbols-outlined group-hover:translate-x-1">
           arrow_forward_ios
         </span>
       </div>
