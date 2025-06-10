@@ -42,7 +42,7 @@ export default function RootLayout({
       <head>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block"
         />
       </head>
       <body className="font-bellota bg-[var(--color-background)] text-[var(--color-secondary)] min-h-screen flex flex-col">
