@@ -29,6 +29,9 @@
   --color-black: #000000;
   --box-shadow: 0 3px 15px #8178d452;
 }
+.shadow-box {
+  box-shadow: var(--box-shadow);
+}
 
 /* Font utility classes */
 .font-bellota {

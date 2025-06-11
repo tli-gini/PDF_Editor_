@@ -11,6 +11,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
+  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -21,10 +22,24 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Auto-close menu when screen becomes desktop size
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)"); // Tailwind's `lg` breakpoint
+
+    const handleScreenChange = () => {
+      if (mediaQuery.matches) {
+        setMenuOpen(false); // close if screen goes to desktop
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleScreenChange);
+    return () => mediaQuery.removeEventListener("change", handleScreenChange);
+  }, []);
+
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 w-full bg-background shadow-[0_3px_15px_#c96c5e4d] z-[100] transition-all duration-300 ease-in-out ${
+      className={`fixed top-0 w-full bg-background shadow-box z-[100] transition-all duration-300 ease-in-out ${
         menuOpen ? "h-[144px]" : "h-[72px] sm:h-[88px]"
       }`}
     >

@@ -1,6 +1,7 @@
 import React from "react";
 import "./globals.css";
 import type { Metadata } from "next";
+import { I18nProvider } from "@/lib/i18n-context";
 import { Bellota_Text, Kalam, Noto_Sans_TC } from "next/font/google";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer";
@@ -36,19 +37,46 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      suppressHydrationWarning
       className={`${bellota.variable} ${kalam.variable} ${notoSansTC.variable}`}
     >
       <head>
+        {/* Prevent dark mode + language flicker on first load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  try {
+    const theme = localStorage.getItem("theme");
+    const lang = localStorage.getItem("lang") || "en";
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    // Set lang attribute early
+    document.documentElement.setAttribute("lang", lang);
+
+    // Apply dark mode if needed
+    if (theme === "dark" || (!theme && prefersDark)) {
+      document.documentElement.classList.add("dark");
+    }
+  } catch(e) {}
+})();
+            `,
+          }}
+        />
+
+        {/* Load Material Symbols for icon usage */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block"
         />
       </head>
+
       <body className="font-bellota bg-[var(--color-background)] text-[var(--color-secondary)] min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <I18nProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </I18nProvider>
       </body>
     </html>
   );
