@@ -128,6 +128,12 @@ NEXT_PUBLIC_PDF_API_URL=http://localhost:8000
 
 ## 📄 License
 
-© PDF_Editor_2025 TaiDoc Tech Corp.
+This project is intended for internal demonstration and academic showcase only.  
+All frontend code in this repository is © PDF_Editor_2025 TaiDoc Tech Corp. All rights reserved.  
+Redistribution or commercial use without permission is not allowed.
 
-Originally developed by Gini Tong for internal use and academic showcase.
+This UI integrates with [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF),  
+an open-source backend licensed under the AGPL-3.0 License.  
+Please refer to their repository for backend license terms.
+
+Independently designed and developed by Gini Tong for internal and academic use.
