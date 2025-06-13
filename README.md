@@ -1,6 +1,10 @@
 # 📄 PDF Editor
 
-A lightweight PDF editing UI, built with Next.js and Tailwind CSS, supporting dark mode and bilingual interface.
+A lightweight, modern PDF editing frontend built with **Next.js** and **Tailwind CSS**. This UI is designed for seamless integration with [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF) and supports **dark mode** and **bilingual interfaces** (Traditional Chinese / English).
+
+🔗 **Live Demo:** [https://pdf-editor-orcin.vercel.app](https://pdf-editor-orcin.vercel.app)  
+🎨 **Figma Design:** [PDF Editor on Figma](https://www.figma.com/design/aVkvVBivXbpm9H7WLqbM2j/PDF_Editor_?node-id=113-3&t=BMkNqFFrI0n2eWzX-1)  
+_(Visual reference and layout blueprint for implementation)_
 
 ## ✨ Features
 
@@ -9,20 +13,20 @@ A lightweight PDF editing UI, built with Next.js and Tailwind CSS, supporting da
 - **Modular Components**: Navbar, Footer, DropZone, etc.
 - **Responsive Design**: Tailwind CSS with mobile-first breakpoints
 - **Themed UI**: CSS variables + Google Fonts
-- **API Ready**: Designed for integration with Stirling PDF
+- **API Ready**: Designed for integration with Stirling PDF backend
 
 ---
 
 ## 🧰 Tech Stack
 
-| **Layer**  | **Tool / Library**                                              |
-| ---------- | --------------------------------------------------------------- |
-| Framework  | [Next.js (App Router)](https://nextjs.org/docs/app)             |
-| Language   | TypeScript                                                      |
-| Styling    | Tailwind CSS + Custom CSS Variables                             |
-| Fonts      | Google Fonts via `next/font`                                    |
-| Icon Set   | Material Symbols (Rounded)                                      |
-| PDF Engine | [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF)  |
+| **Layer**  | **Tool / Library**                                             |
+| ---------- | -------------------------------------------------------------- |
+| Framework  | [Next.js (App Router)](https://nextjs.org/docs/app)            |
+| Language   | TypeScript                                                     |
+| Styling    | Tailwind CSS + Custom CSS Variables                            |
+| Fonts      | Google Fonts via `next/font`                                   |
+| Icons      | [React Icons](https://react-icons.github.io/react-icons/)      |
+| PDF Engine | [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF) |
 
 ---
 
@@ -57,15 +61,15 @@ NEXT_PUBLIC_PDF_API_URL=http://localhost:8000
 
 ## 📦 Deployment
 
-### Vercel (for development preview)
+### Vercel (Demo Deployment)
 
-> https://pdf-editor-yourname.vercel.app
+> https://pdf-editor-orcin.vercel.app/
 
 - Runs on Next.js App Router
 - No backend server required unless integrating with Stirling PDF
 - Works with any self-hosted Stirling PDF backend via environment variable
 
-### Docker (for internal deployment)
+### Docker (Planned for Internal Deployment)
 
 For internal company deployment, a minimal Docker container is provided to host the frontend UI without backend customization.
 
@@ -108,7 +112,7 @@ NEXT_PUBLIC_PDF_API_URL=http://localhost:8000
 
 - Connects to an existing Stirling PDF server via `NEXT_PUBLIC_PDF_API_URL` env variable
 - No database or backend logic required
-- Suitable for intranet-only deployments
+- Suitable for public, local, or intranet-only use cases
 
 ---
 
@@ -124,6 +128,6 @@ NEXT_PUBLIC_PDF_API_URL=http://localhost:8000
 
 ## 📄 License
 
-MIT — © 2025 TaiDoc Tech Corp.
+© PDF_Editor_2025 TaiDoc Tech Corp.
 
 Originally developed by Gini Tong for internal use and academic showcase.

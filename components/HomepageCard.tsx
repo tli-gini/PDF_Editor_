@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
+import { FaChevronRight } from "react-icons/fa6";
 interface HomepageCardProps {
   icon?: React.ReactNode;
   title: string;
@@ -22,9 +23,7 @@ export default function HomepageCard({
       {/* Title + arrow */}
       <div className="flex items-center gap-2">
         <span className="text-lg font-semibold">{title}</span>
-        <span className="text-xs transition-transform material-symbols-outlined group-hover:translate-x-1">
-          arrow_forward_ios
-        </span>
+        <FaChevronRight className="transition-transform text-s group-hover:translate-x-1" />
       </div>
 
       {/* Image with spacing */}
