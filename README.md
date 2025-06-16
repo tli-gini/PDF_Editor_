@@ -63,7 +63,7 @@ NEXT_PUBLIC_PDF_API_URL=http://localhost:8000
 
 ### Vercel (Demo Deployment)
 
-> https://pdf-editor-orcin.vercel.app/
+> https://pdf-editor-tli-gini.vercel.app/
 
 - Runs on Next.js App Router
 - No backend server required unless integrating with Stirling PDF
