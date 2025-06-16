@@ -6,8 +6,8 @@ export default function ConvertHome() {
         Convert PDF to Another Format
       </h1>
       <p className="max-w-md text-secondary">
-        Choose from the sidebar whether you'd like to convert your PDF to Word,
-        Image, HTML, and more.
+        Choose from the sidebar whether you&apos;d like to convert your PDF to
+        Word, Image, HTML, and more.
       </p>
     </div>
   );
