@@ -11,22 +11,22 @@ export default function Home() {
       <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
         <HomepageCard
           title={t.home.structure}
-          href="/(tools)/structure"
+          href="/structure"
           imageSrc="/img/structure.png"
         />
         <HomepageCard
           title={t.home.convert}
-          href="/(tools)/convert"
+          href="/convert"
           imageSrc="/img/from-pdf.png"
         />
         <HomepageCard
           title={t.home.security}
-          href="/(tools)/security"
+          href="/security"
           imageSrc="/img/security.png"
         />
         <HomepageCard
           title={t.home.editor}
-          href="/(tools)/editor"
+          href="/editor"
           imageSrc="/img/editor.png"
         />
       </div>
