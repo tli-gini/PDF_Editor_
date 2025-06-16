@@ -2,7 +2,7 @@
 
 A lightweight, modern PDF editing frontend built with **Next.js** and **Tailwind CSS**. This UI is designed for seamless integration with [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF) and supports **dark mode** and **bilingual interfaces** (Traditional Chinese / English).
 
-🔗 **Live Demo:** [https://pdf-editor-orcin.vercel.app](https://pdf-editor-orcin.vercel.app)  
+🔗 **Live Demo:** [https://pdf-editor-tli-gini.vercel.app/](https://pdf-editor-tli-gini.vercel.app/)  
 🎨 **Figma Design:** [PDF Editor on Figma](https://www.figma.com/design/aVkvVBivXbpm9H7WLqbM2j/PDF_Editor_?node-id=113-3&t=BMkNqFFrI0n2eWzX-1)  
 _(Visual reference and layout blueprint for implementation)_
 
