@@ -10,7 +10,7 @@ _(Visual reference and layout blueprint for implementation)_
 
 - **Bilingual Support**: Switch between Traditional Chinese and English
 - **Dark Mode**: Follows system preference or toggle manually
-- **Modular Components**: Navbar, Footer, DropZone, etc.
+- **Modular Components**: Navbar, Footer, ToolSidebar, DropZone, etc.
 - **Responsive Design**: Tailwind CSS with mobile-first breakpoints
 - **Themed UI**: CSS variables + Google Fonts
 - **API Ready**: Designed for integration with Stirling PDF backend

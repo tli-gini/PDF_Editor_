@@ -79,7 +79,7 @@ export default function ToolSidebar() {
           {sectionTitle}
         </h2>
       )}
-      <ul className="flex gap-4 overflow-x-auto lg:flex-col whitespace-nowrap">
+      <ul className="flex gap-4 overflow-x-auto lg:flex-col scrollbar-hide">
         {navItems.map(({ href, label, icon }) => {
           const isActive = pathname === href;
           return (
@@ -97,7 +97,7 @@ export default function ToolSidebar() {
                   className={`text-2xl p-2 rounded-full transition-all duration-300 transform
                     ${
                       isActive
-                        ? "bg-white text-primary lg:group-hover:text-white lg:group-hover:bg-transparent"
+                        ? "bg-white text-primary"
                         : "bg-primary text-white lg:group-hover:bg-white lg:group-hover:text-primary"
                     }
                     scale-100 lg:group-hover:scale-100 group-hover:scale-110`}
