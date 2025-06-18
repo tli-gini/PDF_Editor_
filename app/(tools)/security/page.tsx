@@ -1,15 +1,17 @@
 // app/(tools)/editor/page.tsx
+"use client";
+
+import { useI18n } from "@/lib/i18n-context";
+
 export default function EditorHome() {
+  const { t } = useI18n();
+
   return (
     <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
       <h1 className="mb-2 text-2xl font-bold text-primary">
-        Sign, Secure, and Redact Your PDF
+        {t.page.security.title}
       </h1>
-      <p className="max-w-md text-secondary">
-        Add passwords or watermarks, redact sensitive data, sign with
-        certificates, or manage document permissions — all from the tools on the
-        left.
-      </p>
+      <p className="max-w-md text-secondary">{t.page.security.description}</p>
     </div>
   );
 }

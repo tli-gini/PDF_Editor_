@@ -24,35 +24,27 @@ export default function ToolSidebar() {
 
   const navMap: Record<
     string,
-    { href: string; label: string; icon: React.ReactNode }[]
+    { href: string; key: keyof typeof t.tools; icon: React.ReactNode }[]
   > = {
     "/structure": [
-      { href: "/structure/split", label: "Split", icon: <MdContentCut /> },
-      {
-        href: "/structure/merge",
-        label: "Merge",
-        icon: <AiOutlineMergeCells />,
-      },
-      { href: "/structure/remove", label: "Remove", icon: <MdOutlineDelete /> },
-      {
-        href: "/structure/extract",
-        label: "Extract Pages",
-        icon: <MdFilter3 />,
-      },
-      { href: "/structure/organize", label: "Organize", icon: <MdMoveUp /> },
+      { href: "/structure/split", key: "split", icon: <MdContentCut /> },
+      { href: "/structure/merge", key: "merge", icon: <AiOutlineMergeCells /> },
+      { href: "/structure/remove", key: "remove", icon: <MdOutlineDelete /> },
+      { href: "/structure/extract", key: "extract", icon: <MdFilter3 /> },
+      { href: "/structure/organize", key: "organize", icon: <MdMoveUp /> },
       {
         href: "/structure/rotate",
-        label: "Rotate",
+        key: "rotate",
         icon: <MdOutlineRotateRight />,
       },
     ],
     "/convert": [
-      { href: "/convert/word", label: "Word", icon: <FaRegFileWord /> },
-      { href: "/convert/image", label: "Image", icon: <MdOutlineImage /> },
-      { href: "/convert/html", label: "HTML", icon: <PiFileHtml /> },
-      { href: "/convert/xml", label: "XML", icon: <LuCodeXml /> },
-      { href: "/convert/csv", label: "CSV", icon: <PiFileCsv /> },
-      { href: "/convert/markdown", label: "Markdown", icon: <LiaMarkdown /> },
+      { href: "/convert/word", key: "word", icon: <FaRegFileWord /> },
+      { href: "/convert/image", key: "image", icon: <MdOutlineImage /> },
+      { href: "/convert/html", key: "html", icon: <PiFileHtml /> },
+      { href: "/convert/xml", key: "xml", icon: <LuCodeXml /> },
+      { href: "/convert/csv", key: "csv", icon: <PiFileCsv /> },
+      { href: "/convert/markdown", key: "markdown", icon: <LiaMarkdown /> },
     ],
     "/security": [],
     "/editor": [],
@@ -79,8 +71,8 @@ export default function ToolSidebar() {
           {sectionTitle}
         </h2>
       )}
-      <ul className="flex gap-4 overflow-x-auto lg:flex-col scrollbar-hide">
-        {navItems.map(({ href, label, icon }) => {
+      <ul className="flex gap-4 overflow-x-auto lg:flex-col whitespace-nowrap scrollbar-hide">
+        {navItems.map(({ href, key, icon }) => {
           const isActive = pathname === href;
           return (
             <li key={href} className="w-max">
@@ -105,7 +97,7 @@ export default function ToolSidebar() {
                   {icon}
                 </span>
                 <span className="text-[12px] lg:text-[16px] font-semibold transition-all duration-300 transform scale-100 lg:group-hover:scale-100 group-hover:scale-110">
-                  {label}
+                  {t.tools[key].label}
                 </span>
               </Link>
             </li>

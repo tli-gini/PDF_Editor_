@@ -1,8 +1,76 @@
 {
   "home": {
-    "structure": "分割・合併・重新排列",
+    "structure": "分割 & 合併 & 重新排列",
     "convert": "轉換為 PDF",
-    "security": "簽章與安全",
-    "editor": "檢視與編輯"
+    "security": "簽章 & 安全",
+    "editor": "檢視 & 編輯"
+  },
+  "tools": {
+    "split": {
+      "label": "分割",
+      "description": "將 PDF 分割成多個檔案。"
+    },
+    "merge": {
+      "label": "合併",
+      "description": "將多個 PDF 合併成一份檔案。"
+    },
+    "remove": {
+      "label": "移除",
+      "description": "移除 PDF 中的特定頁面。"
+    },
+    "extract": {
+      "label": "提取頁面",
+      "description": "從 PDF 中提取選定頁面。"
+    },
+    "organize": {
+      "label": "重新排列",
+      "description": "重新排序 PDF 頁面。"
+    },
+    "rotate": {
+      "label": "旋轉",
+      "description": "旋轉 PDF 頁面至正確方向。"
+    },
+    "word": {
+      "label": "Word",
+      "description": "將 PDF 轉換為可編輯的 Word 檔案。"
+    },
+    "image": {
+      "label": "圖片",
+      "description": "將 PDF 轉為圖檔。"
+    },
+    "html": {
+      "label": "HTML",
+      "description": "將 PDF 轉換為 HTML 檔。"
+    },
+    "xml": {
+      "label": "XML",
+      "description": "將 PDF 轉換為 XML 檔。"
+    },
+    "csv": {
+      "label": "CSV",
+      "description": "將 PDF 轉換為 CSV 檔。"
+    },
+    "markdown": {
+      "label": "Markdown",
+      "description": "將 PDF 轉換為 Markdown 格式。"
+    }
+  },
+  "page": {
+    "structure": {
+      "title": "Start Structuring Your PDF",
+      "description": "Select a tool from the left sidebar to split, merge, organize or rotate pages in your PDF file."
+    },
+    "convert": {
+      "title": "Convert PDF to Another Format",
+      "description": "Select a tool from the left sidebar to convert your PDF to Word, Image, HTML, and more."
+    },
+    "security": {
+      "title": "Sign, Secure, and Redact Your PDF",
+      "description": "Select a tool from the left sidebar to add passwords or watermarks, sign with certificates, redact sensitive content, or manage file permissions."
+    },
+    "editor": {
+      "title": "View, Annotate, and Edit Your PDF",
+      "description": "Select a tool from the left sidebar to add images or page numbers, compare versions, change metadata, or clean up scanned content."
+    }
   }
 }

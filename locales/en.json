@@ -4,5 +4,73 @@
     "convert": "Convert from PDF",
     "security": "Sign & Security",
     "editor": "View & Edit"
+  },
+  "tools": {
+    "split": {
+      "label": "Split",
+      "description": "Split a PDF into multiple files."
+    },
+    "merge": {
+      "label": "Merge",
+      "description": "Merge multiple PDFs into one."
+    },
+    "remove": {
+      "label": "Remove",
+      "description": "Remove specific pages from your PDF."
+    },
+    "extract": {
+      "label": "Extract Pages",
+      "description": "Extract selected pages from your PDF."
+    },
+    "organize": {
+      "label": "Organize",
+      "description": "Reorder or arrange PDF pages."
+    },
+    "rotate": {
+      "label": "Rotate",
+      "description": "Rotate pages to the correct orientation."
+    },
+    "word": {
+      "label": "Word",
+      "description": "Convert your PDF to editable Word documents."
+    },
+    "image": {
+      "label": "Image",
+      "description": "Convert your PDF to image files."
+    },
+    "html": {
+      "label": "HTML",
+      "description": "Convert your PDF to HTML files."
+    },
+    "xml": {
+      "label": "XML",
+      "description": "Convert your PDF to XML files."
+    },
+    "csv": {
+      "label": "CSV",
+      "description": "Convert your PDF to CSV files."
+    },
+    "markdown": {
+      "label": "Markdown",
+      "description": "Convert your PDF into Markdown format."
+    }
+  },
+  "page": {
+    "structure": {
+      "title": "Start Structuring Your PDF",
+      "description": "Select a tool from the left sidebar to split, merge, organize or rotate pages in your PDF file."
+    },
+    "convert": {
+      "title": "Convert PDF to Another Format",
+      "description": "Select a tool from the left sidebar to convert your PDF to Word, Image, HTML, and more."
+    },
+    "security": {
+      "title": "Sign, Secure, and Redact Your PDF",
+      "description": "Select a tool from the left sidebar to add passwords or watermarks, sign with certificates, redact sensitive content, or manage file permissions."
+    },
+    "editor": {
+      "title": "View, Annotate, and Edit Your PDF",
+      "description": "Select a tool from the left sidebar to add images or page numbers, compare versions, change metadata, or clean up scanned content."
+    }
   }
 }
