@@ -7,7 +7,7 @@ import { MdClose } from "react-icons/md";
 
 interface DropzoneCardProps {}
 
-export default function DropzoneCard({}: DropzoneCardProps) {
+export default function DropzoneCard(_: DropzoneCardProps) {
   const [files, setFiles] = useState<File[]>([]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
