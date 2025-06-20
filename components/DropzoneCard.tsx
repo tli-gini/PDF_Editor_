@@ -5,9 +5,12 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { MdClose } from "react-icons/md";
 
-interface DropzoneCardProps {}
+interface DropzoneCardProps {
+  onClick?: () => void;
+  children?: React.ReactNode;
+}
 
-export default function DropzoneCard(_: DropzoneCardProps) {
+export default function DropzoneCard({ onClick, children }: DropzoneCardProps) {
   const [files, setFiles] = useState<File[]>([]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -31,13 +34,17 @@ export default function DropzoneCard(_: DropzoneCardProps) {
   return (
     <div className="w-full max-w-md">
       <div
-        {...getRootProps()}
+        {...getRootProps({
+          onClick,
+        })}
         className="min-h-48 transition-all duration-200 transform shadow-[0_4px_20px_rgba(255,255,255,0.4)] hover:shadow-[0_6px_24px_rgba(255,255,255,0.6)] hover:scale-[1.02] active:scale-[0.98] rounded-xl border-2 border-dashed border-white p-6 w-full cursor-pointer focus:border-solid focus:border-primary-light focus:dark:border-primary flex items-center justify-center"
       >
         <input {...getInputProps()} />
-        <p className="text-base font-semibold text-white">
-          {isDragActive ? "Drop the files here..." : "Click or Drag & Drop"}
-        </p>
+        {children || (
+          <p className="text-base font-semibold text-white">
+            {isDragActive ? "Drop the files here..." : "Click or Drag & Drop"}
+          </p>
+        )}
       </div>
 
       {files.length > 0 && (
