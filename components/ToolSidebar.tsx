@@ -96,7 +96,7 @@ export default function ToolSidebar() {
                 >
                   {icon}
                 </span>
-                <span className="text-[12px] lg:text-[16px] font-semibold transition-all duration-300 transform scale-100 lg:group-hover:scale-100 group-hover:scale-110">
+                <span className="text-[14px] lg:text-[16px] font-semibold transition-all duration-300 transform scale-100 lg:group-hover:scale-100 group-hover:scale-110">
                   {t.tools[key].label}
                 </span>
               </Link>
