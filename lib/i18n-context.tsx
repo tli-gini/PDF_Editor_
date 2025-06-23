@@ -15,15 +15,15 @@ const I18nContext = createContext<{
 });
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  // Initialize language directly from <html lang="..."> to avoid hydration mismatch
+  // Initialize language from <html lang="..."> to avoid hydration mismatch
   const [lang, setLang] = useState<Language>(() => {
     if (typeof document !== "undefined") {
       return (document.documentElement.lang as Language) || "en";
     }
-    return "en"; // fallback if running on server
+    return "en"; // Fallback when running on the server
   });
 
-  // update if localStorage has newer preference
+  // Update language if localStorage has a newer preference
   useEffect(() => {
     const stored = localStorage.getItem("lang") as Language;
     if (stored && stored !== lang) {
@@ -40,5 +40,5 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Custom hook to access i18n context
+// Custom hook to access the i18n context
 export const useI18n = () => useContext(I18nContext);
