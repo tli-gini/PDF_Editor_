@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
+import { useI18n } from "@/lib/i18n-context";
 import { useDropzone } from "react-dropzone";
 import { MdClose } from "react-icons/md";
 
@@ -11,6 +12,7 @@ interface DropzoneCardProps {
 }
 
 export default function DropzoneCard({ onClick, children }: DropzoneCardProps) {
+  const { t } = useI18n();
   const [files, setFiles] = useState<File[]>([]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -42,7 +44,9 @@ export default function DropzoneCard({ onClick, children }: DropzoneCardProps) {
         <input {...getInputProps()} />
         {children || (
           <p className="text-base font-semibold text-white">
-            {isDragActive ? "Drop the files here..." : "Click or Drag & Drop"}
+            {isDragActive
+              ? t.components.dropzone.active
+              : t.components.dropzone.default}
           </p>
         )}
       </div>
@@ -69,7 +73,7 @@ export default function DropzoneCard({ onClick, children }: DropzoneCardProps) {
             </div>
           ))}
           <div className="text-xs text-right text-secondary dark:text-background">
-            Maximum file size: 50.0 MB
+            {t.components.dropzone.maxSizeNote}
           </div>
         </div>
       )}

@@ -8,51 +8,75 @@
   "tools": {
     "split": {
       "label": "Split",
-      "description": "Split a PDF into multiple files."
+      "description": "Split a PDF into multiple files.",
+      "inputLabel": "Enter pages to split on:",
+      "inputHint": ""
     },
     "merge": {
       "label": "Merge",
-      "description": "Merge multiple PDFs into one."
+      "description": "Merge multiple PDFs into one.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "remove": {
       "label": "Remove",
-      "description": "Remove specific pages from your PDF."
+      "description": "Remove specific pages from your PDF.",
+      "inputLabel": "Pages To Delete",
+      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16"
     },
     "extract": {
       "label": "Extract Pages",
-      "description": "Extract selected pages from your PDF."
+      "description": "Extract selected pages from your PDF.",
+      "inputLabel": "Custom Page Order",
+      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16"
     },
     "organize": {
       "label": "Organize",
-      "description": "Reorder or arrange PDF pages."
+      "description": "Reorder or arrange PDF pages.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "rotate": {
       "label": "Rotate",
-      "description": "Rotate pages to the correct orientation."
+      "description": "Rotate pages to the correct orientation.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "word": {
       "label": "Word",
-      "description": "Convert your PDF to editable Word documents."
+      "description": "Convert your PDF to editable Word documents.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "image": {
       "label": "Image",
-      "description": "Convert your PDF to image files."
+      "description": "Convert your PDF to image files.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "html": {
       "label": "HTML",
-      "description": "Convert your PDF to HTML files."
+      "description": "Convert your PDF to HTML files.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "xml": {
       "label": "XML",
-      "description": "Convert your PDF to XML files."
+      "description": "Convert your PDF to XML files.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "csv": {
       "label": "CSV",
-      "description": "Convert your PDF to CSV files."
+      "description": "Convert your PDF to CSV files.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "markdown": {
       "label": "Markdown",
-      "description": "Convert your PDF into Markdown format."
+      "description": "Convert your PDF into Markdown format.",
+      "inputLabel": "",
+      "inputHint": ""
     }
   },
   "page": {
@@ -71,6 +95,13 @@
     "editor": {
       "title": "View, Annotate, and Edit Your PDF",
       "description": "Select a tool from the left sidebar to add images or page numbers, compare versions, change metadata, or clean up scanned content."
+    }
+  },
+  "components": {
+    "dropzone": {
+      "default": "Click or Drag & Drop",
+      "active": "Drop the files here...",
+      "maxSizeNote": "Maximum file size: 50.0 MB"
     }
   }
 }

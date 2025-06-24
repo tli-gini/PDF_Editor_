@@ -5,6 +5,8 @@ export const translations = { en, zh };
 
 export type Language = keyof typeof translations;
 
-export function getT(lang: Language) {
+export type Translation = typeof en;
+
+export function getT(lang: Language): Translation {
   return translations[lang];
 }
