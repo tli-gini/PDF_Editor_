@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n-context";
 import DropzoneCard from "@/components/DropzoneCard";
 import ToolTitle from "@/components/ToolTitle";
 import SendButton from "@/components/SendButton";
+import PageInput from "@/components/PageInput";
 import { MdContentCut } from "react-icons/md";
 
 export default function Split() {
@@ -16,24 +17,8 @@ export default function Split() {
         label={t.tools.split.label}
       />
 
-      <DropzoneCard>
-        <p className="items-center justify-center text-base font-semibold text-white">
-          Click or Drag & Drop
-        </p>
-      </DropzoneCard>
-
-      <div className="w-full max-w-md mt-6 text-left">
-        <label className="block mb-2 text-base font-semibold text-secondary">
-          Enter pages to split on:
-        </label>
-
-        <input
-          type="text"
-          placeholder="1,3,5-10"
-          className="w-full px-4 py-2 font-semibold border shadow-inner rounded-xl border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary placeholder:text-primary-light dark:text-background"
-        />
-      </div>
-
+      <DropzoneCard />
+      <PageInput labelKey="split" />
       <SendButton />
     </div>
   );

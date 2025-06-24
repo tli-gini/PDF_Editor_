@@ -9,7 +9,7 @@
     "split": {
       "label": "分割",
       "description": "將 PDF 分割成多個檔案。",
-      "inputLabel": "Enter pages to split on:",
+      "inputLabel": "輸入要分割的頁面",
       "inputHint": ""
     },
     "merge": {
@@ -21,7 +21,7 @@
     "remove": {
       "label": "移除",
       "description": "移除 PDF 中的特定頁面。",
-      "inputLabel": "Pages To Delete",
+      "inputLabel": "輸入要移除的頁面",
       "inputHint": "以英文逗號分隔，如：4,7,12-16"
     },
     "extract": {

@@ -19,9 +19,7 @@ export default function ExtractPage() {
       />
 
       <DropzoneCard />
-
       <PageInput labelKey="extract" />
-
       <SendButton />
     </div>
   );

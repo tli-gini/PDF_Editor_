@@ -9,7 +9,7 @@ export default function ToolsLayout({
 }) {
   return (
     <section className="flex flex-col lg:flex-row max-w-[1200px] mx-auto w-full px-10 pt-32 pb-10 gap-6 lg:gap-0">
-      {/* Sidebar for navigation */}
+      {/* Sidebar */}
       <aside className="w-full lg:w-[320px] mb-4 shrink-0">
         <ToolSidebar />
       </aside>
