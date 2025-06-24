@@ -9,7 +9,7 @@
     "split": {
       "label": "分割",
       "description": "將 PDF 分割成多個檔案。",
-      "inputLabel": "輸入要分割的頁面",
+      "inputLabel": "輸入要分割的頁面：",
       "inputHint": ""
     },
     "merge": {
