@@ -1,8 +1,26 @@
-export default function Placeholder() {
+// app/(tools)/structure/organize/page.tsx
+"use client";
+import { useI18n } from "@/lib/i18n-context";
+import DropzoneCard from "@/components/DropzoneCard";
+import ToolTitle from "@/components/ToolTitle";
+import SendButton from "@/components/SendButton";
+import PageInput from "@/components/PageInput";
+import ToolPageWrapper from "@/components/ToolPageWrapper";
+import { MdMoveUp } from "react-icons/md";
+
+export default function Organize() {
+  const { t } = useI18n();
+
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
-      <h1 className="mb-2 text-2xl font-bold text-primary"></h1>
-      <p className="max-w-md text-secondary">Coming soon...</p>
-    </div>
+    <ToolPageWrapper>
+      <ToolTitle
+        icon={<MdMoveUp className="text-3xl" />}
+        label={t.tools.organize.label}
+      />
+
+      <DropzoneCard />
+      <PageInput labelKey="organize" />
+      <SendButton />
+    </ToolPageWrapper>
   );
 }

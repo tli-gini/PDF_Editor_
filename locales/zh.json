@@ -33,8 +33,8 @@
     "organize": {
       "label": "重新排列",
       "description": "重新排序 PDF 頁面。",
-      "inputLabel": "",
-      "inputHint": ""
+      "inputLabel": "輸入頁面排列順序",
+      "inputHint": "以英文逗號分隔，如：4,7,12-16"
     },
     "rotate": {
       "label": "旋轉",
