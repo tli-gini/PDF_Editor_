@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getT, Language } from "./i18n";
 
-// Define the shape of our context
+// Define the structure of the i18n context
 const I18nContext = createContext<{
   lang: Language;
   setLang: (lang: Language) => void;
@@ -14,18 +14,20 @@ const I18nContext = createContext<{
   t: getT("en"),
 });
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  // Initialize language from <html lang="..."> to avoid hydration mismatch
-  const [lang, setLang] = useState<Language>(() => {
-    if (typeof document !== "undefined") {
-      return (document.documentElement.lang as Language) || "en";
-    }
-    return "en"; // Fallback when running on the server
-  });
+// I18nProvider expects initialLang to be passed from the server
+export function I18nProvider({
+  initialLang,
+  children,
+}: {
+  initialLang: Language;
+  children: React.ReactNode;
+}) {
+  // Initialize lang state from the server-provided initialLang
+  const [lang, setLang] = useState<Language>(initialLang);
 
-  // Update language if localStorage has a newer preference
+  // Optionally update language from localStorage if user changed it manually
   useEffect(() => {
-    const stored = localStorage.getItem("lang") as Language;
+    const stored = localStorage.getItem("lang") as Language | null;
     if (stored && stored !== lang) {
       setLang(stored);
     }
@@ -40,5 +42,5 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Custom hook to access the i18n context
+// Custom hook to access translation context
 export const useI18n = () => useContext(I18nContext);

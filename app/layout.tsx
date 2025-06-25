@@ -1,7 +1,9 @@
 import React from "react";
 import "./globals.css";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { I18nProvider } from "@/lib/i18n-context";
+import type { Language } from "@/lib/i18n";
 import { Bellota_Text, Kalam, Noto_Sans_TC } from "next/font/google";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer";
@@ -30,13 +32,16 @@ export const metadata: Metadata = {
   description: "A minimalist, responsive PDF editing UI",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const lang = (await headers()).get("x-lang") || "en";
+
   return (
     <html
+      lang={lang}
       suppressHydrationWarning
       className={`${bellota.variable} ${kalam.variable} ${notoSansTC.variable}`}
     >
@@ -72,7 +77,7 @@ export default function RootLayout({
       </head>
 
       <body className="font-bellota bg-[var(--color-background)] text-[var(--color-secondary)] min-h-screen flex flex-col">
-        <I18nProvider>
+        <I18nProvider initialLang={lang as Language}>
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
