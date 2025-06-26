@@ -9,7 +9,7 @@ import PageInput from "@/components/PageInput";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import { MdOutlineDelete } from "react-icons/md";
 
-export default function ExtractPage() {
+export default function RemovePage() {
   const { t } = useI18n();
 
   return (
