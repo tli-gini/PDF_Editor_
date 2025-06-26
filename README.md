@@ -1,12 +1,10 @@
-# 📄 PDF Editor
+# 🎞️ PDF Editor
 
 A lightweight, modern PDF editing frontend built with **Next.js** and **Tailwind CSS**. This UI is designed for seamless integration with [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF) and supports **dark mode** and **bilingual interfaces** (Traditional Chinese / English).
 
 🔗 **Live Demo:** [https://pdf-editor-tli-gini.vercel.app/](https://pdf-editor-tli-gini.vercel.app/)  
 🎨 **Figma Design:** [PDF Editor on Figma](https://www.figma.com/design/aVkvVBivXbpm9H7WLqbM2j/PDF_Editor_?node-id=113-3&t=BMkNqFFrI0n2eWzX-1)  
 _(Visual reference and layout blueprint for implementation)_
-
----
 
 ## ✨ Features
 
@@ -16,8 +14,6 @@ _(Visual reference and layout blueprint for implementation)_
 - **Responsive Design**: Tailwind CSS with mobile-first breakpoints
 - **Themed UI**: CSS variables + Google Fonts
 - **API Ready**: Designed for integration with Stirling PDF backend
-
----
 
 ## 🧰 Tech Stack
 
@@ -29,8 +25,6 @@ _(Visual reference and layout blueprint for implementation)_
 | Fonts      | Google Fonts via `next/font`                                   |
 | Icons      | [React Icons](https://react-icons.github.io/react-icons/)      |
 | PDF Engine | [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF) |
-
----
 
 ## 🚀 Getting Started
 
@@ -60,11 +54,9 @@ NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
 # NEXT_PUBLIC_PDF_API_URL=http://10.0.0.1:8080
 ```
 
----
-
 ## 📦 Deployment Options
 
-### ☁️ Public / Portfolio Use (Vercel + Fly.io)
+### Public / Portfolio Use (Vercel + Fly.io)
 
 - Frontend hosted on Vercel
 - Backend API hosted on Fly.io using the official Stirling PDF Docker image
@@ -74,7 +66,7 @@ NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
   NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
   ```
 
-### 🏢 Internal Company Use (Docker in Intranet)
+### Internal Company Use (Docker in Intranet)
 
 - Frontend can be containerized for deployment within an internal network
 - Backend connects to a Stirling PDF instance hosted internally (e.g., `http://10.0.0.1:8080`)
@@ -84,8 +76,6 @@ NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
   docker build -t pdf-editor .
   docker run -p 3000:3000 pdf-editor
   ```
-
----
 
 ## 🐳 Dockerfile
 
@@ -105,8 +95,6 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
----
-
 ## 📄 .env.example
 
 ```env
@@ -114,9 +102,7 @@ CMD ["npm", "start"]
 NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
 ```
 
----
-
-## 🧹 Integration
+## 🧩 Integration
 
 - This frontend UI is fully decoupled from the PDF processing backend.
 - By changing the `NEXT_PUBLIC_PDF_API_URL` environment variable, the interface can be used with either:
@@ -124,8 +110,6 @@ NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
   - A private server hosted internally (for production/intranet use)
 - No backend logic or database is required.
 - Compatible with Stirling PDF v1.34+ (AGPL-3.0)
-
----
 
 ## 📝 Notes
 
@@ -135,9 +119,7 @@ NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
 - The frontend is deployable as a static/SSR UI for both public and internal use cases
 - Responsive design is implemented using Tailwind's mobile-first breakpoints (`sm`, `md`, `lg`, etc.), ensuring the UI adapts smoothly from mobile to desktop screens
 
----
-
-## 📄 License
+## 📜 License
 
 This project is intended for internal demonstration and academic showcase only.  
 All frontend code in this repository is © PDF_Editor_2025 TaiDoc Tech Corp. All rights reserved.  
