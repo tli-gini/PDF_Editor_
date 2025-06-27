@@ -11,6 +11,7 @@ import {
   MdOutlineRotateRight,
   MdOutlineImage,
 } from "react-icons/md";
+import { TbLayoutBoard } from "react-icons/tb";
 import { AiOutlineMergeCells } from "react-icons/ai";
 import { FaRegFileWord } from "react-icons/fa6";
 import { PiFileHtml, PiFileCsv } from "react-icons/pi";
@@ -36,6 +37,11 @@ export default function ToolSidebar() {
         href: "/structure/rotate",
         key: "rotate",
         icon: <MdOutlineRotateRight />,
+      },
+      {
+        href: "/structure/multi-page",
+        key: "multi-page",
+        icon: <TbLayoutBoard />,
       },
     ],
     "/convert": [
@@ -71,7 +77,7 @@ export default function ToolSidebar() {
           {sectionTitle}
         </h2>
       )}
-      <ul className="flex gap-4 overflow-x-auto lg:flex-col whitespace-nowrap scrollbar-hide">
+      <ul className="flex overflow-x-auto lg:gap-3 lg:flex-col whitespace-nowrap scrollbar-hide">
         {navItems.map(({ href, key, icon }) => {
           const isActive = pathname === href;
           return (

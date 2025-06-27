@@ -42,6 +42,12 @@
       "inputLabel": "",
       "inputHint": ""
     },
+    "multi-page": {
+      "label": "Multi-Page Layout",
+      "description": "Merge multiple pages into a single page.",
+      "inputLabel": "Pages per Sheet: ",
+      "inputHint": ""
+    },
     "word": {
       "label": "Word",
       "description": "Convert your PDF to editable Word documents.",

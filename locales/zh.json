@@ -42,6 +42,12 @@
       "inputLabel": "",
       "inputHint": ""
     },
+    "multi-page": {
+      "label": "多頁合併",
+      "description": "將多個頁面合併為單一頁面。",
+      "inputLabel": "每張紙的頁數：",
+      "inputHint": ""
+    },
     "word": {
       "label": "Word",
       "description": "將 PDF 轉換為可編輯的 Word 檔案。",
