@@ -13,8 +13,7 @@ import {
 } from "react-icons/md";
 import { TbLayoutBoard } from "react-icons/tb";
 import { AiOutlineMergeCells } from "react-icons/ai";
-import { FaRegFileWord } from "react-icons/fa6";
-import { PiFileHtml, PiFileCsv } from "react-icons/pi";
+import { PiFileDoc, PiFileHtml, PiFileCsv, PiFilePpt } from "react-icons/pi";
 import { LuCodeXml } from "react-icons/lu";
 import { LiaMarkdown } from "react-icons/lia";
 import { useI18n } from "@/lib/i18n-context";
@@ -30,14 +29,16 @@ export default function ToolSidebar() {
     "/structure": [
       { href: "/structure/split", key: "split", icon: <MdContentCut /> },
       { href: "/structure/merge", key: "merge", icon: <AiOutlineMergeCells /> },
-      { href: "/structure/remove", key: "remove", icon: <MdOutlineDelete /> },
-      { href: "/structure/extract", key: "extract", icon: <MdFilter3 /> },
-      { href: "/structure/organize", key: "organize", icon: <MdMoveUp /> },
       {
         href: "/structure/rotate",
         key: "rotate",
         icon: <MdOutlineRotateRight />,
       },
+      { href: "/structure/remove", key: "remove", icon: <MdOutlineDelete /> },
+
+      { href: "/structure/organize", key: "organize", icon: <MdMoveUp /> },
+
+      { href: "/structure/extract", key: "extract", icon: <MdFilter3 /> },
       {
         href: "/structure/multi-page",
         key: "multi-page",
@@ -45,11 +46,12 @@ export default function ToolSidebar() {
       },
     ],
     "/convert": [
-      { href: "/convert/word", key: "word", icon: <FaRegFileWord /> },
+      { href: "/convert/word", key: "word", icon: <PiFileDoc /> },
+      { href: "/convert/ppt", key: "ppt", icon: <PiFilePpt /> },
       { href: "/convert/image", key: "image", icon: <MdOutlineImage /> },
       { href: "/convert/html", key: "html", icon: <PiFileHtml /> },
-      { href: "/convert/xml", key: "xml", icon: <LuCodeXml /> },
       { href: "/convert/csv", key: "csv", icon: <PiFileCsv /> },
+      { href: "/convert/xml", key: "xml", icon: <LuCodeXml /> },
       { href: "/convert/markdown", key: "markdown", icon: <LiaMarkdown /> },
     ],
     "/security": [],

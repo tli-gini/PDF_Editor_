@@ -54,6 +54,12 @@
       "inputLabel": "",
       "inputHint": ""
     },
+    "ppt": {
+      "label": "PPT",
+      "description": "將 PDF 轉換為可編輯的 PPT 檔案。",
+      "inputLabel": "",
+      "inputHint": ""
+    },
     "image": {
       "label": "圖片",
       "description": "將 PDF 轉為圖檔。",

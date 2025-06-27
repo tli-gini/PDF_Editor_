@@ -54,6 +54,12 @@
       "inputLabel": "",
       "inputHint": ""
     },
+    "ppt": {
+      "label": "PPT",
+      "description": "Convert your PDF to editable PPT documents.",
+      "inputLabel": "",
+      "inputHint": ""
+    },
     "image": {
       "label": "Image",
       "description": "Convert your PDF to image files.",
