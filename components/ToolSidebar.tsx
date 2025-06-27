@@ -1,6 +1,5 @@
 // components/ToolSidebar.tsx
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -75,11 +74,11 @@ export default function ToolSidebar() {
   return (
     <div className="flex flex-col gap-4 px-0 lg:px-[16px]">
       {sectionTitle && (
-        <h2 className="text-left text-primary text-[16px] lg:text-[18px] font-bold px-[16px]">
+        <h2 className="text-left text-primary text-[16px] lg:text-[18px] font-bold px-[16px] pb-2">
           {sectionTitle}
         </h2>
       )}
-      <ul className="flex overflow-x-auto lg:gap-3 lg:flex-col whitespace-nowrap scrollbar-hide">
+      <ul className="flex overflow-x-auto lg:gap-3.5 lg:flex-col whitespace-nowrap scrollbar-hide pb-2">
         {navItems.map(({ href, key, icon }) => {
           const isActive = pathname === href;
           return (
