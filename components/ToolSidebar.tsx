@@ -82,7 +82,10 @@ export default function ToolSidebar() {
         {navItems.map(({ href, key, icon }) => {
           const isActive = pathname === href;
           return (
-            <li key={href} className="w-max">
+            <li
+              key={href}
+              className={`w-max ${isActive ? "mx-3 lg:mx-0" : "mx-0"}`}
+            >
               <Link
                 href={href}
                 className={`group flex flex-row items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-200
@@ -96,14 +99,18 @@ export default function ToolSidebar() {
                   className={`text-2xl p-2 rounded-full transition-all duration-300 transform
                     ${
                       isActive
-                        ? "bg-white text-primary"
-                        : "bg-primary text-white lg:group-hover:bg-white lg:group-hover:text-primary"
+                        ? "bg-white text-primary scale-100"
+                        : "bg-primary text-white lg:group-hover:bg-white lg:group-hover:text-primary group-hover:scale-110"
                     }
-                    scale-100 lg:group-hover:scale-100 group-hover:scale-110`}
+                    lg:group-hover:scale-100`}
                 >
                   {icon}
                 </span>
-                <span className="text-[14px] lg:text-[16px] font-semibold transition-all duration-300 transform scale-100 lg:group-hover:scale-100 group-hover:scale-110">
+
+                <span
+                  className={`text-[14px] lg:text-[16px] font-semibold transition-all duration-300 transform
+                    ${isActive ? "scale-100" : "group-hover:scale-110"}`}
+                >
                   {t.tools[key].label}
                 </span>
               </Link>
