@@ -36,8 +36,10 @@ export default function ExtractPage() {
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
+      const originalName = files[0].name.replace(/\.pdf$/i, "");
+
       a.href = url;
-      a.download = "extracted.pdf";
+      a.download = `${originalName}-extracted-pages.pdf`;
       a.click();
     } catch (err) {
       console.error("Upload error:", err);

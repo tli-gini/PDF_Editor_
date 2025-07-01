@@ -36,8 +36,10 @@ export default function OrganizePage() {
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
+      const originalName = files[0].name.replace(/\.pdf$/i, "");
+
       a.href = url;
-      a.download = "organize.pdf";
+      a.download = `${originalName}-organized.pdf`;
       a.click();
     } catch (err) {
       console.error("Upload error:", err);
