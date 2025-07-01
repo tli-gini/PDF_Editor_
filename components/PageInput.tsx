@@ -1,4 +1,3 @@
-// components/PageInput.tsx
 "use client";
 
 import { useI18n } from "@/lib/i18n-context";
@@ -7,10 +6,16 @@ import type { Translation } from "@/lib/i18n";
 type ToolKey = keyof Translation["tools"];
 
 interface PageInputProps {
+  value: string;
+  onChange: (val: string) => void;
   labelKey: ToolKey;
 }
 
-export default function PageInput({ labelKey }: PageInputProps) {
+export default function PageInput({
+  labelKey,
+  value,
+  onChange,
+}: PageInputProps) {
   const { t } = useI18n();
 
   return (
@@ -24,6 +29,8 @@ export default function PageInput({ labelKey }: PageInputProps) {
       </label>
 
       <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         type="text"
         placeholder="2,4,7,12-16"
         className="w-full px-4 py-2 font-semibold border shadow-inner rounded-xl border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary placeholder:text-primary-light dark:text-background"

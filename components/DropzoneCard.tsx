@@ -7,20 +7,31 @@ import { useDropzone } from "react-dropzone";
 import { MdClose } from "react-icons/md";
 
 interface DropzoneCardProps {
+  onFilesUpload?: (files: File[]) => void;
   onClick?: () => void;
   children?: React.ReactNode;
 }
 
-export default function DropzoneCard({ onClick, children }: DropzoneCardProps) {
+export default function DropzoneCard({
+  onClick,
+  children,
+  onFilesUpload,
+}: DropzoneCardProps) {
   const { t } = useI18n();
   const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const pdfFiles = acceptedFiles.filter(
-      (file) => file.type === "application/pdf"
-    );
-    setFiles((prev) => [...prev, ...pdfFiles]);
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const pdfFiles = acceptedFiles.filter(
+        (file) => file.type === "application/pdf"
+      );
+      setFiles(pdfFiles);
+      if (pdfFiles.length > 0 && onFilesUpload) {
+        onFilesUpload(pdfFiles);
+      }
+    },
+    [onFilesUpload]
+  );
 
   const removeFile = (index: number) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
@@ -30,15 +41,13 @@ export default function DropzoneCard({ onClick, children }: DropzoneCardProps) {
     onDrop,
     accept: { "application/pdf": [".pdf"] },
     maxSize: 50 * 1024 * 1024,
-    multiple: true,
+    multiple: true, // enable multi-file
   });
 
   return (
     <div className="w-full max-w-md">
       <div
-        {...getRootProps({
-          onClick,
-        })}
+        {...getRootProps({ onClick })}
         className="min-h-56 transition-all duration-200 transform shadow-[0_4px_20px_rgba(255,255,255,0.4)] hover:shadow-[0_6px_24px_rgba(255,255,255,0.6)] hover:scale-[1.02] active:scale-[0.98] rounded-xl border-2 border-dashed border-white p-6 w-full cursor-pointer focus:border-solid focus:border-primary-light focus:dark:border-primary flex items-center justify-center"
       >
         <input {...getInputProps()} />
