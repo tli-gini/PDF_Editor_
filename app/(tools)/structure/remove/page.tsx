@@ -8,8 +8,7 @@ import PageInput from "@/components/PageInput";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import { MdOutlineDelete } from "react-icons/md";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function RemovePage() {
   const { t } = useI18n();
@@ -61,7 +60,6 @@ export default function RemovePage() {
       <DropzoneCard onFilesUpload={setFiles} />
       <PageInput labelKey="remove" value={pages} onChange={setPages} />
       <SendButton onClick={handleUpload} loading={loading} />
-      <ToastContainer position="top-center" autoClose={3000} />
     </ToolPageWrapper>
   );
 }

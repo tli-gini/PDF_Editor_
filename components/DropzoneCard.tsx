@@ -1,7 +1,7 @@
 // components/DropzoneCard.tsx
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useI18n } from "@/lib/i18n-context";
 import { useDropzone } from "react-dropzone";
 import { MdClose } from "react-icons/md";
@@ -20,18 +20,26 @@ export default function DropzoneCard({
   const { t } = useI18n();
   const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      const pdfFiles = acceptedFiles.filter(
-        (file) => file.type === "application/pdf"
-      );
-      setFiles(pdfFiles);
-      if (pdfFiles.length > 0 && onFilesUpload) {
-        onFilesUpload(pdfFiles);
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    const pdfFiles = acceptedFiles.filter(
+      (file) => file.type === "application/pdf"
+    );
+
+    setFiles((prev) => {
+      const all = [...prev, ...pdfFiles];
+      const unique = Array.from(new Map(all.map((f) => [f.name, f])).values());
+      if (onFilesUpload) {
+        onFilesUpload(unique);
       }
-    },
-    [onFilesUpload]
-  );
+      return unique; // remove duplicates
+    });
+  }, []);
+
+  useEffect(() => {
+    if (onFilesUpload) {
+      onFilesUpload(files);
+    }
+  }, [files, onFilesUpload]); // Update parent on files change
 
   const removeFile = (index: number) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
