@@ -5,6 +5,8 @@ import { headers } from "next/headers";
 import { I18nProvider } from "@/lib/i18n-context";
 import type { Language } from "@/lib/i18n";
 import { Bellota_Text, Kalam, Noto_Sans_TC } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer";
 
@@ -81,6 +83,7 @@ export default async function RootLayout({
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <ToastContainer position="top-center" autoClose={3000} />
         </I18nProvider>
       </body>
     </html>

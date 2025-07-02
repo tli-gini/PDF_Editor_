@@ -1,3 +1,4 @@
+// app/(tools)/structure/remove/page.tsx
 "use client";
 import { useI18n } from "@/lib/i18n-context";
 import DropzoneCard from "@/components/DropzoneCard";
@@ -7,6 +8,8 @@ import PageInput from "@/components/PageInput";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import { MdOutlineDelete } from "react-icons/md";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function RemovePage() {
   const { t } = useI18n();
@@ -16,7 +19,7 @@ export default function RemovePage() {
 
   const handleUpload = async () => {
     if (files.length === 0 || !pages.trim()) {
-      alert("Please upload a PDF and specify pages to remove.");
+      toast.warn("Please upload a PDF and specify pages to remove.");
       return;
     }
     setLoading(true);
@@ -30,6 +33,7 @@ export default function RemovePage() {
         body: formData,
       });
       if (!res.ok) throw new Error(`Error ${res.status}`);
+
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -38,9 +42,11 @@ export default function RemovePage() {
       a.href = url;
       a.download = `${originalName}-remove-pages.pdf`;
       a.click();
+
+      toast.success("File processed successfully!");
     } catch (err) {
       console.error("Upload error:", err);
-      alert("Processing failed, please try again later.");
+      toast.error("Processing failed. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -55,6 +61,7 @@ export default function RemovePage() {
       <DropzoneCard onFilesUpload={setFiles} />
       <PageInput labelKey="remove" value={pages} onChange={setPages} />
       <SendButton onClick={handleUpload} loading={loading} />
+      <ToastContainer position="top-center" autoClose={3000} />
     </ToolPageWrapper>
   );
 }
