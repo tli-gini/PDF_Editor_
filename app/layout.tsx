@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { I18nProvider } from "@/lib/i18n-context";
 import type { Language } from "@/lib/i18n";
-import { Bellota_Text, Kalam, Noto_Sans_TC } from "next/font/google";
+import { Bellota_Text } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../components/Navbar/Navbar";
@@ -15,18 +15,6 @@ const bellota = Bellota_Text({
   weight: ["300", "400", "700"],
   style: ["normal", "italic"],
   variable: "--font-bellota",
-});
-
-const kalam = Kalam({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-  variable: "--font-kalam",
-});
-
-const notoSansTC = Noto_Sans_TC({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
-  variable: "--font-noto-tc",
 });
 
 export const metadata: Metadata = {
@@ -45,10 +33,9 @@ export default async function RootLayout({
     <html
       lang={lang}
       suppressHydrationWarning
-      className={`${bellota.variable} ${kalam.variable} ${notoSansTC.variable}`}
+      className={`${bellota.variable} `}
     >
       <head>
-        {/* Prevent dark mode + language flicker on first load */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -58,20 +45,15 @@ export default async function RootLayout({
     const lang = localStorage.getItem("lang") || "en";
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-    // Set lang attribute early
     document.documentElement.setAttribute("lang", lang);
-
-    // Apply dark mode if needed
     if (theme === "dark" || (!theme && prefersDark)) {
       document.documentElement.classList.add("dark");
     }
   } catch(e) {}
 })();
-            `,
+      `,
           }}
         />
-
-        {/* Load Material Symbols for icon usage */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block"

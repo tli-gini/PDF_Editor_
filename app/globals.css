@@ -5,8 +5,6 @@
 /* Font families */
 :root {
   --font-bellota: "Bellota Text", cursive;
-  --font-kalam: "Kalam", cursive;
-  --font-noto-tc: "Noto Sans TC", sans-serif;
 
   /* Light mode */
   --color-primary: #c96c5e;
@@ -37,17 +35,26 @@
 .font-bellota {
   font-family: var(--font-bellota);
 }
-.font-kalam {
-  font-family: var(--font-kalam);
+
+.font-bold {
+  font-weight: 700;
 }
-.font-noto {
-  font-family: var(--font-noto-tc);
+.font-semibold {
+  font-weight: 700;
+}
+/* Font weight for TC */
+html[lang="zh"] .font-bold {
+  font-weight: 700;
+}
+
+html[lang="zh"] .font-semibold {
+  font-weight: 500; /*  semibold -> normal */
 }
 
 /* Base styles */
 html,
 body {
-  @apply max-w-full overflow-x-hidden font-bellota bg-[var(--color-background)] text-[var(--color-secondary)];
+  @apply max-w-full overflow-x-hidden bg-[var(--color-background)] text-[var(--color-secondary)];
 }
 
 /* Universal reset */
