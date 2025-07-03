@@ -16,6 +16,10 @@ module.exports = {
         white: "var(--color-white)",
         black: "var(--color-black)",
       },
+      fontFamily: {
+        bellota: "var(--font-bellota)",
+        noto: "var(--font-noto)",
+      },
     },
   },
   plugins: [],

@@ -5,6 +5,7 @@
 /* Font families */
 :root {
   --font-bellota: "Bellota Text", cursive;
+  --font-noto: "Noto Sans TC", sans-serif;
 
   /* Light mode */
   --color-primary: #c96c5e;
@@ -44,11 +45,15 @@
 }
 /* Font weight for TC */
 html[lang="zh"] .font-bold {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 html[lang="zh"] .font-semibold {
-  font-weight: 500; /*  semibold -> normal */
+  font-weight: 400;
+}
+
+html[lang="zh"] .font-normal {
+  font-weight: 350;
 }
 
 /* Base styles */

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { I18nProvider } from "@/lib/i18n-context";
 import type { Language } from "@/lib/i18n";
-import { Bellota_Text } from "next/font/google";
+import { Bellota_Text, Noto_Sans_TC } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../components/Navbar/Navbar";
@@ -15,6 +15,12 @@ const bellota = Bellota_Text({
   weight: ["300", "400", "700"],
   style: ["normal", "italic"],
   variable: "--font-bellota",
+});
+
+const noto = Noto_Sans_TC({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600"],
+  variable: "--font-noto",
 });
 
 export const metadata: Metadata = {
@@ -60,7 +66,7 @@ export default async function RootLayout({
         />
       </head>
 
-      <body className="font-bellota bg-[var(--color-background)] text-[var(--color-secondary)] min-h-screen flex flex-col">
+      <body className=" bg-[var(--color-background)] text-[var(--color-secondary)] min-h-screen flex flex-col">
         <I18nProvider initialLang={lang as Language}>
           <Navbar />
           <main className="flex-1">{children}</main>

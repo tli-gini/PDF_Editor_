@@ -54,7 +54,7 @@ export default function Navbar() {
               height={56}
               className="object-cover w-[44px] h-[44px] sm:w-[56px] sm:h-[56px]"
             />
-            <div className="text-2xl font-bold truncate sm:text-3xl text-secondary">
+            <div className="text-2xl font-extrabold truncate font-bellota sm:text-3xl text-secondary">
               PDF_Editor_
             </div>
           </Link>
