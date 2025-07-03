@@ -39,7 +39,9 @@ export default async function RootLayout({
     <html
       lang={lang}
       suppressHydrationWarning
-      className={`${bellota.variable} `}
+      className={`${bellota.variable} ${noto.variable} ${
+        lang === "zh" ? "font-noto" : "font-bellota"
+      }`}
     >
       <head>
         <script
