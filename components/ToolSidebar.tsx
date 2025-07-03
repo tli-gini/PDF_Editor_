@@ -99,17 +99,21 @@ export default function ToolSidebar() {
                   className={`text-2xl p-2 rounded-full transition-all duration-300 transform
                     ${
                       isActive
-                        ? "bg-white text-primary scale-100"
-                        : "bg-primary text-white lg:group-hover:bg-white lg:group-hover:text-primary group-hover:scale-110"
+                        ? "bg-white text-primary group-hover:scale-100"
+                        : "bg-primary text-white lg:group-hover:bg-white lg:group-hover:text-primary"
                     }
-                    lg:group-hover:scale-100`}
+                    scale-100 lg:group-hover:scale-100 group-hover:scale-110`}
                 >
                   {icon}
                 </span>
 
                 <span
                   className={`text-[14px] lg:text-[16px] font-semibold transition-all duration-300 transform
-                    ${isActive ? "scale-100" : "group-hover:scale-110"}`}
+                    ${
+                      isActive
+                        ? "scale-100"
+                        : "group-hover:scale-110 lg:group-hover:scale-100"
+                    }`}
                 >
                   {t.tools[key].label}
                 </span>
