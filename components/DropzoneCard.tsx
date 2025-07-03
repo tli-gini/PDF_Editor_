@@ -24,14 +24,9 @@ export default function DropzoneCard({
     const pdfFiles = acceptedFiles.filter(
       (file) => file.type === "application/pdf"
     );
-
     setFiles((prev) => {
       const all = [...prev, ...pdfFiles];
-      const unique = Array.from(new Map(all.map((f) => [f.name, f])).values());
-      if (onFilesUpload) {
-        onFilesUpload(unique);
-      }
-      return unique; // remove duplicates
+      return Array.from(new Map(all.map((f) => [f.name, f])).values());
     });
   }, []);
 
