@@ -13,9 +13,13 @@ _(Visual reference and layout blueprint for implementation)_
 - **Modular Components**: Navbar, Footer, ToolSidebar, DropZone, etc.
 - **Responsive Design**: Tailwind CSS with mobile-first breakpoints
 - **Themed UI**: CSS variables + Google Fonts
-- **API Ready**: Designed for integration with Stirling PDF backend
+- **API Integretion**: Communicates with Stirling PDF backend via internal API routes (proxy layer)
 
 ## 🧰 Tech Stack
+
+- Frontend: Next.js 15 (App Router), Tailwind CSS, TypeScript, React
+- API Proxy: Next.js API Routes (to call Stirling PDF endpoints securely)
+- External PDF engine: Stirling PDF (via HTTP endpoints)
 
 | **Layer**  | **Tool / Library**                                             |
 | ---------- | -------------------------------------------------------------- |
@@ -42,7 +46,7 @@ npm install
 npm run dev
 ```
 
-### 3. (Optional) Configure PDF API Endpoint
+### 3. Configure PDF API Endpoint
 
 Create a `.env.local` file:
 
@@ -50,8 +54,6 @@ Create a `.env.local` file:
 # Example for demo (public Fly.io deployment)
 NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
 
-# Example for internal use (company intranet)
-# NEXT_PUBLIC_PDF_API_URL=http://10.0.0.1:8080
 ```
 
 ## 📦 Deployment Options
@@ -59,23 +61,14 @@ NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
 ### Public / Portfolio Use (Vercel + Fly.io)
 
 - Frontend hosted on Vercel
-- Backend API hosted on Fly.io using the official Stirling PDF Docker image
+- Stirling PDF backend hosted on Fly.io
+- Proxy requests securely through Next.js API routes
 - Suitable for demos, academic showcases, and testing
-- Set `NEXT_PUBLIC_PDF_API_URL` to your Fly.io endpoint:
-  ```env
-  NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
-  ```
 
 ### Internal Company Use (Docker in Intranet)
 
-- Frontend can be containerized for deployment within an internal network
-- Backend connects to a Stirling PDF instance hosted internally (e.g., `http://10.0.0.1:8080`)
-- No external access required
-- Example Docker deployment:
-  ```bash
-  docker build -t pdf-editor .
-  docker run -p 3000:3000 pdf-editor
-  ```
+- Frontend and Stirling PDF backend hosted within internal network
+- Requests routed through API proxy to avoid exposing endpoints
 
 ## 🐳 Dockerfile
 
@@ -104,20 +97,21 @@ NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
 
 ## 🧩 Integration
 
-- This frontend UI is fully decoupled from the PDF processing backend.
-- By changing the `NEXT_PUBLIC_PDF_API_URL` environment variable, the interface can be used with either:
-  - A public backend hosted on Fly.io (for portfolio/demos), or
-  - A private server hosted internally (for production/intranet use)
-- No backend logic or database is required.
+- Requests are routed through Next.js API routes to ensure:
+  - Cross-origin safety: avoids CORS issues
+  - Credential privacy: sensitive API info stays server-side
+- By changing the NEXT_PUBLIC_PDF_API_URL environment variable, the same UI can connect to:
+  - A public backend (e.g. Fly.io)
+  - A private server (e.g. intranet Docker deployment)
+- No additional backend logic or database is required
 - Compatible with Stirling PDF v1.34+ (AGPL-3.0)
 
 ## 📝 Notes
 
 - Dark mode is handled via `class="dark"` and Tailwind's `dark:` variants
 - All fonts are preloaded with `next/font/google` and exposed via CSS variables
-- Stirling PDF can be run locally via Docker or deployed to internal servers
-- The frontend is deployable as a static/SSR UI for both public and internal use cases
 - Responsive design is implemented using Tailwind's mobile-first breakpoints (`sm`, `md`, `lg`, etc.), ensuring the UI adapts smoothly from mobile to desktop screens
+- Modular component architecture makes it easy to extend or adapt
 
 ## 📜 License
 
