@@ -94,19 +94,19 @@
   "page": {
     "structure": {
       "title": "Start Structuring Your PDF",
-      "description": "Select a tool from the left sidebar to split, merge, organize or rotate pages in your PDF file."
+      "description": "Select a tool from the sidebar to split, merge, organize or rotate pages in your PDF file."
     },
     "convert": {
       "title": "Convert PDF to Another Format",
-      "description": "Select a tool from the left sidebar to convert your PDF to Word, Image, HTML, and more."
+      "description": "Select a tool from the sidebar to convert your PDF to Word, Image, HTML, and more."
     },
     "security": {
       "title": "Sign, Secure, and Redact Your PDF",
-      "description": "Select a tool from the left sidebar to add passwords or watermarks, sign with certificates, redact sensitive content, or manage file permissions."
+      "description": "Select a tool from the sidebar to add passwords or watermarks, sign with certificates, redact sensitive content, or manage file permissions."
     },
     "editor": {
       "title": "View, Annotate, and Edit Your PDF",
-      "description": "Select a tool from the left sidebar to add images or page numbers, compare versions, change metadata, or clean up scanned content."
+      "description": "Select a tool from the sidebar to add images or page numbers, compare versions, change metadata, or clean up scanned content."
     }
   },
   "components": {
@@ -115,5 +115,12 @@
       "active": "Drop the files here...",
       "maxSizeNote": "Maximum file size: 50.0 MB"
     }
+  },
+  "toast": {
+    "success": "File processed successfully!",
+    "fail": "Processing failed. Please try again.",
+    "missingFile": "Please upload a file.",
+    "missingPage": "Please specify pages.",
+    "missingFileAndPage": "Please upload a file and specify pages."
   }
 }

@@ -18,7 +18,7 @@ export default function RemovePage() {
 
   const handleUpload = async () => {
     if (files.length === 0 || !pages.trim()) {
-      toast.warn("Please upload a PDF and specify pages to remove.");
+      toast.warn(t.toast.missingFileAndPage);
       return;
     }
     setLoading(true);
@@ -42,11 +42,11 @@ export default function RemovePage() {
         a.href = url;
         a.download = `${file.name.replace(/\.pdf$/i, "")}-remove-pages.pdf`;
         a.click();
-        toast.success("File processed successfully!");
+        toast.success(t.toast.success);
       }
     } catch (err) {
       console.error("Upload error:", err);
-      toast.error("Processing failed. Please try again later.");
+      toast.error(t.toast.fail);
     } finally {
       setLoading(false);
     }

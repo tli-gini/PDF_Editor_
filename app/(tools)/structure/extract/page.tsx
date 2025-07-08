@@ -18,7 +18,7 @@ export default function ExtractPage() {
 
   const handleUpload = async () => {
     if (files.length === 0 || !pages.trim()) {
-      toast.warn("Please upload a PDF and specify pages to extract.");
+      toast.warn(t.toast.missingFileAndPage);
       return;
     }
     setLoading(true);
@@ -41,11 +41,11 @@ export default function ExtractPage() {
         a.href = url;
         a.download = `${file.name.replace(/\.pdf$/i, "")}-extract-pages.pdf`;
         a.click();
-        toast.success("File processed successfully!");
+        toast.success(t.toast.success);
       }
     } catch (err) {
       console.error("Upload error:", err);
-      toast.error("Processing failed, please try again later.");
+      toast.error(t.toast.fail);
     } finally {
       setLoading(false);
     }
