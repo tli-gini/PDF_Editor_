@@ -28,6 +28,7 @@ export default function DropzoneCard({
       const all = [...prev, ...pdfFiles];
       return Array.from(new Map(all.map((f) => [f.name, f])).values());
     });
+    console.log(acceptedFiles);
   }, []);
 
   useEffect(() => {

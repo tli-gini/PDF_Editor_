@@ -22,27 +22,28 @@ export default function RemovePage() {
       return;
     }
     setLoading(true);
-    const formData = new FormData();
-    files.forEach((file) => formData.append("fileInput", file));
-    formData.append("pageNumbers", pages);
 
     try {
-      const res = await fetch("/api/remove-pages", {
-        method: "POST",
-        body: formData,
-      });
-      if (!res.ok) throw new Error(`Error ${res.status}`);
+      for (const file of files) {
+        const formData = new FormData();
+        formData.append("fileInput", file);
+        formData.append("pageNumbers", pages);
 
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      const originalName = files[0].name.replace(/\.pdf$/i, "");
+        const res = await fetch("/api/remove-pages", {
+          method: "POST",
+          body: formData,
+        });
 
-      a.href = url;
-      a.download = `${originalName}-remove-pages.pdf`;
-      a.click();
+        if (!res.ok) throw new Error(`Error ${res.status}`);
 
-      toast.success("File processed successfully!");
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${file.name.replace(/\.pdf$/i, "")}-remove-pages.pdf`;
+        a.click();
+        toast.success("File processed successfully!");
+      }
     } catch (err) {
       console.error("Upload error:", err);
       toast.error("Processing failed. Please try again later.");
