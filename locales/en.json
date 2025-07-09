@@ -10,7 +10,8 @@
       "label": "Split",
       "description": "Split a PDF into multiple files.",
       "inputLabel": "Enter pages to split on:",
-      "inputHint": ""
+      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16",
+      "info": "The numbers you select are the page number you wish to do a split on. \n\nAs such selecting 1,3,7-9 would split a 10 page document into 6 separate PDFs with: \n\nDocument #1: Page 1\nDocument #2: Page 2-3\nDocument #3: Page 4-7\nDocument #4: Page 8\nDocument #5: Page 9\nDocument #6: Page 10"
     },
     "merge": {
       "label": "Merge",
@@ -122,5 +123,9 @@
     "missingFile": "Please upload a file.",
     "missingPage": "Please specify pages.",
     "missingFileAndPage": "Please upload a file and specify pages."
+  },
+  "misc": {
+    "showInfo": "Info",
+    "hideInfo": "Hide Info"
   }
 }

@@ -5,6 +5,7 @@ import DropzoneCard from "@/components/DropzoneCard";
 import ToolTitle from "@/components/ToolTitle";
 import SendButton from "@/components/SendButton";
 import PageInput from "@/components/PageInput";
+import InfoToggle from "@/components/InfoToggle";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import { MdContentCut } from "react-icons/md";
 import { useState } from "react";
@@ -56,6 +57,9 @@ export default function Split() {
       />
       <DropzoneCard onFilesUpload={setFiles} />
       <PageInput labelKey="split" value={pages} onChange={setPages} />
+      <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
+        {t.tools.split.info}
+      </InfoToggle>
       <SendButton onClick={handleUpload} loading={loading} />
     </ToolPageWrapper>
   );
