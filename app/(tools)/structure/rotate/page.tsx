@@ -1,7 +1,7 @@
 // app/(tools)/structure/rotate/page.tsx
 "use client";
 import { useI18n } from "@/lib/i18n-context";
-import DropzonePdfPreview from "@/components/DropzonePdfPreview";
+import DropzoneCard from "@/components/DropzoneCard";
 import ToolTitle from "@/components/ToolTitle";
 import SendButton from "@/components/SendButton";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
@@ -16,7 +16,8 @@ export default function Rotate() {
         icon={<MdOutlineRotateRight className="text-3xl" />}
         label={t.tools.rotate.label}
       />
-      <DropzonePdfPreview />
+
+      <DropzoneCard />
       <SendButton />
     </ToolPageWrapper>
   );

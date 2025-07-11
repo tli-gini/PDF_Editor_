@@ -1,11 +1,7 @@
-import withTM from "next-transpile-modules";
+import type { NextConfig } from "next";
 
-const withTranspile = withTM(["react-pdf", "pdfjs-dist"]);
-
-const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
+const nextConfig: NextConfig = {
+  /* config options here */
 };
 
-export default withTranspile(nextConfig);
+export default nextConfig;
