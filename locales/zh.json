@@ -48,7 +48,8 @@
       "label": "多頁合併",
       "description": "將多個頁面合併為單一頁面。",
       "inputLabel": "每張紙的頁數：",
-      "inputHint": ""
+      "inputHint": "",
+      "checkboxLabel": "新增邊框"
     },
     "word": {
       "label": "Word",

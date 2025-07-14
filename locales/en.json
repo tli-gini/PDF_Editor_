@@ -48,7 +48,8 @@
       "label": "Multi-Page Layout",
       "description": "Merge multiple pages into a single page.",
       "inputLabel": "Pages per Sheet: ",
-      "inputHint": ""
+      "inputHint": "",
+      "checkboxLabel": "Add Borders"
     },
     "word": {
       "label": "Word",
