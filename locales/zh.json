@@ -17,7 +17,8 @@
       "label": "合併",
       "description": "將多個 PDF 合併成一份檔案。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "checkboxLabel": "移除憑證簽章"
     },
     "remove": {
       "label": "移除",

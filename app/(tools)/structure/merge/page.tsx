@@ -7,11 +7,13 @@ import ToolTitle from "@/components/ToolTitle";
 import SendButton from "@/components/SendButton";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import DropzoneSortable from "@/components/DropzoneSortable";
+import CheckboxOption from "@/components/CheckboxOption";
 import { AiOutlineMergeCells } from "react-icons/ai";
 
 export default function Merge() {
   const { t } = useI18n();
   const [files, setFiles] = useState<File[]>([]);
+  const [removeSignature, setRemoveSignature] = useState(false);
 
   return (
     <ToolPageWrapper>
@@ -21,6 +23,15 @@ export default function Merge() {
       />
 
       <DropzoneSortable onFilesChange={setFiles} />
+
+      <CheckboxOption
+        id="remove-signature"
+        checked={removeSignature}
+        onChange={setRemoveSignature}
+        labelKey="merge"
+        labelPath="checkboxLabel"
+      />
+
       <SendButton onClick={() => console.log(files)} />
     </ToolPageWrapper>
   );

@@ -17,7 +17,8 @@
       "label": "Merge",
       "description": "Merge multiple PDFs into one.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "checkboxLabel": "Remove digital signature"
     },
     "remove": {
       "label": "Remove",
