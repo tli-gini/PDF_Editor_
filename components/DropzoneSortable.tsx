@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useI18n } from "@/lib/i18n-context";
 import { useDropzone } from "react-dropzone";
 import { MdArrowUpward, MdArrowDownward, MdClose } from "react-icons/md";
@@ -15,22 +15,20 @@ export default function DropzoneSortable({
   const { t } = useI18n();
   const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      const pdfFiles = acceptedFiles.filter(
-        (file) => file.type === "application/pdf"
-      );
-      setFiles((prev) => {
-        const all = [...prev, ...pdfFiles];
-        const deduped = Array.from(
-          new Map(all.map((f) => [f.name, f])).values()
-        );
-        onFilesChange?.(deduped);
-        return deduped;
-      });
-    },
-    [onFilesChange]
-  );
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    const pdfFiles = acceptedFiles.filter(
+      (file) => file.type === "application/pdf"
+    );
+    setFiles((prev) => {
+      const all = [...prev, ...pdfFiles];
+      const deduped = Array.from(new Map(all.map((f) => [f.name, f])).values());
+      return deduped;
+    });
+  }, []);
+
+  useEffect(() => {
+    onFilesChange?.(files);
+  }, [files, onFilesChange]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -44,7 +42,6 @@ export default function DropzoneSortable({
     setFiles((prev) => {
       const copy = [...prev];
       [copy[index - 1], copy[index]] = [copy[index], copy[index - 1]];
-      onFilesChange?.(copy);
       return copy;
     });
   };
@@ -54,17 +51,12 @@ export default function DropzoneSortable({
     setFiles((prev) => {
       const copy = [...prev];
       [copy[index], copy[index + 1]] = [copy[index + 1], copy[index]];
-      onFilesChange?.(copy);
       return copy;
     });
   };
 
   const removeFile = (index: number) => {
-    setFiles((prev) => {
-      const updated = prev.filter((_, i) => i !== index);
-      onFilesChange?.(updated);
-      return updated;
-    });
+    setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
