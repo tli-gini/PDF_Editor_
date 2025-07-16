@@ -110,7 +110,7 @@ NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
 
 - Dark mode is handled via `class="dark"` and Tailwind's `dark:` variants
 - All fonts are preloaded with `next/font/google` and exposed via CSS variables
-- Responsive design is implemented using Tailwind's mobile-first breakpoints (`sm`, `md`, `lg`, etc.), ensuring the UI adapts smoothly from mobile to desktop screens
+- Responsive design is implemented using Tailwind's breakpoints (`sm`, `md`, `lg`, etc.), ensuring the UI adapts smoothly from mobile to desktop screens
 - Modular component architecture makes it easy to extend or adapt
 
 ## 📜 License
