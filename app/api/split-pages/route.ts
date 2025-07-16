@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   if (!apiUrl) return NextResponse.error();
 
   const formData = await req.formData();
-  const res = await fetch(`${apiUrl}/split-pages`, {
+  const res = await fetch(`${apiUrl}/api/v1/general/split-pages`, {
     method: "POST",
     body: formData,
   });

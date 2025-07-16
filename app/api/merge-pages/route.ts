@@ -3,8 +3,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  if (!apiUrl) return NextResponse.error();
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const endpoint = "/api/v1/general/merge-pdfs";
+  const fullUrl = `${baseUrl}${endpoint}`;
+
+  if (!baseUrl) return NextResponse.error();
 
   try {
     const formData = await req.formData();
@@ -19,9 +22,9 @@ export async function POST(req: NextRequest) {
     });
 
     properFormData.append("removeCertSign", String(removeSignature));
-    properFormData.append("sortType", ""); // not going to use
+    properFormData.append("sortType", ""); // optional
 
-    const res = await fetch(`${apiUrl}/merge-pdfs`, {
+    const res = await fetch(fullUrl, {
       method: "POST",
       body: properFormData,
     });
