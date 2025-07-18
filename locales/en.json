@@ -36,7 +36,7 @@
       "label": "Organize",
       "description": "Reorder or arrange PDF pages.",
       "inputLabel": "Custom Page Order",
-      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16",
+      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16 \nor Functions like 2n+1",
       "modeLabel": "Mode",
       "modes": {
         "custom": "Custom Page Order",
