@@ -23,7 +23,10 @@ export default function CheckboxOption<K extends keyof Translation["tools"]>({
 
   return (
     <div className="w-full max-w-md mt-6 text-left">
-      <label htmlFor={id} className="flex items-center gap-2 cursor-pointer">
+      <label
+        htmlFor={id}
+        className="flex items-center gap-2 font-semibold cursor-pointer"
+      >
         <input
           id={id}
           type="checkbox"
