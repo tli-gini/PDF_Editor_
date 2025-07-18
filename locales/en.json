@@ -36,7 +36,21 @@
       "label": "Organize",
       "description": "Reorder or arrange PDF pages.",
       "inputLabel": "Custom Page Order",
-      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16"
+      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16",
+      "modeLabel": "Mode",
+      "modes": {
+        "custom": "Custom Page Order",
+        "reverse": "Reverse Order",
+        "duplex": "Duplex Sort",
+        "booklet": "Booklet Sort",
+        "sideStitchBooklet": "Side Stitch Booklet Sort",
+        "oddEvenSplit": "Odd-Even Split",
+        "oddEvenMerge": "Odd-Even Merge",
+        "duplicateAll": "Duplicate all pages",
+        "removeFirst": "Remove First",
+        "removeLast": "Remove Last",
+        "removeFirstLast": "Remove First and Last"
+      }
     },
     "rotate": {
       "label": "Rotate",

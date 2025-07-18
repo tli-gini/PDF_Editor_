@@ -36,7 +36,21 @@
       "label": "重新排列",
       "description": "重新排序 PDF 頁面。",
       "inputLabel": "輸入頁面排列順序",
-      "inputHint": "以英文逗號分隔，如：4,7,12-16"
+      "inputHint": "以英文逗號分隔，如：4,7,12-16",
+      "modeLabel": "Mode",
+      "modes": {
+        "custom": "Custom Page Order",
+        "reverse": "Reverse Order",
+        "duplex": "Duplex Sort",
+        "booklet": "Booklet Sort",
+        "sideStitchBooklet": "Side Stitch Booklet Sort",
+        "oddEvenSplit": "Odd-Even Split",
+        "oddEvenMerge": "Odd-Even Merge",
+        "duplicateAll": "Duplicate all pages",
+        "removeFirst": "Remove First",
+        "removeLast": "Remove Last",
+        "removeFirstLast": "Remove First and Last"
+      }
     },
     "rotate": {
       "label": "旋轉",
