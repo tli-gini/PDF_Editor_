@@ -22,7 +22,7 @@ export default function PageInput({
     <div className="w-full max-w-md mt-6 text-left">
       <label className="block mb-2 text-base font-semibold text-secondary">
         {t.tools[labelKey].inputLabel}
-        <span className="ml-1 text-sm font-normal text-secondary">
+        <span className="ml-1 text-sm font-normal whitespace-pre-wrap text-secondary">
           <br />
           {t.tools[labelKey].inputHint}
         </span>
