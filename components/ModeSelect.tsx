@@ -1,7 +1,5 @@
 "use client";
 
-import { useI18n } from "@/lib/i18n-context";
-
 interface Option {
   value: string;
   label: string;
@@ -20,8 +18,6 @@ export default function ModeSelect({
   options,
   onChange,
 }: ModeSelectProps) {
-  const { t } = useI18n();
-
   return (
     <div className="w-full max-w-md mt-6 text-left">
       <label className="block mb-2 text-base font-semibold text-secondary">
