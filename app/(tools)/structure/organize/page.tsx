@@ -10,62 +10,69 @@ import PageInput from "@/components/PageInput";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import { MdMoveUp } from "react-icons/md";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function OrganizePage() {
   const { t } = useI18n();
   const [files, setFiles] = useState<File[]>([]);
   const [pages, setPages] = useState("");
-  const [mode, setMode] = useState("custom");
+  const [mode, setMode] = useState("CUSTOM");
   const [loading, setLoading] = useState(false);
 
   const modeOptions = [
-    { value: "custom", label: t.tools.organize.modes.custom },
-    { value: "reverse", label: t.tools.organize.modes.reverse },
-    { value: "duplex", label: t.tools.organize.modes.duplex },
-    { value: "booklet", label: t.tools.organize.modes.booklet },
+    { value: "CUSTOM", label: t.tools.organize.modes.CUSTOM },
+    { value: "REVERSE_ORDER", label: t.tools.organize.modes.REVERSE_ORDER },
+    { value: "DUPLEX_SORT", label: t.tools.organize.modes.DUPLEX_SORT },
+    { value: "BOOKLET_SORT", label: t.tools.organize.modes.BOOKLET_SORT },
     {
-      value: "side-stitch-booklet",
-      label: t.tools.organize.modes.sideStitchBooklet,
+      value: "SIDE_STITCH_BOOKLET",
+      label: t.tools.organize.modes.SIDE_STITCH_BOOKLET,
     },
-    { value: "odd-even-split", label: t.tools.organize.modes.oddEvenSplit },
-    { value: "odd-even-merge", label: t.tools.organize.modes.oddEvenMerge },
-    { value: "duplicate", label: t.tools.organize.modes.duplicateAll },
-    { value: "remove-first", label: t.tools.organize.modes.removeFirst },
-    { value: "remove-last", label: t.tools.organize.modes.removeLast },
+    { value: "ODD_EVEN_SPLIT", label: t.tools.organize.modes.ODD_EVEN_SPLIT },
+    { value: "ODD_EVEN_MERGE", label: t.tools.organize.modes.ODD_EVEN_MERGE },
+    { value: "DUPLICATE_ALL", label: t.tools.organize.modes.DUPLICATE_ALL },
+    { value: "REMOVE_FIRST", label: t.tools.organize.modes.REMOVE_FIRST },
+    { value: "REMOVE_LAST", label: t.tools.organize.modes.REMOVE_LAST },
     {
-      value: "remove-first-last",
-      label: t.tools.organize.modes.removeFirstLast,
+      value: "REMOVE_FIRST_AND_LAST",
+      label: t.tools.organize.modes.REMOVE_FIRST_AND_LAST,
     },
   ];
 
   const handleUpload = async () => {
-    if (files.length === 0 || (mode === "custom" && !pages.trim())) {
-      alert("Please upload a PDF and specify pages to extract.");
+    if (files.length === 0 || (mode === "CUSTOM" && !pages.trim())) {
+      toast.warn(t.toast.missingFileAndPage);
       return;
     }
     setLoading(true);
 
-    const formData = new FormData();
-    files.forEach((file) => formData.append("fileInput", file));
-    formData.append("mode", mode);
-    if (mode === "custom") formData.append("pageNumbers", pages);
-
     try {
-      const res = await fetch("/api/organize", {
-        method: "POST",
-        body: formData,
-      });
-      if (!res.ok) throw new Error(`Error ${res.status}`);
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      const originalName = files[0].name.replace(/\.pdf$/i, "");
-      a.href = url;
-      a.download = `${originalName}-organized.pdf`;
-      a.click();
+      for (const file of files) {
+        const formData = new FormData();
+        formData.append("fileInput", file);
+        formData.append("customMode", mode);
+        if (mode === "CUSTOM") {
+          formData.append("pageNumbers", pages);
+        }
+
+        const res = await fetch("/api/rearrange-pages", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) throw new Error(`Error ${res.status}`);
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${file.name.replace(/\.pdf$/i, "")}-organized.pdf`;
+        a.click();
+        toast.success(t.toast.success);
+      }
     } catch (err) {
       console.error("Upload error:", err);
-      alert("Processing failed, please try again later.");
+      toast.error(t.toast.fail);
     } finally {
       setLoading(false);
     }
@@ -79,7 +86,6 @@ export default function OrganizePage() {
       />
       <DropzoneCard onFilesUpload={setFiles} />
 
-      {/* Mode Dropdown */}
       <ModeSelect
         label={t.tools.organize.modeLabel}
         value={mode}
@@ -87,7 +93,7 @@ export default function OrganizePage() {
         onChange={setMode}
       />
 
-      {mode === "custom" && (
+      {mode === "CUSTOM" && (
         <PageInput labelKey="organize" value={pages} onChange={setPages} />
       )}
 

@@ -39,17 +39,17 @@
       "inputHint": "以英文逗號分隔，如：4,7,12-16",
       "modeLabel": "排序方式",
       "modes": {
-        "custom": "自訂頁面排序",
-        "reverse": "反向排序",
-        "duplex": "雙面排序",
-        "booklet": "小冊子排序",
-        "sideStitchBooklet": "側釘小冊子排序",
-        "oddEvenSplit": "奇偶分割",
-        "oddEvenMerge": "奇偶合併",
-        "duplicateAll": "複製所有頁面",
-        "removeFirst": "移除第一頁",
-        "removeLast": "移除最後一頁",
-        "removeFirstLast": "移除首尾頁面"
+        "CUSTOM": "自訂頁面排序",
+        "REVERSE_ORDER": "反向排序",
+        "DUPLEX_SORT": "雙面排序",
+        "BOOKLET_SORT": "小冊子排序",
+        "SIDE_STITCH_BOOKLET": "側釘小冊子排序",
+        "ODD_EVEN_SPLIT": "奇偶分割",
+        "ODD_EVEN_MERGE": "奇偶合併",
+        "DUPLICATE_ALL": "複製所有頁面",
+        "REMOVE_FIRST": "移除第一頁",
+        "REMOVE_LAST": "移除最後一頁",
+        "REMOVE_FIRST_AND_LAST": "移除首尾頁面"
       }
     },
     "rotate": {

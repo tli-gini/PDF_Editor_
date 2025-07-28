@@ -39,17 +39,17 @@
       "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16 \nor Functions like 2n+1",
       "modeLabel": "Mode",
       "modes": {
-        "custom": "Custom Page Order",
-        "reverse": "Reverse Order",
-        "duplex": "Duplex Sort",
-        "booklet": "Booklet Sort",
-        "sideStitchBooklet": "Side Stitch Booklet Sort",
-        "oddEvenSplit": "Odd-Even Split",
-        "oddEvenMerge": "Odd-Even Merge",
-        "duplicateAll": "Duplicate all pages",
-        "removeFirst": "Remove First",
-        "removeLast": "Remove Last",
-        "removeFirstLast": "Remove First and Last"
+        "CUSTOM": "Custom Page Order",
+        "REVERSE_ORDER": "Reverse Order",
+        "DUPLEX_SORT": "Duplex Sort",
+        "BOOKLET_SORT": "Booklet Sort",
+        "SIDE_STITCH_BOOKLET": "Side Stitch Booklet Sort",
+        "ODD_EVEN_SPLIT": "Odd-Even Split",
+        "ODD_EVEN_MERGE": "Odd-Even Merge",
+        "DUPLICATE_ALL": "Duplicate all pages",
+        "REMOVE_FIRST": "Remove First",
+        "REMOVE_LAST": "Remove Last",
+        "REMOVE_FIRST_AND_LAST": "Remove First and Last"
       }
     },
     "rotate": {
