@@ -5,6 +5,7 @@ import { useI18n } from "@/lib/i18n-context";
 import DropzoneCard from "@/components/DropzoneCard";
 import ToolTitle from "@/components/ToolTitle";
 import SendButton from "@/components/SendButton";
+import ModeSelect from "@/components/ModeSelect";
 import PageInput from "@/components/PageInput";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import { MdMoveUp } from "react-icons/md";
@@ -79,26 +80,12 @@ export default function OrganizePage() {
       <DropzoneCard onFilesUpload={setFiles} />
 
       {/* Mode Dropdown */}
-      <div className="w-full max-w-md mt-6 text-left">
-        <label className="block mb-2 text-base font-semibold text-secondary">
-          {t.tools.organize.modeLabel}
-        </label>
-        <select
-          value={mode}
-          onChange={(e) => setMode(e.target.value)}
-          className="w-full px-4 py-2 font-semibold bg-white border shadow-inner rounded-xl border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary dark:text-background"
-        >
-          {modeOptions.map((opt) => (
-            <option
-              key={opt.value}
-              value={opt.value}
-              className="bg-white text-primary hover:bg-primary hover:text-white"
-            >
-              {opt.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      <ModeSelect
+        label={t.tools.organize.modeLabel}
+        value={mode}
+        options={modeOptions}
+        onChange={setMode}
+      />
 
       {mode === "custom" && (
         <PageInput labelKey="organize" value={pages} onChange={setPages} />
