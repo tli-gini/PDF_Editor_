@@ -73,6 +73,12 @@
       },
       "checkboxLabel": "Add Borders"
     },
+    "compress": {
+      "label": "Compress",
+      "description": "Reduce the file size of your PDF.",
+      "inputLabel": "",
+      "inputHint": ""
+    },
     "word": {
       "label": "Word",
       "description": "Convert your PDF to editable Word documents.",

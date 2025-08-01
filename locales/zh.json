@@ -73,6 +73,12 @@
       },
       "checkboxLabel": "新增邊框"
     },
+    "compress": {
+      "label": "壓縮",
+      "description": "壓縮 PDF 檔案以減少大小。",
+      "inputLabel": "",
+      "inputHint": ""
+    },
     "word": {
       "label": "Word",
       "description": "將 PDF 轉換為可編輯的 Word 檔案。",

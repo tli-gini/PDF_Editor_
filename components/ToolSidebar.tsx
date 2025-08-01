@@ -8,6 +8,7 @@ import {
   MdFilter3,
   MdMoveUp,
   MdOutlineRotateRight,
+  MdOutlineZoomInMap,
 } from "react-icons/md";
 import { TbLayoutBoard } from "react-icons/tb";
 import { AiOutlineMergeCells } from "react-icons/ai";
@@ -39,6 +40,11 @@ export default function ToolSidebar() {
         icon: <MdOutlineRotateRight />,
       },
       { href: "/structure/remove", key: "remove", icon: <MdOutlineDelete /> },
+      {
+        href: "/structure/compress",
+        key: "compress",
+        icon: <MdOutlineZoomInMap />,
+      },
 
       { href: "/structure/organize", key: "organize", icon: <MdMoveUp /> },
 
