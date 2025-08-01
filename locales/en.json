@@ -85,9 +85,9 @@
       "inputLabel": "",
       "inputHint": ""
     },
-    "image": {
-      "label": "Image",
-      "description": "Convert your PDF to image files.",
+    "text": {
+      "label": "Text",
+      "description": "Convert your PDF to text.",
       "inputLabel": "",
       "inputHint": ""
     },

@@ -8,11 +8,16 @@ import {
   MdFilter3,
   MdMoveUp,
   MdOutlineRotateRight,
-  MdOutlineImage,
 } from "react-icons/md";
 import { TbLayoutBoard } from "react-icons/tb";
 import { AiOutlineMergeCells } from "react-icons/ai";
-import { PiFileDoc, PiFileHtml, PiFileCsv, PiFilePpt } from "react-icons/pi";
+import {
+  PiFileDoc,
+  PiFileHtml,
+  PiFileCsv,
+  PiFilePpt,
+  PiFileTxt,
+} from "react-icons/pi";
 import { LuCodeXml } from "react-icons/lu";
 import { LiaMarkdown } from "react-icons/lia";
 import { useI18n } from "@/lib/i18n-context";
@@ -47,7 +52,7 @@ export default function ToolSidebar() {
     "/convert": [
       { href: "/convert/word", key: "word", icon: <PiFileDoc /> },
       { href: "/convert/ppt", key: "ppt", icon: <PiFilePpt /> },
-      { href: "/convert/image", key: "image", icon: <MdOutlineImage /> },
+      { href: "/convert/image", key: "text", icon: <PiFileTxt /> },
       { href: "/convert/html", key: "html", icon: <PiFileHtml /> },
       { href: "/convert/csv", key: "csv", icon: <PiFileCsv /> },
       { href: "/convert/xml", key: "xml", icon: <LuCodeXml /> },

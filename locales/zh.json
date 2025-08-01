@@ -85,9 +85,9 @@
       "inputLabel": "",
       "inputHint": ""
     },
-    "image": {
-      "label": "圖片",
-      "description": "將 PDF 轉為圖檔。",
+    "text": {
+      "label": "文字",
+      "description": "將 PDF 轉為文字。",
       "inputLabel": "",
       "inputHint": ""
     },
