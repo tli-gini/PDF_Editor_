@@ -77,7 +77,20 @@
       "label": "Compress",
       "description": "Reduce the file size of your PDF.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "info": "The level of optimization to apply to the PDF file.  \nHigher values indicate greater compression but may reduce quality. \n\n1-3 PDF compression;\n4-6 lite image compression;\n7-9 intense image compression Will dramatically reduce image quality.",
+      "modeLabel": "Optimization Level",
+      "modes": {
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6",
+        "seven": "7",
+        "eight": "8",
+        "nine": "9"
+      }
     },
     "word": {
       "label": "Word",

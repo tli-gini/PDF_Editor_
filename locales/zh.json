@@ -77,7 +77,20 @@
       "label": "壓縮",
       "description": "壓縮 PDF 檔案以減少大小。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "info": "選擇壓縮程度以平衡品質與檔案大小。 \n\n1-3 為一般 PDF 壓縮;\n4-6 為輕度圖片壓縮;\n7-9 為高強度圖片壓縮，將大幅降低圖片品質。",
+      "modeLabel": "最佳化程度：",
+      "modes": {
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6",
+        "seven": "7",
+        "eight": "8",
+        "nine": "9"
+      }
     },
     "word": {
       "label": "Word",
