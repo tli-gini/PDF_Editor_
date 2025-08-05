@@ -1,8 +1,10 @@
 // app/(tools)/structure/extract/page.tsx
 "use client";
+
 import { useI18n } from "@/lib/i18n-context";
 import DropzoneCard from "@/components/DropzoneCard";
 import ToolTitle from "@/components/ToolTitle";
+import InfoToggle from "@/components/InfoToggle";
 import SendButton from "@/components/SendButton";
 import PageInput from "@/components/PageInput";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
@@ -59,6 +61,9 @@ export default function ExtractPage() {
       />
       <DropzoneCard onFilesUpload={setFiles} />
       <PageInput labelKey="extract" value={pages} onChange={setPages} />
+      <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
+        {t.tools.extract.description}
+      </InfoToggle>
       <SendButton onClick={handleUpload} loading={loading} />
     </ToolPageWrapper>
   );

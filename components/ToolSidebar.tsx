@@ -58,7 +58,7 @@ export default function ToolSidebar() {
     "/convert": [
       { href: "/convert/word", key: "word", icon: <PiFileDoc /> },
       { href: "/convert/ppt", key: "ppt", icon: <PiFilePpt /> },
-      { href: "/convert/image", key: "text", icon: <PiFileTxt /> },
+      { href: "/convert/text", key: "text", icon: <PiFileTxt /> },
       { href: "/convert/html", key: "html", icon: <PiFileHtml /> },
       { href: "/convert/csv", key: "csv", icon: <PiFileCsv /> },
       { href: "/convert/xml", key: "xml", icon: <LuCodeXml /> },

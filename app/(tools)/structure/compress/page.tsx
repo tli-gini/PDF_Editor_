@@ -1,6 +1,6 @@
 // app/(tools)/structure/compress/page.tsx
-
 "use client";
+
 import { useI18n } from "@/lib/i18n-context";
 import DropzoneCard from "@/components/DropzoneCard";
 import ToolTitle from "@/components/ToolTitle";
@@ -13,7 +13,7 @@ import { useState } from "react";
 
 export default function Rotate() {
   const { t } = useI18n();
-  const [mode, setMode] = useState("CUSTOM");
+  const [mode, setMode] = useState("");
 
   const modeOptions = [
     { value: "1", label: t.tools.compress.modes.one },
@@ -35,16 +35,16 @@ export default function Rotate() {
       />
 
       <DropzoneCard />
-      <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
-        {t.tools.compress.info}
-      </InfoToggle>
+
       <ModeSelect
         label={t.tools.compress.modeLabel}
         value={mode}
         options={modeOptions}
         onChange={setMode}
       />
-
+      <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
+        {t.tools.compress.info}
+      </InfoToggle>
       <SendButton />
     </ToolPageWrapper>
   );
