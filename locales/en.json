@@ -16,6 +16,8 @@
     "merge": {
       "label": "Merge",
       "description": "Merge multiple PDFs into one.",
+      "inputLabel": "",
+      "inputHint": "",
       "checkboxLabel": "Remove digital signature"
     },
     "remove": {
@@ -52,11 +54,15 @@
     },
     "rotate": {
       "label": "Rotate",
-      "description": "Rotate pages to the correct orientation."
+      "description": "Rotate pages to the correct orientation.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "multi-page": {
       "label": "Multi-Page Layout",
       "description": "Merge multiple pages into a single page.",
+      "inputLabel": "",
+      "inputHint": "",
       "modeLabel": "Pages per Sheet",
       "modes": {
         "two": "2",
@@ -70,6 +76,8 @@
     "compress": {
       "label": "Compress",
       "description": "Reduce the file size of your PDF.",
+      "inputLabel": "",
+      "inputHint": "",
       "info": "Reduce the file size of your PDF.\nThe level of optimization to apply to the PDF file.  \nHigher values indicate greater compression but may reduce quality. \n\n1-3 PDF compression;\n4-6 lite image compression;\n7-9 intense image compression Will dramatically reduce image quality.",
       "modeLabel": "Optimization Level",
       "modes": {
@@ -87,6 +95,8 @@
     "word": {
       "label": "Word",
       "description": "Convert your PDF to editable Word documents.",
+      "inputLabel": "",
+      "inputHint": "",
       "info": "Choose a Word document format based on your needs.\n\ndocx: Modern and widely supported;\ndoc: Legacy format for older systems;\nodt: Open format for LibreOffice and similar tools.",
       "modeLabel": "File format",
       "modes": {
@@ -98,6 +108,8 @@
     "ppt": {
       "label": "PPT",
       "description": "Convert your PDF to editable PPT documents.",
+      "inputLabel": "",
+      "inputHint": "",
       "info": "Choose a presentation format based on software compatibility.\n\npptx: Modern PowerPoint format, widely used;\nppt: Older format for legacy systems;\nodp: Open format for LibreOffice Impress.",
       "modeLabel": "File format",
       "modes": {
@@ -109,6 +121,8 @@
     "text": {
       "label": "Text",
       "description": "Convert your PDF to text.",
+      "inputLabel": "",
+      "inputHint": "",
       "info": "Choose a text format based on content needs.\n\ntxt: Plain text for simple notes or code;\nrtf: Rich text with basic formatting like bold and italics.",
       "modeLabel": "File format",
       "modes": {
@@ -118,19 +132,27 @@
     },
     "html": {
       "label": "HTML",
-      "description": "Convert your PDF to HTML files."
+      "description": "Convert your PDF to HTML files.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "xml": {
       "label": "XML",
-      "description": "Convert your PDF to XML files."
+      "description": "Convert your PDF to XML files.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "csv": {
       "label": "CSV",
-      "description": "Convert your PDF to CSV files."
+      "description": "Convert your PDF to CSV files.",
+      "inputLabel": "",
+      "inputHint": ""
     },
     "markdown": {
       "label": "Markdown",
-      "description": "Convert your PDF into Markdown format."
+      "description": "Convert your PDF into Markdown format.",
+      "inputLabel": "",
+      "inputHint": ""
     }
   },
   "page": {
