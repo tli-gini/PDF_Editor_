@@ -16,8 +16,6 @@
     "merge": {
       "label": "合併",
       "description": "將多個 PDF 合併成一份檔案。",
-      "inputLabel": "",
-      "inputHint": "",
       "checkboxLabel": "移除憑證簽章"
     },
     "remove": {
@@ -54,15 +52,11 @@
     },
     "rotate": {
       "label": "旋轉",
-      "description": "旋轉 PDF 頁面至正確方向。",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "旋轉 PDF 頁面至正確方向。"
     },
     "multi-page": {
       "label": "多頁合併",
       "description": "將多個頁面合併為單一頁面。",
-      "inputLabel": "",
-      "inputHint": "",
       "modeLabel": "每張紙的頁數：",
       "modes": {
         "two": "2",
@@ -76,8 +70,6 @@
     "compress": {
       "label": "壓縮",
       "description": "壓縮 PDF 檔案以減少大小。",
-      "inputLabel": "",
-      "inputHint": "",
       "info": "選擇壓縮程度以平衡品質與檔案大小。 \n\n1-3 為一般 PDF 壓縮;\n4-6 為輕度圖片壓縮;\n7-9 為高強度圖片壓縮，將大幅降低圖片品質。",
       "modeLabel": "最佳化程度：",
       "modes": {
@@ -95,44 +87,50 @@
     "word": {
       "label": "Word",
       "description": "將 PDF 轉換為可編輯的 Word 檔案。",
-      "inputLabel": "",
-      "inputHint": ""
+      "info": "選擇 Word 文件格式以符合不同使用需求。\n\ndocx：最常用且相容性高。\ndoc：舊版格式，適用於舊系統。\nodt：適用於 LibreOffice 等開源軟體。",
+      "modeLabel": "文件格式：",
+      "modes": {
+        "docx": "DOCX",
+        "doc": "DOC",
+        "odt": "ODT"
+      }
     },
     "ppt": {
-      "label": "PPT",
-      "description": "將 PDF 轉換為可編輯的 PPT 檔案。",
-      "inputLabel": "",
-      "inputHint": ""
+      "label": "簡報",
+      "description": "將 PDF 轉換為可編輯的簡報。",
+      "info": "選擇簡報格式以符合軟體與相容性需求。\n\npptx：最新 PowerPoint 格式，最常用。\nppt：舊版格式，適用於舊系統。\nodp：適用於 LibreOffice 簡報工具。",
+      "modeLabel": "文件格式：",
+      "modes": {
+        "pptx": "PPTX",
+        "ppt": "PPT",
+        "odp": "ODP"
+      }
     },
     "text": {
       "label": "文字",
       "description": "將 PDF 轉為文字。",
-      "inputLabel": "",
-      "inputHint": ""
+      "info": "選擇文字檔格式以符合內容編輯需求。\n\ntxt：純文字格式，適合簡單筆記或程式碼；\nrtf：支援基本格式設定，如粗體與斜體。",
+      "modeLabel": "文件格式：",
+      "modes": {
+        "txt": "TXT",
+        "rtf": "RTF"
+      }
     },
     "html": {
       "label": "HTML",
-      "description": "將 PDF 轉換為 HTML 檔。",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "將 PDF 轉換為 HTML 檔。"
     },
     "xml": {
       "label": "XML",
-      "description": "將 PDF 轉換為 XML 檔。",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "將 PDF 轉換為 XML 檔。"
     },
     "csv": {
       "label": "CSV",
-      "description": "將 PDF 轉換為 CSV 檔。",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "將 PDF 轉換為 CSV 檔。"
     },
     "markdown": {
       "label": "Markdown",
-      "description": "將 PDF 轉換為 Markdown 格式。",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "將 PDF 轉換為 Markdown 格式。"
     }
   },
   "page": {
@@ -142,11 +140,11 @@
     },
     "convert": {
       "title": "Convert PDF to Another Format",
-      "description": "選擇工具將 PDF 轉換為 Word、圖片、HTML 等格式。"
+      "description": "選擇工具將 PDF 轉換為 Word、簡報、純文字等格式。"
     },
     "security": {
       "title": "Sign, Secure, and Redact Your PDF",
-      "description": "選擇工具將 PDF 加上密碼、簽章或浮水印，並管理檔案權限。"
+      "description": "選擇工具將 PDF 加上密碼、簽章或浮水印。"
     },
     "editor": {
       "title": "View, Annotate, and Edit Your PDF",

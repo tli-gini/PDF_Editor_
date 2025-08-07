@@ -16,8 +16,6 @@
     "merge": {
       "label": "Merge",
       "description": "Merge multiple PDFs into one.",
-      "inputLabel": "",
-      "inputHint": "",
       "checkboxLabel": "Remove digital signature"
     },
     "remove": {
@@ -54,15 +52,11 @@
     },
     "rotate": {
       "label": "Rotate",
-      "description": "Rotate pages to the correct orientation.",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "Rotate pages to the correct orientation."
     },
     "multi-page": {
       "label": "Multi-Page Layout",
       "description": "Merge multiple pages into a single page.",
-      "inputLabel": "Pages per Sheet: ",
-      "inputHint": "",
       "modeLabel": "Pages per Sheet",
       "modes": {
         "two": "2",
@@ -76,8 +70,6 @@
     "compress": {
       "label": "Compress",
       "description": "Reduce the file size of your PDF.",
-      "inputLabel": "",
-      "inputHint": "",
       "info": "Reduce the file size of your PDF.\nThe level of optimization to apply to the PDF file.  \nHigher values indicate greater compression but may reduce quality. \n\n1-3 PDF compression;\n4-6 lite image compression;\n7-9 intense image compression Will dramatically reduce image quality.",
       "modeLabel": "Optimization Level",
       "modes": {
@@ -95,44 +87,50 @@
     "word": {
       "label": "Word",
       "description": "Convert your PDF to editable Word documents.",
-      "inputLabel": "",
-      "inputHint": ""
+      "info": "Choose a Word document format based on your needs.\n\ndocx: Modern and widely supported;\ndoc: Legacy format for older systems;\nodt: Open format for LibreOffice and similar tools.",
+      "modeLabel": "File format",
+      "modes": {
+        "docx": "DOCX",
+        "doc": "DOC",
+        "odt": "ODT"
+      }
     },
     "ppt": {
       "label": "PPT",
       "description": "Convert your PDF to editable PPT documents.",
-      "inputLabel": "",
-      "inputHint": ""
+      "info": "Choose a presentation format based on software compatibility.\n\npptx: Modern PowerPoint format, widely used;\nppt: Older format for legacy systems;\nodp: Open format for LibreOffice Impress.",
+      "modeLabel": "File format",
+      "modes": {
+        "pptx": "PPTX",
+        "ppt": "PPT",
+        "odp": "ODP"
+      }
     },
     "text": {
       "label": "Text",
       "description": "Convert your PDF to text.",
-      "inputLabel": "",
-      "inputHint": ""
+      "info": "Choose a text format based on content needs.\n\ntxt: Plain text for simple notes or code;\nrtf: Rich text with basic formatting like bold and italics.",
+      "modeLabel": "File format",
+      "modes": {
+        "txt": "TXT",
+        "rtf": "RTF"
+      }
     },
     "html": {
       "label": "HTML",
-      "description": "Convert your PDF to HTML files.",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "Convert your PDF to HTML files."
     },
     "xml": {
       "label": "XML",
-      "description": "Convert your PDF to XML files.",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "Convert your PDF to XML files."
     },
     "csv": {
       "label": "CSV",
-      "description": "Convert your PDF to CSV files.",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "Convert your PDF to CSV files."
     },
     "markdown": {
       "label": "Markdown",
-      "description": "Convert your PDF into Markdown format.",
-      "inputLabel": "",
-      "inputHint": ""
+      "description": "Convert your PDF into Markdown format."
     }
   },
   "page": {
@@ -142,15 +140,15 @@
     },
     "convert": {
       "title": "Convert PDF to Another Format",
-      "description": "Select a tool from the sidebar to convert your PDF to Word, Image, HTML, and more."
+      "description": "Select a tool from the sidebar to convert your PDF to Word, PPT, HTML, and more."
     },
     "security": {
       "title": "Sign, Secure, and Redact Your PDF",
-      "description": "Select a tool from the sidebar to add passwords or watermarks, sign with certificates, redact sensitive content, or manage file permissions."
+      "description": "Select a tool from the sidebar to add passwords or watermarks, sign with certificates, or manage file permissions."
     },
     "editor": {
       "title": "View, Annotate, and Edit Your PDF",
-      "description": "Select a tool from the sidebar to add images or page numbers, compare versions, change metadata, or clean up scanned content."
+      "description": "Select a tool from the sidebar to add images or page numbers, compare versions, or clean up scanned content."
     }
   },
   "components": {
