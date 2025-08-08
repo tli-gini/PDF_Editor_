@@ -153,6 +153,30 @@
       "description": "將 PDF 轉換為 Markdown 格式。",
       "inputLabel": "",
       "inputHint": ""
+    },
+    "add-password": {
+      "label": "新增密碼",
+      "description": "為 PDF 檔案新增密碼。",
+      "inputLabel": "輸入密碼",
+      "inputHint": ""
+    },
+    "remove-password": {
+      "label": "移除密碼",
+      "description": "從 PDF 檔案移除密碼。",
+      "inputLabel": "輸入密碼",
+      "inputHint": ""
+    },
+    "sign": {
+      "label": "簽章",
+      "description": "為 PDF 檔案新增簽章。",
+      "inputLabel": "",
+      "inputHint": ""
+    },
+    "add-watermark": {
+      "label": "新增浮水印",
+      "description": "為 PDF 檔案新增浮水印。",
+      "inputLabel": "",
+      "inputHint": ""
     }
   },
   "page": {

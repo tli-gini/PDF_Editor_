@@ -153,6 +153,30 @@
       "description": "Convert your PDF into Markdown format.",
       "inputLabel": "",
       "inputHint": ""
+    },
+    "add-password": {
+      "label": "Add Password",
+      "description": "Add a password to secure your PDF.",
+      "inputLabel": "Enter Password",
+      "inputHint": ""
+    },
+    "remove-password": {
+      "label": "Remove Password",
+      "description": "Remove the password from your PDF.",
+      "inputLabel": "Enter Password",
+      "inputHint": ""
+    },
+    "sign": {
+      "label": "Sign",
+      "description": "Add signatures to your PDF by drawing, text or image.",
+      "inputLabel": "",
+      "inputHint": ""
+    },
+    "add-watermark": {
+      "label": "Add Watermark",
+      "description": "Add a watermark to your PDF.",
+      "inputLabel": "",
+      "inputHint": ""
     }
   },
   "page": {

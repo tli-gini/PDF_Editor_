@@ -9,8 +9,14 @@ import {
   MdMoveUp,
   MdOutlineRotateRight,
   MdOutlineZoomInMap,
+  MdOutlineWaterDrop,
 } from "react-icons/md";
-import { TbLayoutBoard } from "react-icons/tb";
+import {
+  TbLayoutBoard,
+  TbLock,
+  TbLockOpen2,
+  TbSignature,
+} from "react-icons/tb";
 import { AiOutlineMergeCells } from "react-icons/ai";
 import {
   PiFileDoc,
@@ -64,7 +70,24 @@ export default function ToolSidebar() {
       { href: "/convert/xml", key: "xml", icon: <LuCodeXml /> },
       { href: "/convert/markdown", key: "markdown", icon: <LiaMarkdown /> },
     ],
-    "/security": [],
+    "/security": [
+      { href: "/security/sign", key: "sign", icon: <TbSignature /> },
+      {
+        href: "/security/add-password",
+        key: "add-password",
+        icon: <TbLock />,
+      },
+      {
+        href: "/security/remove-password",
+        key: "remove-password",
+        icon: <TbLockOpen2 />,
+      },
+      {
+        href: "/security/add-watermark",
+        key: "add-watermark",
+        icon: <MdOutlineWaterDrop />,
+      },
+    ],
     "/editor": [],
   };
 
