@@ -1,8 +1,24 @@
-export default function Placeholder() {
+// app/(tools)/convert/markdown/page.tsx
+
+"use client";
+import { useI18n } from "@/lib/i18n-context";
+import DropzoneCard from "@/components/DropzoneCard";
+import ToolTitle from "@/components/ToolTitle";
+import SendButton from "@/components/SendButton";
+import ToolPageWrapper from "@/components/ToolPageWrapper";
+import { LiaMarkdown } from "react-icons/lia";
+
+export default function ConvertMd() {
+  const { t } = useI18n();
+
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
-      <h1 className="mb-2 text-2xl font-bold text-primary"></h1>
-      <p className="max-w-md text-secondary">Coming soon...</p>
-    </div>
+    <ToolPageWrapper>
+      <ToolTitle
+        icon={<LiaMarkdown className="text-3xl" />}
+        label={t.tools.markdown.label}
+      />
+      <DropzoneCard />
+      <SendButton />
+    </ToolPageWrapper>
   );
 }
