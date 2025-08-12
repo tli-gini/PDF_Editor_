@@ -97,7 +97,7 @@
       "description": "將 PDF 轉換為可編輯的 Word 檔案。",
       "inputLabel": "",
       "inputHint": "",
-      "info": "選擇 Word 文件格式以符合不同使用需求。\n\nDOCX：最常用且相容性高。\nDOC：舊版格式，適用於舊系統。\nODT：適用於 LibreOffice 等開源軟體。",
+      "info": "選擇 Word 文件格式以符合不同使用需求。\n僅允許單一檔案上傳，以降低伺服器負載。\n\nDOCX：最常用且相容性高。\nDOC：舊版格式，適用於舊系統。\nODT：適用於 LibreOffice 等開源軟體。",
       "modeLabel": "文件格式：",
       "modes": {
         "docx": "DOCX",
@@ -110,7 +110,7 @@
       "description": "將 PDF 轉換為可編輯的簡報。",
       "inputLabel": "",
       "inputHint": "",
-      "info": "選擇簡報格式以符合軟體與相容性需求。\n\nPPTX：最新 PowerPoint 格式，最常用。\nPPT：舊版格式，適用於舊系統。\nODP：適用於 LibreOffice 簡報工具。",
+      "info": "選擇簡報格式以符合軟體與相容性需求。\n僅允許單一檔案上傳，以降低伺服器負載。\n\nPPTX：最新 PowerPoint 格式，最常用。\nPPT：舊版格式，適用於舊系統。\nODP：適用於 LibreOffice 簡報工具。",
       "modeLabel": "文件格式：",
       "modes": {
         "pptx": "PPTX",

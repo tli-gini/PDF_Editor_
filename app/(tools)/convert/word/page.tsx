@@ -67,7 +67,7 @@ export default function ConvertWord() {
         icon={<PiFileDoc className="text-3xl" />}
         label={t.tools.word.label}
       />
-      <DropzoneCard onFilesUpload={setFiles} />
+      <DropzoneCard onFilesUpload={setFiles} multiple={false} />
       <ModeSelect
         label={t.tools.word.modeLabel}
         value={mode}

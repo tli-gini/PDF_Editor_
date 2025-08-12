@@ -97,7 +97,7 @@
       "description": "Convert your PDF to editable Word documents.",
       "inputLabel": "",
       "inputHint": "",
-      "info": "Choose a Word document format based on your needs.\n\nDOCX: Modern and widely supported;\nDOC: Legacy format for older systems;\nODT: Open format for LibreOffice and similar tools.",
+      "info": "Choose a Word document format based on your needs.\nSingle-file upload only to reduce server load.\n\nDOCX: Modern and widely supported;\nDOC: Legacy format for older systems;\nODT: Open format for LibreOffice and similar tools.",
       "modeLabel": "File format",
       "modes": {
         "docx": "DOCX",
@@ -110,7 +110,7 @@
       "description": "Convert your PDF to editable PPT documents.",
       "inputLabel": "",
       "inputHint": "",
-      "info": "Choose a presentation format based on software compatibility.\n\nPPTX: Modern PowerPoint format, widely used;\nPPT: Older format for legacy systems;\nODP: Open format for LibreOffice Impress.",
+      "info": "Choose a presentation format based on software compatibility.\nSingle-file upload only to reduce server load.\n\nPPTX: Modern PowerPoint format, widely used;\nPPT: Older format for legacy systems;\nODP: Open format for LibreOffice Impress.",
       "modeLabel": "File format",
       "modes": {
         "pptx": "PPTX",
