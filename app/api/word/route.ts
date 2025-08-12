@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
   return new NextResponse(buf, {
     headers: {
       "Content-Type": "application/octet-stream",
-      "Content-Disposition": `attachment; filename="converted.${fmt}"`,
+      "Content-Disposition": `attachment; filename="word.${fmt}"`,
       "Cache-Control": "no-store",
     },
   });
