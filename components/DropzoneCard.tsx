@@ -10,32 +10,42 @@ interface DropzoneCardProps {
   onFilesUpload?: (files: File[]) => void;
   onClick?: () => void;
   children?: React.ReactNode;
+  multiple?: boolean; // Whether multiple files are allowed. Default true.
+  maxSizeMB?: number; // Optional max file size in MB. Default 50.
 }
 
 export default function DropzoneCard({
   onClick,
   children,
   onFilesUpload,
+  multiple = true,
+  maxSizeMB = 50,
 }: DropzoneCardProps) {
   const { t } = useI18n();
   const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const pdfFiles = acceptedFiles.filter(
-      (file) => file.type === "application/pdf"
-    );
-    setFiles((prev) => {
-      const all = [...prev, ...pdfFiles];
-      return Array.from(new Map(all.map((f) => [f.name, f])).values());
-    });
-    console.log(acceptedFiles);
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const pdfFiles = acceptedFiles.filter(
+        (file) => file.type === "application/pdf"
+      );
+
+      setFiles((prev) => {
+        if (!multiple) {
+          // Single-file mode: replace the existing file with the newly dropped PDF.
+          return pdfFiles.length ? [pdfFiles[0]] : [];
+        }
+        // Multi-file mode
+        const all = [...prev, ...pdfFiles];
+        return Array.from(new Map(all.map((f) => [f.name, f])).values());
+      });
+    },
+    [multiple]
+  );
 
   useEffect(() => {
-    if (onFilesUpload) {
-      onFilesUpload(files);
-    }
-  }, [files, onFilesUpload]); // Update parent on files change
+    onFilesUpload?.(files);
+  }, [files, onFilesUpload]);
 
   const removeFile = (index: number) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
@@ -44,8 +54,8 @@ export default function DropzoneCard({
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { "application/pdf": [".pdf"] },
-    maxSize: 50 * 1024 * 1024,
-    multiple: true, // enable multi-file
+    maxSize: maxSizeMB * 1024 * 1024,
+    multiple, // controlled by the prop
   });
 
   return (
