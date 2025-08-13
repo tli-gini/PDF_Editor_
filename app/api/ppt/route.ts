@@ -1,4 +1,4 @@
-// app/api/word/route.ts
+// app/api/ppt/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -7,11 +7,11 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
   const form = await req.formData();
   const file = form.get("file") as File | null;
-  const fmt = ((form.get("format") as string) || "docx").toLowerCase();
+  const fmt = ((form.get("format") as string) || "pptx").toLowerCase();
 
   if (!file)
     return NextResponse.json({ error: "Missing file" }, { status: 400 });
-  if (!new Set(["docx", "doc", "odt"]).has(fmt))
+  if (!new Set(["pptx", "ppt", "odp"]).has(fmt))
     return NextResponse.json({ error: "Invalid format" }, { status: 400 });
 
   const base = process.env.NEXT_PUBLIC_API_URL;
@@ -19,11 +19,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "BASE URL not set" }, { status: 500 });
 
   const candidates =
-    fmt === "docx"
-      ? ["DocX", "docx"]
-      : fmt === "doc"
-      ? ["Doc", "doc"]
-      : ["Odt", "odt"];
+    fmt === "pptx"
+      ? ["PptX", "pptx"]
+      : fmt === "ppt"
+      ? ["Ppt", "ppt"]
+      : ["Odp", "odp"];
 
   let finalResp: Response | null = null;
   let lastDetail = "";
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     fd.append("fileInput", file, file.name);
     fd.append("outputFormat", out);
 
-    const r = await fetch(`${base}/api/v1/convert/pdf/word`, {
+    const r = await fetch(`${base}/api/v1/convert/pdf/presentation`, {
       method: "POST",
       body: fd,
       headers: { Accept: "application/octet-stream" },

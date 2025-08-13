@@ -123,7 +123,7 @@
       "description": "Convert your PDF to text.",
       "inputLabel": "",
       "inputHint": "",
-      "info": "Choose a text format based on content needs.\n\nTXT: Plain text for simple notes or code;\nRTF: Rich text with basic formatting like bold and italics.",
+      "info": "Choose a text format based on content needs.\nSingle-file upload only to reduce server load.\n\nTXT: Plain text for simple notes or code;\nRTF: Rich text with basic formatting like bold and italics.",
       "modeLabel": "File format",
       "modes": {
         "txt": "TXT",
