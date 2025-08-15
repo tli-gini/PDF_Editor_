@@ -8,6 +8,7 @@ import SendButton from "@/components/SendButton";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import DropzoneSortable from "@/components/DropzoneSortable";
 import CheckboxOption from "@/components/CheckboxOption";
+import InfoToggle from "@/components/InfoToggle";
 import { AiOutlineMergeCells } from "react-icons/ai";
 import { toast } from "react-toastify";
 
@@ -70,6 +71,9 @@ export default function Merge() {
         labelPath="checkboxLabel"
       />
 
+      <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
+        {t.tools.merge.description}
+      </InfoToggle>
       <SendButton onClick={handleUpload} loading={loading} />
     </ToolPageWrapper>
   );
