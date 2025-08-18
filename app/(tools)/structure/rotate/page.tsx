@@ -5,8 +5,10 @@ import { useState } from "react";
 import DropzonePreview, {
   DropzonePreviewFile,
 } from "@/components/DropzonePreview";
+import { useI18n } from "@/lib/i18n-context";
 import ToolTitle from "@/components/ToolTitle";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
+import InfoToggle from "@/components/InfoToggle";
 import SendButton from "@/components/SendButton";
 import { PdfPreview, PageState } from "@/components/PdfPreview";
 import { toast } from "react-toastify";
@@ -14,6 +16,7 @@ import { MdRotateRight } from "react-icons/md";
 import { PDFDocument, degrees } from "pdf-lib";
 
 export default function RotatePage() {
+  const { t } = useI18n();
   const [files, setFiles] = useState<DropzonePreviewFile[]>([]);
   const [pageState, setPageState] = useState<PageState[]>([]);
   const active = files[0] ?? null; // single-file flow for rotate; can extend to multi-file later
@@ -74,13 +77,10 @@ export default function RotatePage() {
           />
         )}
       />
-      <div className="w-full max-w-md mt-4 text-sm text-left text-white/90">
-        <p>
-          Tip: select pages to rotate, then use the small ⟲ / ⟳ buttons per
-          page. If you leave pages unselected, any per-page rotation you set
-          will still apply.
-        </p>
-      </div>
+      <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
+        {t.tools.rotate.info}
+      </InfoToggle>
+
       <SendButton onClick={handleRotateAndDownload} />
     </ToolPageWrapper>
   );

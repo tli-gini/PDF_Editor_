@@ -56,7 +56,8 @@
       "label": "Rotate",
       "description": "Rotate pages to the correct orientation.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16",
+      "info": "Select pages to rotate, then use the small ⟲ / ⟳ buttons per page.\nIf you leave pages unselected, any per-page rotation you set will still apply."
     },
     "multi-page": {
       "label": "Multi-Page Layout",

@@ -56,7 +56,8 @@
       "label": "旋轉",
       "description": "旋轉 PDF 頁面至正確方向。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "info": "選擇要旋轉的頁面，並使用每頁的 ⟲ / ⟳ 按鈕調整旋轉方向。\n 或在輸入框輸入指定頁面，以逗號分隔，進行批次旋轉。"
     },
     "multi-page": {
       "label": "多頁合併",

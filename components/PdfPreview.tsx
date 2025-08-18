@@ -212,7 +212,7 @@ export function PdfPreview({
         <canvas ref={canvasRef} className="block mx-auto" />
       </div>
 
-      {/* Batch rotation (Option 1) */}
+      {/* Batch rotation */}
       <div className="flex flex-col gap-2 p-2 rounded-md bg-white/80">
         <div className="text-xs text-black/80">
           Batch rotate pages (e.g., 1,3,5-7)
