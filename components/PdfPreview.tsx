@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import type { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
 
 export type PageState = {
   pageNumber: number; // 1-based
@@ -17,6 +18,8 @@ type PdfPreviewProps = {
   mode?: "page" | "grid";
 };
 
+type Angle = "90" | "-90" | "180" | "reset";
+
 export function PdfPreview({
   file,
   pageState,
@@ -24,7 +27,7 @@ export function PdfPreview({
   mode = "page",
 }: PdfPreviewProps) {
   const [numPages, setNumPages] = useState(0);
-  const [pdfDoc, setPdfDoc] = useState<any>(null);
+  const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
 
   // Single-page mode state
   const [current, setCurrent] = useState(1);
@@ -41,7 +44,7 @@ export function PdfPreview({
         setCurrent(1);
         return;
       }
-      const pdfjs: any = await import("pdfjs-dist");
+      const pdfjs = (await import("pdfjs-dist")) as typeof import("pdfjs-dist");
       pdfjs.GlobalWorkerOptions.workerSrc = new URL(
         "pdfjs-dist/build/pdf.worker.min.mjs",
         import.meta.url
@@ -49,7 +52,7 @@ export function PdfPreview({
 
       const buf = await file.arrayBuffer();
       const loadingTask = pdfjs.getDocument({ data: buf });
-      const pdf = await loadingTask.promise;
+      const pdf = (await loadingTask.promise) as PDFDocumentProxy;
       if (cancelled) return;
 
       setPdfDoc(pdf);
@@ -57,11 +60,14 @@ export function PdfPreview({
 
       // Initialize pageState if needed
       if (pageState.length !== pdf.numPages) {
-        const init = Array.from({ length: pdf.numPages }, (_, i) => ({
-          pageNumber: i + 1,
-          selected: false,
-          rotation: 0 as 0,
-        }));
+        const init: PageState[] = Array.from(
+          { length: pdf.numPages },
+          (_, i) => ({
+            pageNumber: i + 1,
+            selected: false,
+            rotation: 0 as const,
+          })
+        );
         setPageState(init);
       }
       setCurrent(1);
@@ -70,9 +76,11 @@ export function PdfPreview({
     return () => {
       cancelled = true;
     };
-  }, [file]);
+    // Include stable deps to satisfy the hook rule
+  }, [file, pageState.length, setPageState]);
 
   // Single-page mode: render the current page (respect per-page rotation)
+  const currentRotation = pageState[current - 1]?.rotation ?? 0;
   useEffect(() => {
     if (mode !== "page") return;
     async function render() {
@@ -83,8 +91,7 @@ export function PdfPreview({
       const base = page.getViewport({ scale: 1 });
       const scale = Math.max(0.1, Math.min(2, bbox / base.width));
 
-      const rotate = pageState[current - 1]?.rotation ?? 0;
-      const viewport = page.getViewport({ scale, rotation: rotate });
+      const viewport = page.getViewport({ scale, rotation: currentRotation });
 
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
@@ -94,7 +101,7 @@ export function PdfPreview({
       await page.render({ canvasContext: ctx, canvas, viewport }).promise;
     }
     render();
-  }, [pdfDoc, current, pageState, pageState[current - 1]?.rotation, mode]);
+  }, [pdfDoc, current, currentRotation, mode]);
 
   const canPrev = current > 1;
   const canNext = current < numPages;
@@ -117,7 +124,7 @@ export function PdfPreview({
 
   // batch rotation input (e.g., 1,3,5-7)
   const [pagesText, setPagesText] = useState("");
-  const [angle, setAngle] = useState<"90" | "-90" | "180" | "reset">("90");
+  const [angle, setAngle] = useState<Angle>("90");
   const parsePages = (text: string): number[] => {
     const out: number[] = [];
     text.split(/[,\\s]+/).forEach((tok) => {
@@ -205,7 +212,7 @@ export function PdfPreview({
         <canvas ref={canvasRef} className="block mx-auto" />
       </div>
 
-      {/* Batch rotation */}
+      {/* Batch rotation (Option 1) */}
       <div className="flex flex-col gap-2 p-2 rounded-md bg-white/80">
         <div className="text-xs text-black/80">
           Batch rotate pages (e.g., 1,3,5-7)
@@ -220,7 +227,7 @@ export function PdfPreview({
           <select
             className="px-2 py-1 text-sm border rounded"
             value={angle}
-            onChange={(e) => setAngle(e.target.value as any)}
+            onChange={(e) => setAngle(e.target.value as Angle)}
           >
             <option value="90">+90°</option>
             <option value="-90">-90°</option>

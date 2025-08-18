@@ -1,7 +1,7 @@
 // app/(tools)/structure/rotate/page.tsx
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import DropzonePreview, {
   DropzonePreviewFile,
 } from "@/components/DropzonePreview";
@@ -17,10 +17,6 @@ export default function RotatePage() {
   const [files, setFiles] = useState<DropzonePreviewFile[]>([]);
   const [pageState, setPageState] = useState<PageState[]>([]);
   const active = files[0] ?? null; // single-file flow for rotate; can extend to multi-file later
-  const selectedCount = useMemo(
-    () => pageState.filter((p) => p.selected).length,
-    [pageState]
-  );
 
   async function handleRotateAndDownload() {
     try {
