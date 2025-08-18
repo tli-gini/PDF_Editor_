@@ -209,7 +209,9 @@
     "fail": "Processing failed. Please try again.",
     "missingFile": "Please upload a file.",
     "missingPage": "Please specify pages.",
-    "missingFileAndPage": "Please upload a file and specify pages."
+    "missingFileAndPage": "Please upload a file and specify pages.",
+    "previewNotReady": "Preview not ready yet.",
+    "noChanges": "No changes to apply."
   },
   "misc": {
     "showInfo": "Info",

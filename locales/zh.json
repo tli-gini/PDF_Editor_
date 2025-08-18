@@ -209,7 +209,9 @@
     "fail": "處理失敗，請再試一次。",
     "missingFile": "請選擇檔案。",
     "missingPage": "請輸入指定頁面。",
-    "missingFileAndPage": "請選擇檔案並輸入指定頁面。"
+    "missingFileAndPage": "請選擇檔案並輸入指定頁面。",
+    "previewNotReady": "預覽待處理。",
+    "noChanges": "沒有變更可套用。"
   },
   "misc": {
     "showInfo": "提示",

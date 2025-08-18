@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "next": "15.3.1",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.4.54",
     "react": "^19.0.0",
     "react-cookie": "^8.0.1",
     "react-dom": "^19.0.0",

@@ -1,24 +1,91 @@
 // app/(tools)/structure/rotate/page.tsx
 "use client";
-import { useI18n } from "@/lib/i18n-context";
-import DropzoneCard from "@/components/DropzoneCard";
-import ToolTitle from "@/components/ToolTitle";
-import SendButton from "@/components/SendButton";
-import ToolPageWrapper from "@/components/ToolPageWrapper";
-import { MdOutlineRotateRight } from "react-icons/md";
 
-export default function Rotate() {
-  const { t } = useI18n();
+import { useState, useMemo } from "react";
+import DropzonePreview, {
+  DropzonePreviewFile,
+} from "@/components/DropzonePreview";
+import ToolTitle from "@/components/ToolTitle";
+import ToolPageWrapper from "@/components/ToolPageWrapper";
+import SendButton from "@/components/SendButton";
+import { PdfPreview, PageState } from "@/components/PdfPreview";
+import { toast } from "react-toastify";
+import { MdRotateRight } from "react-icons/md";
+import { PDFDocument, degrees } from "pdf-lib";
+
+export default function RotatePage() {
+  const [files, setFiles] = useState<DropzonePreviewFile[]>([]);
+  const [pageState, setPageState] = useState<PageState[]>([]);
+  const active = files[0] ?? null; // single-file flow for rotate; can extend to multi-file later
+  const selectedCount = useMemo(
+    () => pageState.filter((p) => p.selected).length,
+    [pageState]
+  );
+
+  async function handleRotateAndDownload() {
+    try {
+      if (!active) {
+        toast.warn("Please upload a PDF first.");
+        return;
+      }
+      if (pageState.length === 0) {
+        toast.warn("Preview not ready yet.");
+        return;
+      }
+      const fileBuf = await active.file.arrayBuffer();
+      const pdf = await PDFDocument.load(fileBuf);
+
+      // If no explicit selection, apply rotations to all pages that have rotation != 0
+      const targets = pageState.filter((p) => p.selected || p.rotation !== 0);
+      if (targets.length === 0) {
+        toast.info("No changes to apply.");
+        return;
+      }
+
+      for (const p of targets) {
+        const page = pdf.getPage(p.pageNumber - 1);
+        // Apply rotation relative to current rotation
+        const current = page.getRotation().angle;
+        page.setRotation(degrees((current + p.rotation) % 360));
+      }
+
+      const bytes = await pdf.save();
+      const blob = new Blob([bytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${active.file.name.replace(/\.pdf$/i, "")}-rotated.pdf`;
+      a.click();
+      toast.success("Rotated PDF downloaded.");
+    } catch (e) {
+      console.error(e);
+      toast.error("Failed to rotate PDF.");
+    }
+  }
 
   return (
     <ToolPageWrapper>
-      <ToolTitle
-        icon={<MdOutlineRotateRight className="text-3xl" />}
-        label={t.tools.rotate.label}
+      <ToolTitle icon={<MdRotateRight className="text-3xl" />} label="Rotate" />
+      <DropzonePreview
+        multiple={false}
+        onFilesChange={setFiles}
+        renderRightPanel={({ files: f }) => (
+          <PdfPreview
+            mode="page"
+            file={f.length ? f[0].file : null}
+            pageState={pageState}
+            setPageState={setPageState}
+          />
+        )}
       />
-
-      <DropzoneCard />
-      <SendButton />
+      <div className="w-full max-w-md mt-4 text-sm text-left text-white/90">
+        <p>
+          Tip: select pages to rotate, then use the small ⟲ / ⟳ buttons per
+          page. If you leave pages unselected, any per-page rotation you set
+          will still apply.
+        </p>
+      </div>
+      <SendButton onClick={handleRotateAndDownload} />
     </ToolPageWrapper>
   );
 }
