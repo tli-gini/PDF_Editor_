@@ -1,7 +1,9 @@
+// components/DropzonePreview.tsx
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useI18n } from "@/lib/i18n-context";
 
 export type DropzonePreviewFile = {
   file: File;
@@ -21,10 +23,12 @@ type DropzonePreviewProps = {
   maxSizeMB?: number;
   className?: string;
   onFilesChange?: (files: DropzonePreviewFile[]) => void;
-
-  /* Render custom right panel content per tool */
+  /** Render custom right panel per tool (Rotate / Sign / CSV ...) */
   renderRightPanel?: (args: RightPanelRenderArgs) => React.ReactNode;
+  /** Optional: override the “default” label; by default we use i18n */
   dropLabel?: React.ReactNode;
+  /** Optional: override the “Clear” label (i18n can supply this) */
+  clearLabel?: React.ReactNode;
 };
 
 export default function DropzonePreview({
@@ -35,7 +39,9 @@ export default function DropzonePreview({
   onFilesChange,
   renderRightPanel,
   dropLabel,
+  clearLabel,
 }: DropzonePreviewProps) {
+  const { t } = useI18n();
   const [files, setFiles] = useState<DropzonePreviewFile[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -46,10 +52,9 @@ export default function DropzonePreview({
       );
       setFiles((prev) => {
         if (!multiple) {
-          const next = acceptedTyped.length
+          return acceptedTyped.length
             ? [{ file: acceptedTyped[0], id: crypto.randomUUID() }]
             : [];
-          return next;
         }
         const merged = [
           ...prev,
@@ -83,20 +88,19 @@ export default function DropzonePreview({
 
   const left = useMemo(() => {
     return (
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full max-w-md">
         <div
           {...getRootProps()}
-          className="min-h-56 transition-all duration-200 transform rounded-xl border-2 border-dashed border-white p-6 w-full cursor-pointer hover:scale-[1.01] hover:shadow-[0_6px_24px_rgba(255,255,255,0.5)]"
+          className="min-h-56 transition-all duration-200 transform shadow-[0_4px_20px_rgba(255,255,255,0.4)] hover:shadow-[0_6px_24px_rgba(255,255,255,0.6)] hover:scale-[1.02] active:scale-[0.98] rounded-xl border-2 border-dashed border-white p-6 w-full cursor-pointer focus:border-solid focus:border-primary-light focus:dark:border-primary flex items-center justify-center"
         >
           <input {...getInputProps()} />
           <p className="text-base font-semibold text-white">
             {isDragActive
-              ? "Drop the PDF here"
-              : dropLabel || "Click or drag a PDF to upload"}
+              ? t.components.dropzone.active
+              : dropLabel ?? t.components.dropzone.default}
           </p>
         </div>
 
-        {/* file list */}
         {files.length > 0 && (
           <div className="p-4 mt-4 space-y-2 text-sm text-left text-black bg-white border rounded-md border-primary-light">
             {files.map((f, i) => (
@@ -115,12 +119,16 @@ export default function DropzonePreview({
                 </span>
               </button>
             ))}
-            <div className="flex justify-end">
+
+            <div className="flex items-center justify-between pt-1">
+              <div className="text-xs text-secondary dark:text-background">
+                {t.components.dropzone.maxSizeNote}
+              </div>
               <button
                 onClick={clearFiles}
                 className="px-2 py-1 text-xs bg-gray-100 rounded hover:bg-gray-200"
               >
-                Clear
+                {clearLabel ?? "Clear"}
               </button>
             </div>
           </div>
@@ -135,12 +143,16 @@ export default function DropzonePreview({
     activeIndex,
     clearFiles,
     dropLabel,
+    clearLabel,
+    t.components.dropzone.active,
+    t.components.dropzone.default,
+    t.components.dropzone.maxSizeNote,
   ]);
 
   return (
-    <div className={`w-full flex flex-col gap-6 ${className || ""}`}>
+    <div className={`w-full max-w-md flex flex-col gap-6 ${className || ""}`}>
       {left}
-      <div className="w-full">
+      <div className="w-full max-w-md mt-6">
         {renderRightPanel?.({ files, activeIndex, setActiveIndex, clearFiles })}
       </div>
     </div>

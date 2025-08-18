@@ -64,7 +64,10 @@ export default function RotatePage() {
 
   return (
     <ToolPageWrapper>
-      <ToolTitle icon={<MdRotateRight className="text-3xl" />} label="Rotate" />
+      <ToolTitle
+        icon={<MdRotateRight className="text-3xl" />}
+        label={t.tools.rotate.label}
+      />
       <DropzonePreview
         multiple={false}
         onFilesChange={setFiles}
