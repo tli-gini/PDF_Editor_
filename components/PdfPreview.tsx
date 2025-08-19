@@ -149,8 +149,7 @@ export function PdfPreview({
     else rotateAt(parseInt(angle, 10) as 90 | -90 | 180, targets);
   };
 
-  if (!file)
-    return <div className="text-white/80">Upload a PDF to preview pages</div>;
+  if (!file) return;
   if (mode !== "page")
     return (
       <div className="text-white/80">Grid mode is not implemented yet.</div>
@@ -165,14 +164,14 @@ export function PdfPreview({
         </div>
         <div className="flex items-center gap-2">
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white disabled:opacity-50"
+            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
             onClick={() => canPrev && setCurrent((c) => Math.max(1, c - 1))}
             disabled={!canPrev}
           >
             Prev
           </button>
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white disabled:opacity-50"
+            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
             onClick={() =>
               canNext && setCurrent((c) => Math.min(numPages, c + 1))
             }
@@ -181,21 +180,21 @@ export function PdfPreview({
             Next
           </button>
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white"
+            className="px-2 py-1 text-xs rounded bg-white/80 dark:hover:bg-background hover:bg-white"
             title="Rotate -90"
             onClick={() => rotateAt(-90)}
           >
             ⟲
           </button>
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white"
+            className="px-2 py-1 text-xs rounded bg-white/80 dark:hover:bg-background hover:bg-white"
             title="Rotate +90"
             onClick={() => rotateAt(90)}
           >
             ⟳
           </button>
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white"
+            className="px-2 py-1 text-xs rounded bg-white/80 dark:hover:bg-background hover:bg-white"
             title="Reset"
             onClick={() => rotateAt(0)}
           >

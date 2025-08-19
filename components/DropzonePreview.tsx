@@ -4,6 +4,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useI18n } from "@/lib/i18n-context";
+import { MdOutlineDelete } from "react-icons/md";
 
 export type DropzonePreviewFile = {
   file: File;
@@ -23,11 +24,10 @@ type DropzonePreviewProps = {
   maxSizeMB?: number;
   className?: string;
   onFilesChange?: (files: DropzonePreviewFile[]) => void;
-  /** Render custom right panel per tool (Rotate / Sign / CSV ...) */
+  /** Render custom right panel per tool */
   renderRightPanel?: (args: RightPanelRenderArgs) => React.ReactNode;
   /** Optional: override the “default” label; by default we use i18n */
   dropLabel?: React.ReactNode;
-  /** Optional: override the “Clear” label (i18n can supply this) */
   clearLabel?: React.ReactNode;
 };
 
@@ -114,21 +114,22 @@ export default function DropzonePreview({
                 <div className="flex-1 truncate max-w-[70%] text-primary font-normal text-left">
                   {f.file.name}
                 </div>
-                <span className="text-xs text-secondary">
+                <span className="text-xs text-secondary dark:text-background">
                   {(f.file.size / 1024).toFixed(1)} KB
                 </span>
               </button>
             ))}
 
-            <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center justify-between px-2 py-1 pt-1">
               <div className="text-xs text-secondary dark:text-background">
                 {t.components.dropzone.maxSizeNote}
               </div>
               <button
                 onClick={clearFiles}
-                className="px-2 py-1 text-xs bg-gray-100 rounded hover:bg-gray-200"
+                className="p-1.5  text-primary rounded-md hover:bg-primary hover:text-white"
+                aria-label="Clear"
               >
-                {clearLabel ?? "Clear"}
+                <MdOutlineDelete className="text-base" />
               </button>
             </div>
           </div>
@@ -150,9 +151,9 @@ export default function DropzonePreview({
   ]);
 
   return (
-    <div className={`w-full max-w-md flex flex-col gap-6 ${className || ""}`}>
+    <div className={`w-full max-w-md flex flex-col gap-4 ${className || ""}`}>
       {left}
-      <div className="w-full max-w-md mt-6">
+      <div className="w-full max-w-md">
         {renderRightPanel?.({ files, activeIndex, setActiveIndex, clearFiles })}
       </div>
     </div>
