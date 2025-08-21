@@ -88,7 +88,7 @@ export default function DropzonePreview({
 
   const left = useMemo(() => {
     return (
-      <div className="flex flex-col w-full max-w-md">
+      <div className="flex flex-col w-full max-w-lg">
         <div
           {...getRootProps()}
           className="min-h-56 transition-all duration-200 transform shadow-[0_4px_20px_rgba(255,255,255,0.4)] hover:shadow-[0_6px_24px_rgba(255,255,255,0.6)] hover:scale-[1.02] active:scale-[0.98] rounded-xl border-2 border-dashed border-white p-6 w-full cursor-pointer focus:border-solid focus:border-primary-light focus:dark:border-primary flex items-center justify-center"
@@ -151,9 +151,9 @@ export default function DropzonePreview({
   ]);
 
   return (
-    <div className={`w-full max-w-md flex flex-col gap-4 ${className || ""}`}>
+    <div className={`w-full max-w-lg flex flex-col gap-4 ${className || ""}`}>
       {left}
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-lg">
         {renderRightPanel?.({ files, activeIndex, setActiveIndex, clearFiles })}
       </div>
     </div>

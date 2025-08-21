@@ -16,7 +16,7 @@ export default function InfoToggle({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-full max-w-md text-left">
+    <div className="w-full max-w-lg text-left">
       <button
         className="flex items-center gap-1 mt-4 text-base font-normal text-primary dark:text-white hover:underline"
         onClick={() => setOpen((prev) => !prev)}

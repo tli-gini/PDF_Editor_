@@ -8,7 +8,7 @@ export default function ToolsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col lg:flex-row max-w-[1200px] mx-auto w-full px-10 pt-32 pb-10 gap-6 lg:gap-0">
+    <section className="flex flex-col lg:flex-row max-w-[1200px] mx-auto w-full px-6 lg:px-10 md:px-16 pt-32 pb-10 gap-6 lg:gap-0">
       {/* Sidebar */}
       <aside className="w-full lg:w-[320px] mb-4 shrink-0">
         <ToolSidebar />

@@ -22,7 +22,7 @@ export default function CheckboxOption<K extends keyof Translation["tools"]>({
   const labelText = t.tools[labelKey][labelPath];
 
   return (
-    <div className="w-full max-w-md mt-6 text-left">
+    <div className="w-full max-w-lg mt-6 text-left">
       <label
         htmlFor={id}
         className="flex items-center gap-2 font-semibold cursor-pointer"

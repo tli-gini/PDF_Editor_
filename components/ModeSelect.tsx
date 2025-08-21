@@ -19,7 +19,7 @@ export default function ModeSelect({
   onChange,
 }: ModeSelectProps) {
   return (
-    <div className="w-full max-w-md mt-6 text-left">
+    <div className="w-full max-w-lg mt-6 text-left">
       <label className="block mb-2 text-base font-semibold text-secondary">
         {label}
       </label>

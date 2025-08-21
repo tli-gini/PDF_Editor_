@@ -203,6 +203,14 @@
       "default": "Click or Drag & Drop",
       "active": "Drop the files here...",
       "maxSizeNote": "Maximum file size: 50.0 MB"
+    },
+    "pdfPreview": {
+      "prev": "Prev",
+      "next": "Next",
+      "reset": "Reset",
+      "pageNumberInputLabel": "Batch rotate pages",
+      "pageNumberInputHint": "(e.g., 1,3,5)",
+      "apply": "Apply"
     }
   },
   "toast": {

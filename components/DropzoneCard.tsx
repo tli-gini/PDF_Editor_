@@ -59,7 +59,7 @@ export default function DropzoneCard({
   });
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-lg">
       <div
         {...getRootProps({ onClick })}
         className="min-h-56 transition-all duration-200 transform shadow-[0_4px_20px_rgba(255,255,255,0.4)] hover:shadow-[0_6px_24px_rgba(255,255,255,0.6)] hover:scale-[1.02] active:scale-[0.98] rounded-xl border-2 border-dashed border-white p-6 w-full cursor-pointer focus:border-solid focus:border-primary-light focus:dark:border-primary flex items-center justify-center"

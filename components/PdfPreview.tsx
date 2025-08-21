@@ -3,6 +3,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
+import { FaArrowRotateLeft, FaArrowRotateRight } from "react-icons/fa6";
+import { useI18n } from "@/lib/i18n-context";
 
 export type PageState = {
   pageNumber: number; // 1-based
@@ -26,6 +28,7 @@ export function PdfPreview({
   setPageState,
   mode = "page",
 }: PdfPreviewProps) {
+  const { t } = useI18n();
   const [numPages, setNumPages] = useState(0);
   const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
 
@@ -156,49 +159,49 @@ export function PdfPreview({
     );
 
   return (
-    <div className="flex flex-col w-full gap-3">
+    <div className="flex flex-col w-full gap-3 pt-4">
       {/* Controls */}
       <div className="flex items-center justify-between">
-        <div className="text-sm text-white/90">
+        <div className="text-base font-semibold text-white/90">
           Page {current} / {numPages}
         </div>
         <div className="flex items-center gap-2">
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
+            className="px-2 py-1 text-sm rounded-md bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
             onClick={() => canPrev && setCurrent((c) => Math.max(1, c - 1))}
             disabled={!canPrev}
           >
-            Prev
+            {t.components.pdfPreview.prev}
           </button>
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
+            className="px-2 py-1 text-sm rounded-md bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
             onClick={() =>
               canNext && setCurrent((c) => Math.min(numPages, c + 1))
             }
             disabled={!canNext}
           >
-            Next
+            {t.components.pdfPreview.next}
           </button>
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 dark:hover:bg-background hover:bg-white"
+            className="px-2 py-1.5 text-base rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
             title="Rotate -90"
             onClick={() => rotateAt(-90)}
           >
-            ⟲
+            <FaArrowRotateLeft />
           </button>
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 dark:hover:bg-background hover:bg-white"
+            className="px-2 py-1.5 text-base rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
             title="Rotate +90"
             onClick={() => rotateAt(90)}
           >
-            ⟳
+            <FaArrowRotateRight />
           </button>
           <button
-            className="px-2 py-1 text-xs rounded bg-white/80 dark:hover:bg-background hover:bg-white"
+            className="px-2 py-1 text-sm rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
             title="Reset"
             onClick={() => rotateAt(0)}
           >
-            Reset
+            {t.components.pdfPreview.reset}
           </button>
         </div>
       </div>
@@ -212,19 +215,24 @@ export function PdfPreview({
       </div>
 
       {/* Batch rotation */}
-      <div className="flex flex-col gap-2 p-2 rounded-md bg-white/80">
-        <div className="text-xs text-black/80">
-          Batch rotate pages (e.g., 1,3,5-7)
+      <div className="flex flex-col gap-2 rounded-md bg-white/80">
+        <div className="flex items-start">
+          <label className="block mt-2 text-base font-semibold text-secondary">
+            Batch rotate pages
+            <span className="ml-2 text-base font-normal whitespace-pre-wrap text-secondary">
+              (e.g., 1,3,5)
+            </span>
+          </label>
         </div>
         <div className="flex items-center gap-2">
           <input
             value={pagesText}
             onChange={(e) => setPagesText(e.target.value)}
-            placeholder="Pages"
-            className="flex-1 px-2 py-1 text-sm border rounded"
+            placeholder="1,3,5"
+            className="flex-1 px-3 py-2 text-sm font-semibold border rounded-md placeholder:text-primary-light border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary"
           />
           <select
-            className="px-2 py-1 text-sm border rounded"
+            className="px-3 py-2 text-sm border rounded-md shadow-inner text-secondary dark:text-background hover:dark:text-secondary border-primary-light focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-primary-light "
             value={angle}
             onChange={(e) => setAngle(e.target.value as Angle)}
           >
@@ -234,10 +242,10 @@ export function PdfPreview({
             <option value="reset">Reset</option>
           </select>
           <button
-            className="px-2 py-1 text-xs text-white bg-black rounded"
+            className="px-2 py-2 text-sm text-center text-white rounded-md hover:bg-primary bg-secondary dark:bg-background hover:dark:bg-primary"
             onClick={applyBatch}
           >
-            Apply
+            {t.components.pdfPreview.apply}
           </button>
         </div>
       </div>

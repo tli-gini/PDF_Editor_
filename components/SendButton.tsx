@@ -7,7 +7,7 @@ interface SendButtonProps {
 
 export default function SendButton({ onClick, loading }: SendButtonProps) {
   return (
-    <div className="flex justify-end w-full max-w-md mt-8 mb-2">
+    <div className="flex justify-end w-full max-w-lg mt-8 mb-2">
       {loading ? (
         <button
           className="px-5 pt-2 pb-2 text-white bg-gray-400 cursor-not-allowed rounded-2xl"
