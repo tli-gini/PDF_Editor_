@@ -128,23 +128,59 @@ export function PdfPreview({
   // batch rotation input (e.g., 1,3,5-7)
   const [pagesText, setPagesText] = useState("");
   const [angle, setAngle] = useState<Angle>("90");
+
+  // Robust page parser supporting: commas/spaces, ranges (a-b), open ranges (-b, a-), and all/*
   const parsePages = (text: string): number[] => {
     const out: number[] = [];
-    text.split(/[,\\s]+/).forEach((tok) => {
-      if (!tok) return;
-      const m = tok.match(/^(\\d+)-(\\d+)$/);
-      if (m) {
-        const a = parseInt(m[1], 10);
-        const b = parseInt(m[2], 10);
-        const [s, e] = a <= b ? [a, b] : [b, a];
-        for (let i = s; i <= e; i++) out.push(i);
-      } else {
-        const n = parseInt(tok, 10);
-        if (!Number.isNaN(n)) out.push(n);
+    const N = numPages || 0;
+    if (N === 0) return out;
+
+    const tokens = text
+      .split(/[\,\s]+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    for (const tok of tokens) {
+      if (tok === "*" || /^all$/i.test(tok)) {
+        for (let i = 1; i <= N; i++) out.push(i);
+        continue;
       }
-    });
-    return Array.from(new Set(out));
+      let m: RegExpMatchArray | null;
+
+      // a-b (inclusive)
+      if ((m = tok.match(/^(\d+)-(\d+)$/))) {
+        let a = parseInt(m[1], 10);
+        let b = parseInt(m[2], 10);
+        if (a > b) [a, b] = [b, a];
+        a = Math.max(1, a);
+        b = Math.min(N, b);
+        for (let i = a; i <= b; i++) out.push(i);
+        continue;
+      }
+
+      // -b  => 1..b
+      if ((m = tok.match(/^-(\d+)$/))) {
+        let b = Math.min(parseInt(m[1], 10), N);
+        for (let i = 1; i <= b; i++) out.push(i);
+        continue;
+      }
+
+      // a-  => a..N
+      if ((m = tok.match(/^(\d+)-$/))) {
+        let a = Math.max(parseInt(m[1], 10), 1);
+        for (let i = a; i <= N; i++) out.push(i);
+        continue;
+      }
+
+      // single number
+      const n = parseInt(tok, 10);
+      if (!Number.isNaN(n) && n >= 1 && n <= N) out.push(n);
+    }
+
+    // unique + sort
+    return Array.from(new Set(out)).sort((a, b) => a - b);
   };
+
   const applyBatch = () => {
     const targets = parsePages(pagesText);
     if (!targets.length) return;
@@ -152,7 +188,7 @@ export function PdfPreview({
     else rotateAt(parseInt(angle, 10) as 90 | -90 | 180, targets);
   };
 
-  if (!file) return;
+  if (!file) return null;
   if (mode !== "page")
     return (
       <div className="text-white/80">Grid mode is not implemented yet.</div>
@@ -220,7 +256,7 @@ export function PdfPreview({
           <label className="block mt-2 text-base font-semibold text-secondary">
             Batch rotate pages
             <span className="ml-2 text-base font-normal whitespace-pre-wrap text-secondary">
-              (e.g., 1,3,5)
+              (e.g., 1,3,5-7)
             </span>
           </label>
         </div>
@@ -228,7 +264,7 @@ export function PdfPreview({
           <input
             value={pagesText}
             onChange={(e) => setPagesText(e.target.value)}
-            placeholder="1,3,5"
+            placeholder="1,3,5-7"
             className="flex-1 px-3 py-2 text-sm font-semibold border rounded-md placeholder:text-primary-light border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary"
           />
           <select
