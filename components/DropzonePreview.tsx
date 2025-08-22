@@ -144,6 +144,7 @@ export default function DropzonePreview({
     activeIndex,
     clearFiles,
     dropLabel,
+    clearLabel,
     t.components.dropzone.active,
     t.components.dropzone.default,
     t.components.dropzone.maxSizeNote,
