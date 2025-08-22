@@ -160,18 +160,17 @@ export function PdfPreview({
 
       // -b  => 1..b
       if ((m = tok.match(/^-(\d+)$/))) {
-        let b = Math.min(parseInt(m[1], 10), N);
+        const b = Math.min(parseInt(m[1], 10), N);
         for (let i = 1; i <= b; i++) out.push(i);
         continue;
       }
 
       // a-  => a..N
       if ((m = tok.match(/^(\d+)-$/))) {
-        let a = Math.max(parseInt(m[1], 10), 1);
+        const a = Math.max(parseInt(m[1], 10), 1);
         for (let i = a; i <= N; i++) out.push(i);
         continue;
       }
-
       // single number
       const n = parseInt(tok, 10);
       if (!Number.isNaN(n) && n >= 1 && n <= N) out.push(n);
