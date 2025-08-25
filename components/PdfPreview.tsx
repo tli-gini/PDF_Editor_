@@ -253,9 +253,9 @@ export function PdfPreview({
       <div className="flex flex-col gap-2 rounded-md bg-white/80">
         <div className="flex items-start">
           <label className="block mt-2 text-base font-semibold text-secondary">
-            Batch rotate pages
+            {t.tools.rotate.inputLabel}
             <span className="ml-2 text-base font-normal whitespace-pre-wrap text-secondary">
-              (e.g., 1,3,5-7)
+              {t.tools.rotate.inputHint}
             </span>
           </label>
         </div>
@@ -274,7 +274,7 @@ export function PdfPreview({
             <option value="90">+90°</option>
             <option value="-90">-90°</option>
             <option value="180">180°</option>
-            <option value="reset">Reset</option>
+            <option value="reset"> {t.components.pdfPreview.reset}</option>
           </select>
           <button
             className="px-2 py-2 text-sm text-center text-white rounded-md hover:bg-primary bg-secondary dark:bg-background hover:dark:bg-primary"
