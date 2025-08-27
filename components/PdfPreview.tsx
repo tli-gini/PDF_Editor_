@@ -36,15 +36,19 @@ export function PdfPreview({
   const [current, setCurrent] = useState(1);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [isRendering, setIsRendering] = useState(false);
+  const [isApplying, setIsApplying] = useState(false);
 
   // Load PDF (dynamically import pdfjs and point workerSrc to the .mjs worker)
   useEffect(() => {
     let cancelled = false;
     async function load() {
+      setIsRendering(true);
       if (!file) {
         setPdfDoc(null);
         setNumPages(0);
         setCurrent(1);
+        setIsRendering(false);
         return;
       }
       const pdfjs = (await import("pdfjs-dist")) as typeof import("pdfjs-dist");
@@ -102,9 +106,17 @@ export function PdfPreview({
       canvas.width = viewport.width;
       canvas.height = viewport.height;
       await page.render({ canvasContext: ctx, canvas, viewport }).promise;
+      setIsRendering(false);
     }
     render();
   }, [pdfDoc, current, currentRotation, mode]);
+
+  // After an Apply click, automatically restore the button once rendering completes
+  useEffect(() => {
+    if (isApplying && !isRendering) {
+      setIsApplying(false);
+    }
+  }, [isApplying, isRendering]);
 
   const canPrev = current > 1;
   const canNext = current < numPages;
@@ -183,6 +195,7 @@ export function PdfPreview({
   const applyBatch = () => {
     const targets = parsePages(pagesText);
     if (!targets.length) return;
+    setIsApplying(true);
     if (angle === "reset") rotateAt(0, targets);
     else rotateAt(parseInt(angle, 10) as 90 | -90 | 180, targets);
   };
@@ -277,8 +290,11 @@ export function PdfPreview({
             <option value="reset"> {t.components.pdfPreview.reset}</option>
           </select>
           <button
-            className="px-2 py-2 text-sm text-center text-white rounded-md hover:bg-primary bg-secondary dark:bg-background hover:dark:bg-primary"
+            className={`px-2 py-2 text-sm text-center text-white rounded-md hover:bg-primary bg-secondary dark:bg-background hover:dark:bg-primary ${
+              isApplying ? "opacity-50 pointer-events-none" : ""
+            }`}
             onClick={applyBatch}
+            disabled={isApplying}
           >
             {t.components.pdfPreview.apply}
           </button>
