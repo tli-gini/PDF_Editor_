@@ -2,7 +2,10 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import type { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
+import type {
+  PDFDocumentProxy,
+  PDFPageProxy,
+} from "pdfjs-dist/types/src/display/api";
 import { FaArrowRotateLeft, FaArrowRotateRight } from "react-icons/fa6";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -98,7 +101,7 @@ export function PdfPreview({
 
       // pdf.js: `rotation` replaces, not adds, the intrinsic page rotation.
       // Combine intrinsic page rotate with UI rotation.
-      const intrinsic = (page as any).rotate || 0; // 0/90/180/270 from the PDF
+      const intrinsic = (page as PDFPageProxy).rotate ?? 0; // 0/90/180/270
       const combined = (((intrinsic + currentRotation) % 360) + 360) % 360;
 
       const bbox = containerRef.current.clientWidth || 600;
