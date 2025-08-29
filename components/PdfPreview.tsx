@@ -9,6 +9,25 @@ import type {
 import { FaArrowRotateLeft, FaArrowRotateRight } from "react-icons/fa6";
 import { useI18n } from "@/lib/i18n-context";
 
+/** --- ADD: detect Windows for a targeted canvas workaround --- */
+const IS_WIN =
+  typeof navigator !== "undefined" && /Windows/i.test(navigator.userAgent);
+
+/** --- ADD: tiny redraw helper to force a fresh paint path on buggy GPU/driver combos --- */
+const forceCanvasRedraw = (
+  canvas: HTMLCanvasElement,
+  ctx: CanvasRenderingContext2D
+) => {
+  try {
+    const prev = ctx.globalCompositeOperation;
+    ctx.globalCompositeOperation = "copy";
+    ctx.drawImage(canvas, 0, 0);
+    ctx.globalCompositeOperation = prev;
+  } catch {
+    /* no-op */
+  }
+};
+
 export type PageState = {
   pageNumber: number; // 1-based
   selected: boolean;
@@ -111,10 +130,29 @@ export function PdfPreview({
 
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
-      if (!ctx) return;
+      if (!ctx) {
+        setIsRendering(false);
+        return;
+      }
+
+      /** --- ADD: defensively reset transforms before drawing (prevents stale transforms) --- */
+      if (typeof ctx.setTransform === "function")
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      canvas.style.transform = "none";
+      canvas.style.willChange = "auto";
+
       canvas.width = viewport.width;
       canvas.height = viewport.height;
+
       await page.render({ canvasContext: ctx, canvas, viewport }).promise;
+
+      /** --- ADD: Windows-only workaround for first-paint mirroring/glitches --- */
+      if (IS_WIN) {
+        // Ensure we redraw on the next frame; some drivers fix up after a RAF.
+        await new Promise<void>((r) => requestAnimationFrame(() => r()));
+        forceCanvasRedraw(canvas, ctx);
+      }
+
       setIsRendering(false);
     }
     render();
