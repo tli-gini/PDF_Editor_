@@ -65,18 +65,16 @@ export function PdfPreview({
       setPdfDoc(pdf);
       setNumPages(pdf.numPages);
 
-      // Initialize pageState if needed
-      if (pageState.length !== pdf.numPages) {
-        const init: PageState[] = Array.from(
-          { length: pdf.numPages },
-          (_, i) => ({
-            pageNumber: i + 1,
-            selected: false,
-            rotation: 0 as const,
-          })
-        );
-        setPageState(init);
-      }
+      // Always reset pageState on new file so UI rotations don't carry over
+      const init: PageState[] = Array.from(
+        { length: pdf.numPages },
+        (_, i) => ({
+          pageNumber: i + 1,
+          selected: false,
+          rotation: 0 as const, // UI extra-rotation starts from 0
+        })
+      );
+      setPageState(init);
       setCurrent(1);
     }
     load();
@@ -91,14 +89,22 @@ export function PdfPreview({
   useEffect(() => {
     if (mode !== "page") return;
     async function render() {
-      if (!pdfDoc || !canvasRef.current || !containerRef.current) return;
+      setIsRendering(true);
+      if (!pdfDoc || !canvasRef.current || !containerRef.current) {
+        setIsRendering(false);
+        return;
+      }
       const page = await pdfDoc.getPage(current);
 
-      const bbox = containerRef.current.clientWidth || 600;
-      const base = page.getViewport({ scale: 1 });
-      const scale = Math.max(0.1, Math.min(2, bbox / base.width));
+      // pdf.js: `rotation` replaces, not adds, the intrinsic page rotation.
+      // Combine intrinsic page rotate with UI rotation.
+      const intrinsic = (page as any).rotate || 0; // 0/90/180/270 from the PDF
+      const combined = (((intrinsic + currentRotation) % 360) + 360) % 360;
 
-      const viewport = page.getViewport({ scale, rotation: currentRotation });
+      const bbox = containerRef.current.clientWidth || 600;
+      const base = page.getViewport({ scale: 1, rotation: combined });
+      const scale = Math.max(0.1, Math.min(2, bbox / base.width));
+      const viewport = page.getViewport({ scale, rotation: combined });
 
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
