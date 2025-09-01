@@ -9,11 +9,11 @@ import type {
 import { FaArrowRotateLeft, FaArrowRotateRight } from "react-icons/fa6";
 import { useI18n } from "@/lib/i18n-context";
 
-/** --- ADD: detect Windows for a targeted canvas workaround --- */
+/** --- Windows detection for targeted canvas workaround --- */
 const IS_WIN =
   typeof navigator !== "undefined" && /Windows/i.test(navigator.userAgent);
 
-/** --- ADD: tiny redraw helper to force a fresh paint path on buggy GPU/driver combos --- */
+/** --- Tiny redraw helper to force a fresh paint path on buggy GPU/driver combos --- */
 const forceCanvasRedraw = (
   canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D
@@ -128,30 +128,54 @@ export function PdfPreview({
       const scale = Math.max(0.1, Math.min(2, bbox / base.width));
       const viewport = page.getViewport({ scale, rotation: combined });
 
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
+      // ---------- Solution: render to an offscreen canvas, then copy to visible canvas ----------
+      const off = document.createElement("canvas");
+      off.width = viewport.width;
+      off.height = viewport.height;
+      const offCtx = off.getContext("2d", {
+        alpha: false,
+        willReadFrequently: true,
+      } as CanvasRenderingContext2DSettings);
+      if (!offCtx) {
         setIsRendering(false);
         return;
       }
 
-      /** --- ADD: defensively reset transforms before drawing (prevents stale transforms) --- */
-      if (typeof ctx.setTransform === "function")
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      await page.render({ canvasContext: offCtx, canvas: off, viewport })
+        .promise;
+
+      // Windows first-frame safety: wait a frame or two so GPU/staging is ready
+      if (IS_WIN) {
+        await new Promise<void>((r) => requestAnimationFrame(() => r()));
+        await new Promise<void>((r) => requestAnimationFrame(() => r()));
+      }
+
+      // Copy to the visible canvas
+      const canvas = canvasRef.current;
+      const visCtx = canvas.getContext("2d", {
+        alpha: false,
+      }) as CanvasRenderingContext2D | null;
+      if (!visCtx) {
+        setIsRendering(false);
+        return;
+      }
+
+      // Defensively reset any transform/state before compositing
+      if (typeof visCtx.setTransform === "function")
+        visCtx.setTransform(1, 0, 0, 1, 0, 0);
       canvas.style.transform = "none";
       canvas.style.willChange = "auto";
 
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
+      canvas.width = off.width;
+      canvas.height = off.height;
+      visCtx.clearRect(0, 0, canvas.width, canvas.height);
+      visCtx.drawImage(off, 0, 0);
 
-      await page.render({ canvasContext: ctx, canvas, viewport }).promise;
+      // Additional Windows-only nudge to defeat mirroring artifacts
+      if (IS_WIN) forceCanvasRedraw(canvas, visCtx);
 
-      /** --- ADD: Windows-only workaround for first-paint mirroring/glitches --- */
-      if (IS_WIN) {
-        // Ensure we redraw on the next frame; some drivers fix up after a RAF.
-        await new Promise<void>((r) => requestAnimationFrame(() => r()));
-        forceCanvasRedraw(canvas, ctx);
-      }
+      // Release offscreen resources
+      off.width = off.height = 0;
 
       setIsRendering(false);
     }
