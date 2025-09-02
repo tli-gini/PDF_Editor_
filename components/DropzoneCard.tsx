@@ -83,7 +83,7 @@ export default function DropzoneCard({
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-secondary dark:text-background">
-                  {(file.size / 1024).toFixed(1)} KB
+                  {(file.size / (1024 * 1024)).toFixed(2)} MB
                 </span>
                 <button
                   onClick={() => removeFile(index)}

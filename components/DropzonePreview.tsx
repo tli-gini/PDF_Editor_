@@ -115,7 +115,7 @@ export default function DropzonePreview({
                   {f.file.name}
                 </div>
                 <span className="text-xs text-secondary dark:text-background">
-                  {(f.file.size / 1024).toFixed(1)} KB
+                  {(f.file.size / (1024 * 1024)).toFixed(2)} MB
                 </span>
               </button>
             ))}

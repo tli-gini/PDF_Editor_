@@ -79,7 +79,7 @@
       "description": "Reduce the file size of your PDF.",
       "inputLabel": "",
       "inputHint": "",
-      "info": "Reduce the file size of your PDF.\nThe level of optimization to apply to the PDF file.  \nHigher values indicate greater compression but may reduce quality. \n\n1-3 PDF compression;\n4-6 lite image compression;\n7-9 intense image compression Will dramatically reduce image quality.",
+      "info": "Reduce the file size of your PDF.\nThe level of optimization to apply to the PDF file.  \nHigher values indicate greater compression but may reduce quality. \n\n1-3 PDF compression;\n4-6 lite image compression;\n7-9 intense image compression will dramatically reduce image quality.",
       "modeLabel": "Optimization Level",
       "modes": {
         "one": "1",
