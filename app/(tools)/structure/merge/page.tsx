@@ -63,13 +63,13 @@ export default function Merge() {
 
       <DropzoneSortable onFilesChange={setFiles} />
 
-      <CheckboxOption
+      {/* <CheckboxOption
         id="remove-signature"
         checked={removeSignature}
         onChange={setRemoveSignature}
         labelKey="merge"
         labelPath="checkboxLabel"
-      />
+      /> */}
 
       <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
         {t.tools.merge.description}
