@@ -7,7 +7,7 @@ import ToolTitle from "@/components/ToolTitle";
 import SendButton from "@/components/SendButton";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import DropzoneSortable from "@/components/DropzoneSortable";
-import CheckboxOption from "@/components/CheckboxOption";
+// import CheckboxOption from "@/components/CheckboxOption";
 import InfoToggle from "@/components/InfoToggle";
 import { AiOutlineMergeCells } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 export default function Merge() {
   const { t } = useI18n();
   const [files, setFiles] = useState<File[]>([]);
-  const [removeSignature, setRemoveSignature] = useState(false);
+  // const [removeSignature, setRemoveSignature] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
@@ -29,7 +29,7 @@ export default function Merge() {
     try {
       const formData = new FormData();
       files.forEach((file) => formData.append("files", file));
-      formData.append("removeSignature", String(removeSignature));
+      // formData.append("removeSignature", String(removeSignature));
 
       const res = await fetch("/api/merge-pages", {
         method: "POST",
