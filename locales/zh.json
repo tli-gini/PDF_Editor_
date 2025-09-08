@@ -221,7 +221,9 @@
     "missingPage": "請輸入指定頁面。",
     "missingFileAndPage": "請選擇檔案並輸入指定頁面。",
     "previewNotReady": "預覽待處理。",
-    "noChanges": "沒有變更可套用。"
+    "noChanges": "沒有變更可套用。",
+    "serverBusy502": "伺服器忙碌，稍後重試。",
+    "recovered": "伺服器已恢復，開始下載。"
   },
   "misc": {
     "showInfo": "提示",
