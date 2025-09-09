@@ -35,7 +35,7 @@ _(Visual reference and layout blueprint for implementation)_
 ### 1. Clone and Install
 
 ```bash
-git clone https://github.com/yourname/pdf-editor.git
+git clone https://github.com/tli-gini/PDF_Editor_.git
 cd pdf-editor
 npm install
 ```
@@ -51,8 +51,8 @@ npm run dev
 Create a `.env.local` file:
 
 ```env
-# Example for demo (public Fly.io deployment)
-NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
+
+NEXT_PUBLIC_API_URL=https://xxx.xxx.xxx
 
 ```
 
@@ -92,7 +92,7 @@ CMD ["npm", "start"]
 
 ```env
 # Public API URL for Stirling PDF server
-NEXT_PUBLIC_PDF_API_URL=https://stirling-pdf-yourname.fly.dev
+NEXT_PUBLIC_API_URL=https://xxx.xxx.xxx
 ```
 
 ## 🧩 Integration
