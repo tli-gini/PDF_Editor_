@@ -14,7 +14,8 @@ export async function POST(req: NextRequest) {
   if (!new Set(["pptx", "ppt", "odp"]).has(fmt))
     return NextResponse.json({ error: "Invalid format" }, { status: 400 });
 
-  const base = process.env.NEXT_PUBLIC_API_URL;
+  const base =
+    process.env.NEXT_INNER_API_URL || process.env.NEXT_PUBLIC_API_URL;
   if (!base)
     return NextResponse.json({ error: "BASE URL not set" }, { status: 500 });
 
