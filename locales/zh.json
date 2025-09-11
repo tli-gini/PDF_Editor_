@@ -223,7 +223,13 @@
     "previewNotReady": "預覽待處理。",
     "noChanges": "沒有變更可套用。",
     "serverBusy502": "伺服器忙碌，稍後重試。",
-    "recovered": "伺服器已恢復，開始下載。"
+    "recovered": "伺服器已恢復，開始下載。",
+    "pending": "正在轉檔…",
+    "payloadTooLarge": "此部署的請求大小受限（HTTP 413）。",
+    "serverUnavailable": "伺服器資源不足。",
+    "serverUnavailableWithCode": "伺服器資源不足（HTTP {code}）。",
+    "cloudHint": "雲端轉檔伺服器資源不足；嘗試於公司內網本機執行應可正常。",
+    "networkTimeout": "連線逾時，請再試一次。"
   },
   "misc": {
     "showInfo": "提示",

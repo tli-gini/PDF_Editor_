@@ -222,7 +222,13 @@
     "previewNotReady": "Preview not ready yet.",
     "noChanges": "No changes to apply.",
     "serverBusy502": "Server is busy. Retrying...",
-    "recovered": "Server recovered. Downloading..."
+    "recovered": "Server recovered. Downloading...",
+    "pending": "Converting…",
+    "payloadTooLarge": "Request payload is too large for this deployment.",
+    "serverUnavailable": "Server unavailable or over capacity.",
+    "serverUnavailableWithCode": "Server unavailable or over capacity (HTTP {code}).",
+    "cloudHint": "If this is the cloud demo, the conversion server may be under-provisioned. Running locally against the intranet server should work.",
+    "networkTimeout": "Network timeout. Please try again."
   },
   "misc": {
     "showInfo": "Info",
