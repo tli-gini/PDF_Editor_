@@ -10,12 +10,28 @@ import { LuCodeXml } from "react-icons/lu";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+type ToastI18n = {
+  toast?: {
+    serverUnavailableWithCode?: string;
+    cloudHint?: string;
+    payloadTooLarge?: string;
+    networkTimeout?: string;
+    fail?: string;
+    success?: string;
+    pending?: string;
+    missingFile?: string;
+  };
+};
+
 // Identify if this runs on the cloud demo domain
 const isCloudDemo =
   typeof window !== "undefined" && /\.vercel\.app$/.test(location.host);
 
 // Turn HTTP response into a reviewer-friendly toast message
-async function humanizeServerError(res: Response, t: any) {
+async function humanizeServerError(
+  res: Response,
+  t: ToastI18n
+): Promise<string> {
   const ct = res.headers.get("content-type") || "";
   let detail = "";
   try {

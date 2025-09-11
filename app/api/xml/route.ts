@@ -70,9 +70,10 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ error: "Upstream 400" }, { status: 400 });
-  } catch (e: any) {
+  } catch (e: unknown) {
+    const detail = e instanceof Error ? e.message : String(e);
     return NextResponse.json(
-      { error: "Proxy failed", detail: String(e?.message ?? e) },
+      { error: "Proxy failed", detail },
       { status: 502 }
     );
   }
