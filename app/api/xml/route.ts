@@ -6,9 +6,13 @@ export const dynamic = "force-dynamic";
 function contentDispositionUTF8(originalPdfName: string, ext: string) {
   const base = originalPdfName.replace(/\.pdf$/i, "");
   const finalName = `${base}.${ext}`;
-  const asciiFallback = finalName.replace(/[^\x20-\x7E]/g, "_"); // 非 ASCII → _
-  const encoded = encodeURIComponent(finalName); // RFC 5987
+  const asciiFallback = finalName.replace(/[^\x20-\x7E]/g, "_");
+  const encoded = encodeURIComponent(finalName);
   return `attachment; filename="${asciiFallback}"; filename*=UTF-8''${encoded}`;
+}
+
+export async function GET() {
+  return NextResponse.json({ ok: true, route: "/api/xml" });
 }
 
 export async function POST(req: NextRequest) {
@@ -16,41 +20,60 @@ export async function POST(req: NextRequest) {
   const file = form.get("file") as File | null;
   if (!file)
     return NextResponse.json({ error: "Missing file" }, { status: 400 });
+  if (file.size > 50 * 1024 * 1024)
+    return NextResponse.json({ error: "File too large" }, { status: 413 });
 
+  const isVercel = !!process.env.VERCEL;
   const base =
-    process.env.NEXT_INNER_API_URL || process.env.NEXT_PUBLIC_API_URL;
+    process.env.STIRLING_BASE_URL ??
+    (isVercel
+      ? process.env.NEXT_PUBLIC_API_URL
+      : process.env.NEXT_INNER_API_URL ?? process.env.NEXT_PUBLIC_API_URL);
   if (!base)
     return NextResponse.json({ error: "BASE URL not set" }, { status: 500 });
 
-  for (const out of ["Xml", "xml"]) {
-    const fd = new FormData();
-    fd.append("fileInput", file, file.name);
-    fd.append("outputFormat", out);
+  try {
+    for (const out of ["Xml", "xml"]) {
+      const fd = new FormData();
+      fd.append("fileInput", file, file.name);
+      fd.append("outputFormat", out);
 
-    const r = await fetch(`${base}/api/v1/convert/pdf/xml`, {
-      method: "POST",
-      body: fd,
-      headers: { Accept: "application/octet-stream" },
-      cache: "no-store",
-    });
-
-    if (r.ok) {
-      const buf = Buffer.from(await r.arrayBuffer());
-      return new NextResponse(buf, {
-        headers: {
-          "Content-Type": "application/xml",
-          "Content-Disposition": contentDispositionUTF8(file.name, "xml"),
-          "Cache-Control": "no-store",
-        },
+      const r = await fetch(`${base}/api/v1/convert/pdf/xml`, {
+        method: "POST",
+        body: fd,
+        headers: { Accept: "application/octet-stream" },
+        cache: "no-store",
       });
-    }
-    if (r.status !== 400) {
+
+      if (r.ok) {
+        // Stream the upstream body back to the client (avoid arrayBuffer memory spike)
+        return new NextResponse(r.body, {
+          headers: {
+            "Content-Type": "application/xml",
+            "Content-Disposition": contentDispositionUTF8(file.name, "xml"),
+            "Cache-Control": "no-store",
+          },
+        });
+      }
+
       const detail = await r.text().catch(() => "");
-      return NextResponse.json(
-        { error: `Upstream ${r.status}`, detail },
-        { status: r.status }
-      );
+      if (r.status !== 400) {
+        return new NextResponse(
+          JSON.stringify({ error: `Upstream ${r.status}`, detail }),
+          {
+            status: r.status,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+      // 400 → try the other casing
     }
+
+    return NextResponse.json({ error: "Upstream 400" }, { status: 400 });
+  } catch (e: any) {
+    return NextResponse.json(
+      { error: "Proxy failed", detail: String(e?.message ?? e) },
+      { status: 502 }
+    );
   }
-  return NextResponse.json({ error: "Upstream 400" }, { status: 400 });
 }
