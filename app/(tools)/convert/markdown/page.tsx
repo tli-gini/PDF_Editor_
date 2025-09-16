@@ -1,5 +1,4 @@
 // app/(tools)/convert/markdown/page.tsx
-
 "use client";
 import { useI18n } from "@/lib/i18n-context";
 import DropzoneCard from "@/components/DropzoneCard";
@@ -23,6 +22,8 @@ type ToastI18n = {
   };
 };
 
+type UpstreamError = { error?: unknown; detail?: unknown };
+
 const isCloudDemo =
   typeof window !== "undefined" && /\.vercel\.app$/.test(location.host);
 
@@ -32,10 +33,15 @@ async function humanizeServerError(
 ): Promise<string> {
   const ct = res.headers.get("content-type") || "";
   let detail = "";
+
   try {
     if (ct.includes("application/json")) {
-      const data = await res.json();
-      detail = String((data as any)?.detail || (data as any)?.error || "");
+      const data = (await res.json()) as unknown;
+      if (data && typeof data === "object") {
+        const j = data as UpstreamError;
+        if (typeof j.detail === "string") detail = j.detail;
+        else if (typeof j.error === "string") detail = j.error;
+      }
     } else {
       detail = (await res.text()) || "";
     }
@@ -88,7 +94,11 @@ export default function ConvertMd() {
         method: "POST",
         body: formData,
       });
-      if (!res.ok) throw new Error(await humanizeServerError(res, t as any));
+
+      if (!res.ok) {
+        const msg = await humanizeServerError(res, { toast: t.toast });
+        throw new Error(msg);
+      }
 
       const blob = await res.blob();
       const a = document.createElement("a");
