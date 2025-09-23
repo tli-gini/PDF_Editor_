@@ -18,18 +18,13 @@ export async function POST(req: NextRequest) {
   if (!file)
     return NextResponse.json({ error: "Missing file" }, { status: 400 });
 
-  const isVercel = !!process.env.VERCEL;
   const base =
-    process.env.STIRLING_BASE_URL ??
-    (isVercel
-      ? process.env.NEXT_PUBLIC_API_URL
-      : process.env.NEXT_INNER_API_URL ?? process.env.NEXT_PUBLIC_API_URL);
+    process.env.NEXT_INNER_API_URL || process.env.NEXT_PUBLIC_API_URL;
   if (!base)
     return NextResponse.json({ error: "BASE URL not set" }, { status: 500 });
 
   const fd = new FormData();
-  fd.append("fileInput", file, file.name); // 不需要 outputFormat
-
+  fd.append("fileInput", file, file.name);
   const r = await fetch(`${base}/api/v1/convert/pdf/markdown`, {
     method: "POST",
     body: fd,
