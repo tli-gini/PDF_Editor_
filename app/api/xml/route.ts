@@ -23,12 +23,8 @@ export async function POST(req: NextRequest) {
   if (file.size > 50 * 1024 * 1024)
     return NextResponse.json({ error: "File too large" }, { status: 413 });
 
-  const isVercel = !!process.env.VERCEL;
   const base =
-    process.env.STIRLING_BASE_URL ??
-    (isVercel
-      ? process.env.NEXT_PUBLIC_API_URL
-      : process.env.NEXT_INNER_API_URL ?? process.env.NEXT_PUBLIC_API_URL);
+    process.env.NEXT_INNER_API_URL || process.env.NEXT_PUBLIC_API_URL;
   if (!base)
     return NextResponse.json({ error: "BASE URL not set" }, { status: 500 });
 
