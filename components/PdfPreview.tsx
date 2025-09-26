@@ -9,11 +9,11 @@ import type {
 import { FaArrowRotateLeft, FaArrowRotateRight } from "react-icons/fa6";
 import { useI18n } from "@/lib/i18n-context";
 
-/** --- Windows detection for targeted canvas workaround --- */
+/** Windows detection for targeted canvas workaround */
 const IS_WIN =
   typeof navigator !== "undefined" && /Windows/i.test(navigator.userAgent);
 
-/** --- Tiny redraw helper to force a fresh paint path on buggy GPU/driver combos --- */
+/** Tiny redraw helper to force a fresh paint path on buggy GPU/driver combos */
 const forceCanvasRedraw = (
   canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D
@@ -28,8 +28,8 @@ const forceCanvasRedraw = (
   }
 };
 
-/* Feature flags to reuse PdfPreview for both Rotate and CSV */
-type PdfPreviewFeatures = {
+// ---- Feature flags to reuse PdfPreview for both Rotate and CSV ----
+export type PdfPreviewFeatures = {
   rotateControls?: boolean; // show single-page rotate buttons
   batchControls?: boolean; // show batch-rotate toolbar
   selectionControls?: boolean; // show per-page selection toggle
@@ -45,8 +45,7 @@ type PdfPreviewProps = {
   file: File | null;
   pageState: PageState[];
   setPageState: (next: PageState[]) => void;
-  // Reserved: future toggle for a thumbnail grid; for now we implement "page" mode only
-  mode?: "page" | "grid";
+  mode?: "page" | "grid"; // reserved; only "page" is implemented
   current: number;
   setCurrent: (n: number) => void;
   features?: PdfPreviewFeatures;
@@ -61,8 +60,7 @@ export default function PdfPreview(props: PdfPreviewProps) {
     setPageState,
     current,
     setCurrent,
-    mode = "page",
-    /* default flags keep Rotate page unchanged */
+    mode = "page", // default 'page' so TS knows it's defined
     features = {
       rotateControls: true,
       batchControls: true,
@@ -70,55 +68,6 @@ export default function PdfPreview(props: PdfPreviewProps) {
     },
   } = props;
 
-  const totalPages =
-    pageState.length || 0; /* assume you already compute this */
-
-  /* toggle selection of current page */
-  const toggleSelectCurrent = () => {
-    if (!totalPages) return;
-    const idx = Math.max(0, Math.min(current - 1, totalPages - 1));
-    const next = [...pageState];
-    const cur = next[idx] || {
-      pageNumber: idx + 1,
-      rotation: 0,
-      selected: false,
-    };
-    next[idx] = { ...cur, selected: !cur.selected };
-    setPageState(next);
-  };
-  /* guard next/prev with disabled states as you already do */
-  const prev = () => setCurrent(Math.max(1, current - 1));
-  const next = () => setCurrent(Math.min(totalPages, current + 1));
-
-  /* rotate current page helpers (existing in your component) */
-  const rotate = (delta: number) => {
-    const idx = Math.max(0, Math.min(current - 1, totalPages - 1));
-    const nextState = [...pageState];
-    const entry = nextState[idx] || { pageNumber: idx + 1, rotation: 0 };
-    nextState[idx] = {
-      ...entry,
-      rotation: ((entry.rotation || 0) + delta + 360) % 360,
-    };
-    setPageState(nextState);
-  };
-  const resetRotation = () => {
-    const idx = Math.max(0, Math.min(current - 1, totalPages - 1));
-    const nextState = [...pageState];
-    const entry = nextState[idx] || { pageNumber: idx + 1, rotation: 0 };
-    nextState[idx] = { ...entry, rotation: 0 };
-    setPageState(nextState);
-  };
-
-  /* batch rotation (only shown if enabled) */
-  const applyBatchRotation = (pages: number[], deg: number) => {
-    const set = new Set(pages);
-    const next = pageState.map((p) =>
-      set.has(p.pageNumber)
-        ? { ...p, rotation: ((p.rotation || 0) + deg + 360) % 360 }
-        : p
-    );
-    setPageState(next);
-  };
   const { t } = useI18n();
   const [numPages, setNumPages] = useState(0);
   const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
@@ -127,7 +76,6 @@ export default function PdfPreview(props: PdfPreviewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isRendering, setIsRendering] = useState(false);
-  const [isApplying, setIsApplying] = useState(false);
 
   // Load PDF (dynamically import pdfjs and point workerSrc to the .mjs worker)
   useEffect(() => {
@@ -155,13 +103,13 @@ export default function PdfPreview(props: PdfPreviewProps) {
       setPdfDoc(pdf);
       setNumPages(pdf.numPages);
 
-      // Always reset pageState on new file so UI rotations don't carry over
+      // reset UI rotations/selection for the new file
       const init: PageState[] = Array.from(
         { length: pdf.numPages },
         (_, i) => ({
           pageNumber: i + 1,
           selected: false,
-          rotation: 0 as const, // UI extra-rotation starts from 0
+          rotation: 0,
         })
       );
       setPageState(init);
@@ -171,13 +119,13 @@ export default function PdfPreview(props: PdfPreviewProps) {
     return () => {
       cancelled = true;
     };
-    // Include stable deps to satisfy the hook rule
-  }, [file, pageState.length, setPageState, setCurrent]);
+    // include stable deps to satisfy the hook rule
+  }, [file, setPageState, setCurrent]);
 
   // Single-page mode: render the current page (respect per-page rotation)
   const currentRotation = pageState[current - 1]?.rotation ?? 0;
   useEffect(() => {
-    if (mode !== "page") return; // EN: 'mode' now defined via destructuring
+    if (mode !== "page") return;
     async function render() {
       setIsRendering(true);
       if (!pdfDoc || !canvasRef.current || !containerRef.current) {
@@ -196,7 +144,7 @@ export default function PdfPreview(props: PdfPreviewProps) {
       const scale = Math.max(0.1, Math.min(2, bbox / base.width));
       const viewport = page.getViewport({ scale, rotation: combined });
 
-      // ---------- Solution: render to an offscreen canvas, then copy to visible canvas ----------
+      // Render to an offscreen canvas, then copy to visible canvas to avoid mirroring glitches
       const off = document.createElement("canvas");
       off.width = viewport.width;
       off.height = viewport.height;
@@ -212,13 +160,12 @@ export default function PdfPreview(props: PdfPreviewProps) {
       await page.render({ canvasContext: offCtx, canvas: off, viewport })
         .promise;
 
-      // Windows first-frame safety: wait a frame or two so GPU/staging is ready
       if (IS_WIN) {
+        // let GPU settle on Windows
         await new Promise<void>((r) => requestAnimationFrame(() => r()));
         await new Promise<void>((r) => requestAnimationFrame(() => r()));
       }
 
-      // Copy to the visible canvas
       const canvas = canvasRef.current;
       const visCtx = canvas.getContext("2d", {
         alpha: false,
@@ -228,7 +175,6 @@ export default function PdfPreview(props: PdfPreviewProps) {
         return;
       }
 
-      // Defensively reset any transform/state before compositing
       if (typeof visCtx.setTransform === "function")
         visCtx.setTransform(1, 0, 0, 1, 0, 0);
       canvas.style.transform = "none";
@@ -239,27 +185,14 @@ export default function PdfPreview(props: PdfPreviewProps) {
       visCtx.clearRect(0, 0, canvas.width, canvas.height);
       visCtx.drawImage(off, 0, 0);
 
-      // Additional Windows-only nudge to defeat mirroring artifacts
       if (IS_WIN) forceCanvasRedraw(canvas, visCtx);
-
-      // Release offscreen resources
-      off.width = off.height = 0;
-
+      off.width = off.height = 0; // release
       setIsRendering(false);
     }
     render();
   }, [pdfDoc, current, currentRotation, mode]);
 
-  // After an Apply click, automatically restore the button once rendering completes
-  useEffect(() => {
-    if (isApplying && !isRendering) {
-      setIsApplying(false);
-    }
-  }, [isApplying, isRendering]);
-
-  const canPrev = current > 1;
-  const canNext = current < numPages;
-
+  // --- Actions ---
   const rotateAt = (delta: 90 | -90 | 180 | 0, targets?: number[]) => {
     const arr = [...pageState];
     const apply = (idx: number) => {
@@ -276,6 +209,37 @@ export default function PdfPreview(props: PdfPreviewProps) {
     setPageState(arr);
   };
 
+  // selection toggle for CSV use-case
+  const toggleSelectCurrent = () => {
+    const total = pageState.length;
+    if (!total) return;
+    const idx = Math.max(0, Math.min(current - 1, total - 1));
+    const next = [...pageState];
+    const cur = next[idx] || {
+      pageNumber: idx + 1,
+      rotation: 0,
+      selected: false,
+    };
+    next[idx] = { ...cur, selected: !cur.selected };
+    setPageState(next);
+  };
+
+  // ---- Helpers that were used previously but are now handled inline in JSX ----
+  /**
+   * prev / next / rotate / resetRotation / applyBatchRotation were previously
+   * defined as local helpers and called from buttons. We now call the logic
+   * inline (or via `rotateAt`) to keep the surface smaller and satisfy
+   * strict ESLint rules (no-unused-vars). Keeping the old versions here as
+   * commented reference for future refactors.
+   */
+  /*
+  const prev = () => setCurrent(Math.max(1, current - 1));
+  const next = () => setCurrent(Math.min(pageState.length, current + 1));
+  const rotate = (delta: number) => rotateAt(delta as 90 | -90 | 180 | 0);
+  const resetRotation = () => rotateAt(0);
+  const applyBatchRotation = (pages: number[], deg: number) => rotateAt(deg as 90 | -90 | 180 | 0, pages);
+  */
+
   // batch rotation input (e.g., 1,3,5-7)
   const [pagesText, setPagesText] = useState("");
   const [angle, setAngle] = useState<Angle>("90");
@@ -285,56 +249,44 @@ export default function PdfPreview(props: PdfPreviewProps) {
     const out: number[] = [];
     const N = numPages || 0;
     if (N === 0) return out;
-
     const tokens = text
       .split(/[\,\s]+/)
       .map((s) => s.trim())
       .filter(Boolean);
-
     for (const tok of tokens) {
       if (tok === "*" || /^all$/i.test(tok)) {
         for (let i = 1; i <= N; i++) out.push(i);
         continue;
       }
       let m: RegExpMatchArray | null;
-
-      // a-b (inclusive)
       if ((m = tok.match(/^(\d+)-(\d+)$/))) {
-        let a = parseInt(m[1], 10);
-        let b = parseInt(m[2], 10);
+        let a = +m[1],
+          b = +m[2];
         if (a > b) [a, b] = [b, a];
         a = Math.max(1, a);
         b = Math.min(N, b);
         for (let i = a; i <= b; i++) out.push(i);
         continue;
       }
-
-      // -b  => 1..b
       if ((m = tok.match(/^-(\d+)$/))) {
-        const b = Math.min(parseInt(m[1], 10), N);
+        const b = Math.min(+m[1], N);
         for (let i = 1; i <= b; i++) out.push(i);
         continue;
       }
-
-      // a-  => a..N
       if ((m = tok.match(/^(\d+)-$/))) {
-        const a = Math.max(parseInt(m[1], 10), 1);
+        const a = Math.max(+m[1], 1);
         for (let i = a; i <= N; i++) out.push(i);
         continue;
       }
-      // single number
       const n = parseInt(tok, 10);
       if (!Number.isNaN(n) && n >= 1 && n <= N) out.push(n);
     }
-
-    // unique + sort
     return Array.from(new Set(out)).sort((a, b) => a - b);
   };
 
   const applyBatch = () => {
     const targets = parsePages(pagesText);
     if (!targets.length) return;
-    setIsApplying(true);
     if (angle === "reset") rotateAt(0, targets);
     else rotateAt(parseInt(angle, 10) as 90 | -90 | 180, targets);
   };
@@ -344,6 +296,9 @@ export default function PdfPreview(props: PdfPreviewProps) {
     return (
       <div className="text-white/80">Grid mode is not implemented yet.</div>
     );
+
+  const canPrev = current > 1;
+  const canNext = current < numPages;
 
   return (
     <div className="flex flex-col w-full gap-3 pt-4">
@@ -355,9 +310,7 @@ export default function PdfPreview(props: PdfPreviewProps) {
         <div className="flex items-center gap-2">
           <button
             className="px-2 py-1 text-sm rounded-md bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
-            onClick={() =>
-              canPrev && setCurrent(Math.max(1, current - 1))
-            } /* use direct value, not functional updater */
+            onClick={() => canPrev && setCurrent(Math.max(1, current - 1))}
             disabled={!canPrev}
           >
             {t.components.pdfPreview.prev}
@@ -366,32 +319,48 @@ export default function PdfPreview(props: PdfPreviewProps) {
             className="px-2 py-1 text-sm rounded-md bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
             onClick={() =>
               canNext && setCurrent(Math.min(numPages, current + 1))
-            } /* use direct value, not functional updater */
+            }
             disabled={!canNext}
           >
             {t.components.pdfPreview.next}
           </button>
-          <button
-            className="px-2 py-1.5 text-base rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
-            title="Rotate -90"
-            onClick={() => rotateAt(-90)}
-          >
-            <FaArrowRotateLeft />
-          </button>
-          <button
-            className="px-2 py-1.5 text-base rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
-            title="Rotate +90"
-            onClick={() => rotateAt(90)}
-          >
-            <FaArrowRotateRight />
-          </button>
-          <button
-            className="px-2 py-1 text-sm rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
-            title="Reset"
-            onClick={() => rotateAt(0)}
-          >
-            {t.components.pdfPreview.reset}
-          </button>
+
+          {/* Selection toggle — only visible for CSV/selection mode */}
+          {features?.selectionControls && (
+            <button
+              className="px-2 py-1 text-sm rounded-md bg-white/80 hover:bg-white dark:hover:bg-background"
+              onClick={toggleSelectCurrent}
+            >
+              {pageState[current - 1]?.selected ? "Unselect" : "Select"}
+            </button>
+          )}
+
+          {/* Rotate controls — hidden on CSV */}
+          {features?.rotateControls && (
+            <>
+              <button
+                className="px-2 py-1.5 text-base rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
+                title="Rotate -90"
+                onClick={() => rotateAt(-90)}
+              >
+                <FaArrowRotateLeft />
+              </button>
+              <button
+                className="px-2 py-1.5 text-base rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
+                title="Rotate +90"
+                onClick={() => rotateAt(90)}
+              >
+                <FaArrowRotateRight />
+              </button>
+              <button
+                className="px-2 py-1 text-sm rounded-md bg-white/80 dark:hover:bg-background hover:bg-white"
+                title="Reset"
+                onClick={() => rotateAt(0)}
+              >
+                {t.components.pdfPreview.reset}
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -403,44 +372,43 @@ export default function PdfPreview(props: PdfPreviewProps) {
         <canvas ref={canvasRef} className="block mx-auto" />
       </div>
 
-      {/* Batch rotation */}
-      <div className="flex flex-col gap-2 rounded-md bg-white/80">
-        <div className="flex items-start">
-          <label className="block mt-2 text-base font-semibold text-secondary">
-            {t.tools.rotate.inputLabel}
-            <span className="ml-2 text-base font-normal whitespace-pre-wrap text-secondary">
-              {t.tools.rotate.inputHint}
-            </span>
-          </label>
+      {/* Batch rotation — hidden on CSV */}
+      {features?.batchControls && (
+        <div className="flex flex-col gap-2 rounded-md bg-white/80">
+          <div className="flex items-start">
+            <label className="block mt-2 text-base font-semibold text-secondary">
+              {t.tools.rotate.inputLabel}
+              <span className="ml-2 text-base font-normal whitespace-pre-wrap text-secondary">
+                {t.tools.rotate.inputHint}
+              </span>
+            </label>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              value={pagesText}
+              onChange={(e) => setPagesText(e.target.value)}
+              placeholder="1,3,5-7"
+              className="flex-1 px-3 py-2 text-sm font-semibold border rounded-md placeholder:text-primary-light border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary"
+            />
+            <select
+              className="px-3 py-2 text-sm border rounded-md shadow-inner text-secondary dark:text-background hover:dark:text-secondary border-primary-light focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-primary-light "
+              value={angle}
+              onChange={(e) => setAngle(e.target.value as Angle)}
+            >
+              <option value="90">+90°</option>
+              <option value="-90">-90°</option>
+              <option value="180">180°</option>
+              <option value="reset">{t.components.pdfPreview.reset}</option>
+            </select>
+            <button
+              className="px-2 py-2 text-sm text-center text-white rounded-md hover:bg-primary bg-secondary dark:bg-background hover:dark:bg-primary"
+              onClick={applyBatch}
+            >
+              {t.components.pdfPreview.apply}
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <input
-            value={pagesText}
-            onChange={(e) => setPagesText(e.target.value)}
-            placeholder="1,3,5-7"
-            className="flex-1 px-3 py-2 text-sm font-semibold border rounded-md placeholder:text-primary-light border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary"
-          />
-          <select
-            className="px-3 py-2 text-sm border rounded-md shadow-inner text-secondary dark:text-background hover:dark:text-secondary border-primary-light focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-primary-light "
-            value={angle}
-            onChange={(e) => setAngle(e.target.value as Angle)}
-          >
-            <option value="90">+90°</option>
-            <option value="-90">-90°</option>
-            <option value="180">180°</option>
-            <option value="reset"> {t.components.pdfPreview.reset}</option>
-          </select>
-          <button
-            className={`px-2 py-2 text-sm text-center text-white rounded-md hover:bg-primary bg-secondary dark:bg-background hover:dark:bg-primary ${
-              isApplying ? "opacity-50 pointer-events-none" : ""
-            }`}
-            onClick={applyBatch}
-            disabled={isApplying}
-          >
-            {t.components.pdfPreview.apply}
-          </button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
