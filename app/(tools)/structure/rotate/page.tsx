@@ -10,7 +10,7 @@ import ToolTitle from "@/components/ToolTitle";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import InfoToggle from "@/components/InfoToggle";
 import SendButton from "@/components/SendButton";
-import { PdfPreview, PageState } from "@/components/PdfPreview";
+import PdfPreview, { PageState } from "@/components/PdfPreview";
 import { toast } from "react-toastify";
 import { MdRotateRight } from "react-icons/md";
 import { PDFDocument, degrees } from "pdf-lib";
@@ -20,9 +20,12 @@ export default function RotatePage() {
   const [files, setFiles] = useState<DropzonePreviewFile[]>([]);
   const [pageState, setPageState] = useState<PageState[]>([]);
   const active = files[0] ?? null; // single-file flow for rotate; can extend to multi-file later
+  const [current, setCurrent] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   async function handleRotateAndDownload() {
     try {
+      if (loading) return;
       if (!active) {
         toast.warn("Please upload a PDF first.");
         return;
@@ -31,6 +34,7 @@ export default function RotatePage() {
         toast.warn("Preview not ready yet.");
         return;
       }
+      setLoading(true);
       const fileBuf = await active.file.arrayBuffer();
       const pdf = await PDFDocument.load(fileBuf);
 
@@ -59,6 +63,8 @@ export default function RotatePage() {
     } catch (e) {
       console.error(e);
       toast.error("Failed to rotate PDF.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -77,6 +83,13 @@ export default function RotatePage() {
             file={f.length ? f[0].file : null}
             pageState={pageState}
             setPageState={setPageState}
+            current={current}
+            setCurrent={setCurrent}
+            features={{
+              rotateControls: true,
+              batchControls: true,
+              selectionControls: false,
+            }}
           />
         )}
       />
@@ -84,7 +97,7 @@ export default function RotatePage() {
         {t.tools.rotate.info}
       </InfoToggle>
 
-      <SendButton onClick={handleRotateAndDownload} />
+      <SendButton onClick={handleRotateAndDownload} loading={loading} />
     </ToolPageWrapper>
   );
 }

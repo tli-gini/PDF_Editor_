@@ -28,10 +28,17 @@ const forceCanvasRedraw = (
   }
 };
 
+/* Feature flags to reuse PdfPreview for both Rotate and CSV */
+type PdfPreviewFeatures = {
+  rotateControls?: boolean; // show single-page rotate buttons
+  batchControls?: boolean; // show batch-rotate toolbar
+  selectionControls?: boolean; // show per-page selection toggle
+};
+
 export type PageState = {
-  pageNumber: number; // 1-based
-  selected: boolean;
-  rotation: 0 | 90 | 180 | 270;
+  pageNumber: number;
+  rotation: number;
+  selected?: boolean;
 };
 
 type PdfPreviewProps = {
@@ -40,22 +47,83 @@ type PdfPreviewProps = {
   setPageState: (next: PageState[]) => void;
   // Reserved: future toggle for a thumbnail grid; for now we implement "page" mode only
   mode?: "page" | "grid";
+  current: number;
+  setCurrent: (n: number) => void;
+  features?: PdfPreviewFeatures;
 };
 
 type Angle = "90" | "-90" | "180" | "reset";
 
-export function PdfPreview({
-  file,
-  pageState,
-  setPageState,
-  mode = "page",
-}: PdfPreviewProps) {
+export default function PdfPreview(props: PdfPreviewProps) {
+  const {
+    file,
+    pageState,
+    setPageState,
+    current,
+    setCurrent,
+    mode = "page",
+    /* default flags keep Rotate page unchanged */
+    features = {
+      rotateControls: true,
+      batchControls: true,
+      selectionControls: false,
+    },
+  } = props;
+
+  const totalPages =
+    pageState.length || 0; /* assume you already compute this */
+
+  /* toggle selection of current page */
+  const toggleSelectCurrent = () => {
+    if (!totalPages) return;
+    const idx = Math.max(0, Math.min(current - 1, totalPages - 1));
+    const next = [...pageState];
+    const cur = next[idx] || {
+      pageNumber: idx + 1,
+      rotation: 0,
+      selected: false,
+    };
+    next[idx] = { ...cur, selected: !cur.selected };
+    setPageState(next);
+  };
+  /* guard next/prev with disabled states as you already do */
+  const prev = () => setCurrent(Math.max(1, current - 1));
+  const next = () => setCurrent(Math.min(totalPages, current + 1));
+
+  /* rotate current page helpers (existing in your component) */
+  const rotate = (delta: number) => {
+    const idx = Math.max(0, Math.min(current - 1, totalPages - 1));
+    const nextState = [...pageState];
+    const entry = nextState[idx] || { pageNumber: idx + 1, rotation: 0 };
+    nextState[idx] = {
+      ...entry,
+      rotation: ((entry.rotation || 0) + delta + 360) % 360,
+    };
+    setPageState(nextState);
+  };
+  const resetRotation = () => {
+    const idx = Math.max(0, Math.min(current - 1, totalPages - 1));
+    const nextState = [...pageState];
+    const entry = nextState[idx] || { pageNumber: idx + 1, rotation: 0 };
+    nextState[idx] = { ...entry, rotation: 0 };
+    setPageState(nextState);
+  };
+
+  /* batch rotation (only shown if enabled) */
+  const applyBatchRotation = (pages: number[], deg: number) => {
+    const set = new Set(pages);
+    const next = pageState.map((p) =>
+      set.has(p.pageNumber)
+        ? { ...p, rotation: ((p.rotation || 0) + deg + 360) % 360 }
+        : p
+    );
+    setPageState(next);
+  };
   const { t } = useI18n();
   const [numPages, setNumPages] = useState(0);
   const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
 
   // Single-page mode state
-  const [current, setCurrent] = useState(1);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isRendering, setIsRendering] = useState(false);
@@ -104,12 +172,12 @@ export function PdfPreview({
       cancelled = true;
     };
     // Include stable deps to satisfy the hook rule
-  }, [file, pageState.length, setPageState]);
+  }, [file, pageState.length, setPageState, setCurrent]);
 
   // Single-page mode: render the current page (respect per-page rotation)
   const currentRotation = pageState[current - 1]?.rotation ?? 0;
   useEffect(() => {
-    if (mode !== "page") return;
+    if (mode !== "page") return; // EN: 'mode' now defined via destructuring
     async function render() {
       setIsRendering(true);
       if (!pdfDoc || !canvasRef.current || !containerRef.current) {
@@ -287,7 +355,9 @@ export function PdfPreview({
         <div className="flex items-center gap-2">
           <button
             className="px-2 py-1 text-sm rounded-md bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
-            onClick={() => canPrev && setCurrent((c) => Math.max(1, c - 1))}
+            onClick={() =>
+              canPrev && setCurrent(Math.max(1, current - 1))
+            } /* use direct value, not functional updater */
             disabled={!canPrev}
           >
             {t.components.pdfPreview.prev}
@@ -295,8 +365,8 @@ export function PdfPreview({
           <button
             className="px-2 py-1 text-sm rounded-md bg-white/80 hover:bg-white dark:hover:bg-background disabled:opacity-50"
             onClick={() =>
-              canNext && setCurrent((c) => Math.min(numPages, c + 1))
-            }
+              canNext && setCurrent(Math.min(numPages, current + 1))
+            } /* use direct value, not functional updater */
             disabled={!canNext}
           >
             {t.components.pdfPreview.next}
