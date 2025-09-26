@@ -75,7 +75,7 @@ export default function PdfPreview(props: PdfPreviewProps) {
   // Single-page mode state
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [isRendering, setIsRendering] = useState(false);
+  const [, setIsRendering] = useState(false);
 
   // Load PDF (dynamically import pdfjs and point workerSrc to the .mjs worker)
   useEffect(() => {
