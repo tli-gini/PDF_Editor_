@@ -224,22 +224,6 @@ export default function PdfPreview(props: PdfPreviewProps) {
     setPageState(next);
   };
 
-  // ---- Helpers that were used previously but are now handled inline in JSX ----
-  /**
-   * prev / next / rotate / resetRotation / applyBatchRotation were previously
-   * defined as local helpers and called from buttons. We now call the logic
-   * inline (or via `rotateAt`) to keep the surface smaller and satisfy
-   * strict ESLint rules (no-unused-vars). Keeping the old versions here as
-   * commented reference for future refactors.
-   */
-  /*
-  const prev = () => setCurrent(Math.max(1, current - 1));
-  const next = () => setCurrent(Math.min(pageState.length, current + 1));
-  const rotate = (delta: number) => rotateAt(delta as 90 | -90 | 180 | 0);
-  const resetRotation = () => rotateAt(0);
-  const applyBatchRotation = (pages: number[], deg: number) => rotateAt(deg as 90 | -90 | 180 | 0, pages);
-  */
-
   // batch rotation input (e.g., 1,3,5-7)
   const [pagesText, setPagesText] = useState("");
   const [angle, setAngle] = useState<Angle>("90");
