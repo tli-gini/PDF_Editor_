@@ -15,13 +15,12 @@ function cdUTF8(originalPdfName: string, ext: string) {
 function isZipSig(b: Uint8Array) {
   return (
     b.length >= 4 &&
-    b[0] === 0x50 && // P
-    b[1] === 0x4b && // K
+    b[0] === 0x50 &&
+    b[1] === 0x4b &&
     (b[2] === 0x03 || b[2] === 0x05 || b[2] === 0x07) &&
     (b[3] === 0x04 || b[3] === 0x06 || b[3] === 0x08)
   );
 }
-
 function getBaseUrl(): string | null {
   const isVercel = !!process.env.VERCEL;
   return isVercel
@@ -36,7 +35,6 @@ export async function POST(req: NextRequest) {
     (form.get("pages") as string | null) ||
     (form.get("pageNumbers") as string | null) ||
     "";
-
   if (!file)
     return NextResponse.json({ error: "Missing file" }, { status: 400 });
 
@@ -57,7 +55,6 @@ export async function POST(req: NextRequest) {
     headers: { Accept: "application/octet-stream" },
     cache: "no-store",
   });
-
   if (!upstream.ok) {
     const detail = await upstream.text().catch(() => "");
     return NextResponse.json(
@@ -66,7 +63,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // prefer streaming; sniff first chunk for ZIP
   const ctUp = upstream.headers.get("content-type");
   const cdUp = upstream.headers.get("content-disposition");
 
@@ -75,7 +71,6 @@ export async function POST(req: NextRequest) {
     const first = await reader.read();
     const firstChunk = first.value ?? new Uint8Array(0);
     const looksZip = isZipSig(firstChunk);
-
     const contentType =
       ctUp ?? (looksZip ? "application/zip" : "text/csv; charset=utf-8");
     const contentDisposition =
