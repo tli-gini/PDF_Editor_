@@ -18,7 +18,7 @@ export default function HomepageCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col items-center justify-between p-6 rounded-xl bg-primary-light shadow hover:shadow-md transition-all w-full max-w-md text-secondary hover:text-white hover:bg-primary hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+      className="group flex flex-col items-center justify-between p-6 rounded-xl bg-primary-light shadow hover:shadow-md transition-all w-full text-secondary hover:text-white hover:bg-primary hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
     >
       {/* Title + arrow */}
       <div className="flex items-center gap-2">

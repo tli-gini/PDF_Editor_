@@ -106,7 +106,7 @@ export default function ToolSidebar() {
   const sectionTitle = currentSection ? sectionTitleMap[currentSection] : "";
 
   return (
-    <div className="flex flex-col gap-4 px-0 lg:px-[16px]">
+    <div className="flex flex-col gap-4 px-0">
       {sectionTitle && (
         <h2 className="text-left text-primary text-[16px] lg:text-[18px] font-bold px-[16px] pb-2">
           {sectionTitle}

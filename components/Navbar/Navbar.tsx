@@ -44,7 +44,7 @@ export default function Navbar() {
       }`}
     >
       <div className="flex flex-col justify-center w-full h-full">
-        <div className="flex items-center justify-between w-full px-[16px] my-[10px] max-w-[1200px] mx-auto">
+        <div className="flex items-center justify-between w-full px-[16px] my-[10px] max-w-[1080px] mx-auto">
           {/* Logo & Title */}
           <Link href="/" className="flex items-center min-w-0 gap-4">
             <Image

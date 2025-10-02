@@ -4,7 +4,7 @@ export default function ToolPageWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center w-full p-6 text-center h-min lg:w-5/6 md:w-5/6 rounded-2xl bg-primary-light">
+    <div className="flex flex-col items-center justify-center w-full p-6 text-center h-min lg:w-11/12 md:w-5/6 rounded-2xl bg-primary-light">
       {children}
     </div>
   );

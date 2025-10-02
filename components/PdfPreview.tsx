@@ -9,11 +9,11 @@ import type {
 import { FaArrowRotateLeft, FaArrowRotateRight } from "react-icons/fa6";
 import { useI18n } from "@/lib/i18n-context";
 
-/** Windows detection for targeted canvas workaround */
+/* Windows detection for targeted canvas workaround */
 const IS_WIN =
   typeof navigator !== "undefined" && /Windows/i.test(navigator.userAgent);
 
-/** Tiny redraw helper to force a fresh paint path on buggy GPU/driver combos */
+/* Tiny redraw helper to force a fresh paint path on buggy GPU/driver combos */
 const forceCanvasRedraw = (
   canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D
