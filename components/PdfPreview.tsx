@@ -315,7 +315,9 @@ export default function PdfPreview(props: PdfPreviewProps) {
               className="px-2 py-1 text-sm rounded-md bg-white/80 hover:bg-white dark:hover:bg-background"
               onClick={toggleSelectCurrent}
             >
-              {pageState[current - 1]?.selected ? "Unselect" : "Select"}
+              {pageState[current - 1]?.selected
+                ? t.components.pdfPreview.unselect
+                : t.components.pdfPreview.select}
             </button>
           )}
 

@@ -210,7 +210,9 @@
       "reset": "Reset",
       "pageNumberInputLabel": "Batch Rotate Pages",
       "pageNumberInputHint": "(e.g., 1,3,5)",
-      "apply": "Apply"
+      "apply": "Apply",
+      "select": "Select",
+      "unselect": "Unselect"
     }
   },
   "toast": {
