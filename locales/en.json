@@ -178,6 +178,30 @@
       "description": "Add a watermark to your PDF.",
       "inputLabel": "",
       "inputHint": ""
+    },
+    "compare": {
+      "label": "Compare",
+      "description": "Compare the differences between two PDF files.",
+      "inputLabel": "",
+      "inputHint": ""
+    },
+    "extract-images": {
+      "label": "Extract Images",
+      "description": "Extract all images from your PDF.",
+      "inputLabel": "",
+      "inputHint": ""
+    },
+    "ocr-pdf": {
+      "label": "OCR & Cleanup",
+      "description": "Enhance scanned PDFs with OCR and cleanup.",
+      "inputLabel": "",
+      "inputHint": ""
+    },
+    "add-page-numbers": {
+      "label": "Add Page Numbers",
+      "description": "Add page numbers to your PDF.",
+      "inputLabel": "",
+      "inputHint": ""
     }
   },
   "page": {

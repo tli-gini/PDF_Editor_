@@ -10,6 +10,10 @@ import {
   MdOutlineRotateRight,
   MdOutlineZoomInMap,
   MdOutlineWaterDrop,
+  MdOutlineCompare,
+  MdOutlinePhotoLibrary,
+  MdManageSearch,
+  MdOutlineNumbers,
 } from "react-icons/md";
 import {
   TbLayoutBoard,
@@ -88,7 +92,28 @@ export default function ToolSidebar() {
         icon: <MdOutlineWaterDrop />,
       },
     ],
-    "/editor": [],
+    "/editor": [
+      {
+        href: "/editor/compare",
+        key: "compare",
+        icon: <MdOutlineCompare />,
+      },
+      {
+        href: "/editor/extract-images",
+        key: "extract-images",
+        icon: <MdOutlinePhotoLibrary />,
+      },
+      {
+        href: "/editor/ocr-pdf",
+        key: "ocr-pdf",
+        icon: <MdManageSearch />,
+      },
+      {
+        href: "/editor/add-page-numbers",
+        key: "add-page-numbers",
+        icon: <MdOutlineNumbers />,
+      },
+    ],
   };
 
   const currentSection = Object.keys(navMap).find((section) =>

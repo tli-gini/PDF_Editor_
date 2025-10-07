@@ -179,6 +179,30 @@
       "description": "為 PDF 檔案新增浮水印。",
       "inputLabel": "",
       "inputHint": ""
+    },
+    "compare": {
+      "label": "比較",
+      "description": "比較兩個 PDF 檔案的差異。",
+      "inputLabel": "",
+      "inputHint": ""
+    },
+    "extract-images": {
+      "label": "提取圖片",
+      "description": "從 PDF 檔案中提取所有圖片。",
+      "inputLabel": "",
+      "inputHint": ""
+    },
+    "ocr-pdf": {
+      "label": "文字辨識 & 清理",
+      "description": "對掃描的 PDF 進行文字辨識 (OCR) 並清理檔案。",
+      "inputLabel": "",
+      "inputHint": ""
+    },
+    "add-page-numbers": {
+      "label": "新增頁碼",
+      "description": "為 PDF 檔案新增頁碼。",
+      "inputLabel": "",
+      "inputHint": ""
     }
   },
   "page": {
