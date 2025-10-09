@@ -70,6 +70,7 @@
       "description": "將多個頁面合併為單一頁面。",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "modeLabel": "每張紙的頁數：",
       "modes": {
         "two": "2",
@@ -201,7 +202,8 @@
       "label": "比較",
       "description": "比較兩個 PDF 檔案的差異。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "extract-images": {
       "label": "提取圖片",
