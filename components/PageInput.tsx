@@ -32,7 +32,7 @@ export default function PageInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         type="text"
-        placeholder="2,4,7,12-16"
+        placeholder={t.tools[labelKey].placeholder}
         className="w-full px-4 py-2 font-semibold border shadow-inner rounded-xl border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary placeholder:text-primary-light dark:text-background"
       />
     </div>

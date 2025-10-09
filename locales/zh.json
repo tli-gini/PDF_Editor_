@@ -11,6 +11,7 @@
       "description": "將 PDF 分割成多個檔案。",
       "inputLabel": "輸入要分割的頁面：",
       "inputHint": "以英文逗號分隔，如：4,7,12-16",
+      "placeholder": "1,3,5-7",
       "info": "輸入的數字為欲分割的頁碼。 \n\n輸入 1,3,7-9 會將 10 頁的檔案分割為 6 個新的 PDF，如下： \n\n檔案 #1: P. 1\n檔案 #2: P. 2, 3\n檔案 #3: P. 4-7\n檔案 #4: P. 8\n檔案 #5: P. 9\n檔案 #6: P. 10"
     },
     "merge": {
@@ -18,25 +19,29 @@
       "description": "將多個 PDF 合併成一份檔案。",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "checkboxLabel": "移除憑證簽章"
     },
     "remove": {
       "label": "移除",
       "description": "移除 PDF 中的特定頁面。",
       "inputLabel": "輸入要移除的頁面",
-      "inputHint": "以英文逗號分隔，如：4,7,12-16"
+      "inputHint": "以英文逗號分隔，如：4,7,12-16",
+      "placeholder": "4,7,12-16"
     },
     "extract": {
       "label": "提取頁面",
       "description": "從 PDF 中提取選定頁面。",
       "inputLabel": "輸入提取頁面與排列順序",
-      "inputHint": "以英文逗號分隔，如：4,7,12-16"
+      "inputHint": "以英文逗號分隔，如：4,7,12-16",
+      "placeholder": "4,7,12-16"
     },
     "organize": {
       "label": "重新排列",
       "description": "重新排序 PDF 頁面。",
       "inputLabel": "輸入頁面排列順序",
       "inputHint": "以英文逗號分隔，如：4,7,12-16",
+      "placeholder": "4,7,12-16",
       "modeLabel": "排序方式",
       "modes": {
         "CUSTOM": "自訂頁面排序",
@@ -57,7 +62,7 @@
       "description": "旋轉 PDF 頁面至正確方向。",
       "inputLabel": "指定頁面範圍（如：1,3,5-7）",
       "inputHint": "",
-
+      "placeholder": "",
       "info": "選擇頁面，並使用每頁的 ⟲ / ⟳ 按鈕調整單一頁面。\n或在輸入框批次旋轉。\n\n批次旋轉輸入語法：\n- 逗號或空格指定頁數：1 3 5 或 1,3,5\n- 指定範圍：5-7\n- 開放式頁首頁尾：-7 代表 1–7、5- 代表 5–頁尾\n- 全部：all 或 *"
     },
     "multi-page": {
@@ -80,6 +85,7 @@
       "description": "壓縮 PDF 檔案以減少大小。",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "info": "選擇壓縮程度以平衡品質與檔案大小。 \n\n1-3 為一般 PDF 壓縮;\n4-6 為輕度圖片壓縮;\n7-9 為高強度圖片壓縮，將大幅降低圖片品質。",
       "modeLabel": "最佳化程度：",
       "modes": {
@@ -99,6 +105,7 @@
       "description": "將 PDF 轉換為可編輯的 Word 檔案。",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "info": "選擇 Word 文件格式以符合不同使用需求。\n僅允許單一檔案上傳，以降低伺服器負載。\n\nDOCX：最常用且相容性高。\nDOC：舊版格式，適用於舊系統。\nODT：適用於 LibreOffice 等開源軟體。",
       "modeLabel": "文件格式：",
       "modes": {
@@ -112,6 +119,7 @@
       "description": "將 PDF 轉換為可編輯的簡報。",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "info": "選擇簡報格式以符合軟體與相容性需求。\n僅允許單一檔案上傳，以降低伺服器負載。\n\nPPTX：最新 PowerPoint 格式，最常用。\nPPT：舊版格式，適用於舊系統。\nODP：適用於 LibreOffice 簡報工具。",
       "modeLabel": "文件格式：",
       "modes": {
@@ -125,6 +133,7 @@
       "description": "將 PDF 轉為文字。",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "info": "選擇文字檔格式以符合內容編輯需求。\n僅允許單一檔案上傳，以降低伺服器負載。\n\nTXT：純文字格式，適合簡單筆記或程式碼；\nRTF：支援基本格式設定，如粗體與斜體。",
       "modeLabel": "文件格式：",
       "modes": {
@@ -136,49 +145,57 @@
       "label": "HTML",
       "description": "將 PDF 轉換為 HTML 檔。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "xml": {
       "label": "XML",
       "description": "將 PDF 轉換為 XML 檔。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "csv": {
       "label": "CSV",
       "description": "將 PDF 轉換為 CSV 檔。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "markdown": {
       "label": "Markdown",
       "description": "將 PDF 轉換為 Markdown 格式。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "add-password": {
       "label": "新增密碼",
       "description": "為 PDF 檔案新增密碼。",
       "inputLabel": "輸入密碼",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "remove-password": {
       "label": "移除密碼",
       "description": "從 PDF 檔案移除密碼。",
       "inputLabel": "輸入密碼",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": "******"
     },
     "sign": {
       "label": "簽章",
       "description": "為 PDF 檔案新增簽章。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "add-watermark": {
       "label": "新增浮水印",
       "description": "為 PDF 檔案新增浮水印。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "compare": {
       "label": "比較",
@@ -190,19 +207,22 @@
       "label": "提取圖片",
       "description": "從 PDF 檔案中提取所有圖片。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "ocr-pdf": {
       "label": "文字辨識 & 清理",
       "description": "對掃描的 PDF 進行文字辨識 (OCR) 並清理檔案。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "add-page-numbers": {
       "label": "新增頁碼",
       "description": "為 PDF 檔案新增頁碼。",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     }
   },
   "page": {

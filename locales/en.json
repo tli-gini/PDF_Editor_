@@ -11,6 +11,7 @@
       "description": "Split a PDF into multiple files.",
       "inputLabel": "Enter pages to split on:",
       "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16",
+      "placeholder": "1,3,5-7",
       "info": "The numbers you select are the page number you wish to do a split on. \n\nAs such selecting 1,3,7-9 would split a 10 page document into 6 separate PDFs with: \n\nDocument #1: Page 1\nDocument #2: Page 2, 3\nDocument #3: Page 4-7\nDocument #4: Page 8\nDocument #5: Page 9\nDocument #6: Page 10"
     },
     "merge": {
@@ -18,25 +19,29 @@
       "description": "Merge multiple PDFs into one.",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "checkboxLabel": "Remove digital signature"
     },
     "remove": {
       "label": "Remove",
       "description": "Remove specific pages from your PDF.",
       "inputLabel": "Pages To Delete",
-      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16"
+      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16",
+      "placeholder": "4,7,12-16"
     },
     "extract": {
       "label": "Extract Pages",
       "description": "Extract selected pages from your PDF.",
       "inputLabel": "Custom Page Order",
-      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16"
+      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16",
+      "placeholder": "4,7,12-16"
     },
     "organize": {
       "label": "Organize",
       "description": "Reorder or arrange PDF pages.",
       "inputLabel": "Custom Page Order",
       "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16 \nor Functions like 2n+1",
+      "placeholder": "4,7,12-16",
       "modeLabel": "Mode",
       "modes": {
         "CUSTOM": "Custom Page Order",
@@ -57,6 +62,7 @@
       "description": "Rotate pages to the correct orientation.",
       "inputLabel": "Batch Rotate Pages",
       "inputHint": " (e.g., 1,3,5-7)",
+      "placeholder": "",
       "info": "Select pages to rotate, then use the small ⟲ / ⟳ buttons per page.\nYou can also batch-rotate using the input. \n\nSupported syntax:\n- Commas or spaces: 1 3 5 or 1,3,5\n- Ranges (inclusive): 5-7\n- Open-ended ranges: -7 means 1–7, 5- means 5–last page\n- All pages: all or *"
     },
     "multi-page": {
@@ -64,6 +70,7 @@
       "description": "Merge multiple pages into a single page.",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "modeLabel": "Pages Per Sheet",
       "modes": {
         "two": "2",
@@ -79,6 +86,7 @@
       "description": "Reduce the file size of your PDF.",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "info": "Reduce the file size of your PDF.\nThe level of optimization to apply to the PDF file.  \nHigher values indicate greater compression but may reduce quality. \n\n1-3 PDF compression;\n4-6 lite image compression;\n7-9 intense image compression will dramatically reduce image quality.",
       "modeLabel": "Optimization Level",
       "modes": {
@@ -98,6 +106,7 @@
       "description": "Convert your PDF to editable Word documents.",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "info": "Choose a Word document format based on your needs.\nSingle-file upload only to reduce server load.\n\nDOCX: Modern and widely supported;\nDOC: Legacy format for older systems;\nODT: Open format for LibreOffice and similar tools.",
       "modeLabel": "File Format",
       "modes": {
@@ -111,6 +120,7 @@
       "description": "Convert your PDF to editable PPT documents.",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "info": "Choose a presentation format based on software compatibility.\nSingle-file upload only to reduce server load.\n\nPPTX: Modern PowerPoint format, widely used;\nPPT: Older format for legacy systems;\nODP: Open format for LibreOffice Impress.",
       "modeLabel": "File Format",
       "modes": {
@@ -124,6 +134,7 @@
       "description": "Convert your PDF to text.",
       "inputLabel": "",
       "inputHint": "",
+      "placeholder": "",
       "info": "Choose a text format based on content needs.\nSingle-file upload only to reduce server load.\n\nTXT: Plain text for simple notes or code;\nRTF: Rich text with basic formatting like bold and italics.",
       "modeLabel": "File Format",
       "modes": {
@@ -135,73 +146,85 @@
       "label": "HTML",
       "description": "Convert your PDF to HTML files.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "xml": {
       "label": "XML",
       "description": "Convert your PDF to XML files.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "csv": {
       "label": "CSV",
       "description": "Convert your PDF to CSV files.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "markdown": {
       "label": "Markdown",
       "description": "Convert your PDF into Markdown format.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "add-password": {
       "label": "Add Password",
       "description": "Add a password to secure your PDF.",
       "inputLabel": "Enter Password",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "remove-password": {
       "label": "Remove Password",
       "description": "Remove the password from your PDF.",
       "inputLabel": "Enter Password",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": "******"
     },
     "sign": {
       "label": "Sign",
       "description": "Add signatures to your PDF by drawing, text or image.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "add-watermark": {
       "label": "Add Watermark",
       "description": "Add a watermark to your PDF.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "compare": {
       "label": "Compare",
       "description": "Compare the differences between two PDF files.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "extract-images": {
       "label": "Extract Images",
       "description": "Extract all images from your PDF.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "ocr-pdf": {
       "label": "OCR & Cleanup",
       "description": "Enhance scanned PDFs with OCR and cleanup.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     },
     "add-page-numbers": {
       "label": "Add Page Numbers",
       "description": "Add page numbers to your PDF.",
       "inputLabel": "",
-      "inputHint": ""
+      "inputHint": "",
+      "placeholder": ""
     }
   },
   "page": {
