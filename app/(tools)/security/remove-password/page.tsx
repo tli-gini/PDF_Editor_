@@ -1,6 +1,6 @@
 // app/(tools)/security/remove-password/page.tsx
-
 "use client";
+
 import { useI18n } from "@/lib/i18n-context";
 import DropzoneCard from "@/components/DropzoneCard";
 import ToolTitle from "@/components/ToolTitle";
