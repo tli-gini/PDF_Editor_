@@ -7,6 +7,7 @@ import DropzonePreview, {
 } from "@/components/DropzonePreview";
 import { useI18n } from "@/lib/i18n-context";
 import ToolTitle from "@/components/ToolTitle";
+import InfoToggle from "@/components/InfoToggle";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import SendButton from "@/components/SendButton";
 import PdfPreview, { PageState } from "@/components/PdfPreview";
@@ -120,6 +121,9 @@ export default function ConvertCsv() {
           />
         )}
       />
+      <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
+        {t.tools.csv.info}
+      </InfoToggle>
       <SendButton onClick={handleSend} loading={loading} />
     </ToolPageWrapper>
   );
