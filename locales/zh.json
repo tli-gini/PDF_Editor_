@@ -176,7 +176,8 @@
       "description": "為 PDF 檔案新增密碼。",
       "inputLabel": "輸入密碼",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "info": ""
     },
     "remove-password": {
       "label": "移除密碼",
