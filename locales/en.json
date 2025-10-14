@@ -161,7 +161,8 @@
       "description": "Convert your PDF to CSV files.",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "info": "Extract tables from one selected PDF page and export them as a CSV file for easier analysis and data handling. \n\nSingle-file upload only to reduce server load."
     },
     "markdown": {
       "label": "Markdown",
@@ -175,7 +176,8 @@
       "description": "Add a password to secure your PDF.",
       "inputLabel": "Enter Password",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "info": ""
     },
     "remove-password": {
       "label": "Remove Password",

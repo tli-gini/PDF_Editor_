@@ -161,7 +161,8 @@
       "description": "將 PDF 轉換為 CSV 檔。",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "info": "從指定 PDF 頁面中提取表格，並匯出為 CSV 檔。\n\n僅允許單一檔案上傳，以降低伺服器負載。"
     },
     "markdown": {
       "label": "Markdown",
