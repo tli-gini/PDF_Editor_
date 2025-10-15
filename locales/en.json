@@ -173,11 +173,23 @@
     },
     "add-password": {
       "label": "Add Password",
-      "description": "Add a password to secure your PDF.",
-      "inputLabel": "Enter Password",
+      "description": "Protect your PDF with an password.",
+      "inputLabel": "",
       "inputHint": "",
       "placeholder": "",
-      "info": ""
+      "info": "Set a password required to open the document. \nThis does not restrict editing or printing.",
+      "fields": {
+        "userPassword": {
+          "label": "User Password",
+          "hint": "",
+          "placeholder": "******"
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "hint": "Re-enter your password for confirmation.",
+          "placeholder": "******"
+        }
+      }
     },
     "remove-password": {
       "label": "Remove Password",
@@ -279,7 +291,9 @@
     "serverUnavailable": "Server unavailable or over capacity.",
     "serverUnavailableWithCode": "Server unavailable or over capacity (HTTP {code}).",
     "cloudHint": "If this is the cloud demo, the conversion server may be under-provisioned. Running locally against the intranet server should work.",
-    "networkTimeout": "Network timeout. Please try again."
+    "networkTimeout": "Network timeout. Please try again.",
+    "missingPassword": "Please enter the password.",
+    "passwordMismatch": "Passwords do not match. Please try again."
   },
   "misc": {
     "showInfo": "Info",

@@ -173,16 +173,28 @@
     },
     "add-password": {
       "label": "新增密碼",
-      "description": "為 PDF 檔案新增密碼。",
-      "inputLabel": "輸入密碼",
+      "description": "為 PDF 設定密碼以保護文件。",
+      "inputLabel": "",
       "inputHint": "",
       "placeholder": "",
-      "info": ""
+      "info": "設定開啟文件時須輸入的密碼，並重複輸入作為確認。\n此功能不限制列印或編輯。",
+      "fields": {
+        "userPassword": {
+          "label": "設定密碼：",
+          "hint": "",
+          "placeholder": "******"
+        },
+        "confirmPassword": {
+          "label": "確認密碼：",
+          "hint": "",
+          "placeholder": "******"
+        }
+      }
     },
     "remove-password": {
       "label": "移除密碼",
       "description": "從 PDF 檔案移除密碼。",
-      "inputLabel": "輸入密碼",
+      "inputLabel": "輸入原密碼：",
       "inputHint": "",
       "placeholder": "******"
     },
@@ -279,7 +291,9 @@
     "serverUnavailable": "伺服器資源不足。",
     "serverUnavailableWithCode": "伺服器資源不足（HTTP {code}）。",
     "cloudHint": "雲端轉檔伺服器資源不足；嘗試於公司內網本機執行應可正常。",
-    "networkTimeout": "連線逾時，請再試一次。"
+    "networkTimeout": "連線逾時，請再試一次。",
+    "missingPassword": "請輸入密碼。",
+    "passwordMismatch": "密碼不符，請重新輸入。"
   },
   "misc": {
     "showInfo": "提示",
