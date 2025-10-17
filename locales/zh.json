@@ -193,10 +193,18 @@
     },
     "remove-password": {
       "label": "移除密碼",
-      "description": "從 PDF 檔案移除密碼。",
-      "inputLabel": "輸入原密碼：",
+      "description": "解鎖受密碼保護的 PDF 文件。",
+      "inputLabel": "",
       "inputHint": "",
-      "placeholder": "******"
+      "placeholder": "",
+      "info": "輸入目前密碼以解鎖文件。",
+      "fields": {
+        "password": {
+          "label": "輸入原密碼：",
+          "hint": "",
+          "placeholder": "******"
+        }
+      }
     },
     "sign": {
       "label": "簽章",

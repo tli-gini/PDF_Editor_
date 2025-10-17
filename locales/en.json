@@ -193,10 +193,18 @@
     },
     "remove-password": {
       "label": "Remove Password",
-      "description": "Remove the password from your PDF.",
-      "inputLabel": "Enter Password",
+      "description": "Unlock a password-protected PDF file.",
+      "inputLabel": "",
       "inputHint": "",
-      "placeholder": "******"
+      "placeholder": "",
+      "info": "Enter the current password to unlock the file.",
+      "fields": {
+        "password": {
+          "label": "PDF Password",
+          "hint": "",
+          "placeholder": "******"
+        }
+      }
     },
     "sign": {
       "label": "Sign",
