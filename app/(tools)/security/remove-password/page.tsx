@@ -16,17 +16,51 @@ export default function RemovePassword() {
   const { t } = useI18n();
   const tool = t.tools["remove-password"];
 
-  const [form, setForm] = useState({
-    password: "",
-  });
+  const [form, setForm] = useState({ password: "" });
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const setField = (key: string, val: string) =>
     setForm((prev) => ({ ...prev, [key]: val }));
 
   async function handleSend() {
+    if (!file) {
+      toast.error(t.toast.missingFile);
+      return;
+    }
     if (!form.password) {
       toast.error(t.toast.missingPassword);
       return;
+    }
+
+    try {
+      setLoading(true);
+      const fd = new FormData();
+      fd.append("fileInput", file);
+      fd.append("password", form.password);
+
+      const res = await fetch("/api/remove-password", {
+        method: "POST",
+        body: fd,
+      });
+
+      if (!res.ok) throw new Error("Failed to remove password");
+      const blob = await res.blob();
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${file.name}_unlocked.pdf`;
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+
+      toast.success(t.toast.success);
+    } catch (err) {
+      console.error(err);
+      toast.error(t.toast.fail);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -47,13 +81,18 @@ export default function RemovePassword() {
         label={tool.label}
       />
 
-      <DropzoneCard />
+      <DropzoneCard
+        multiple={false}
+        onFilesUpload={(files) => setFile(files[0])}
+      />
 
       <MultiPageInput fields={fields} values={form} onChange={setField} />
+
       <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
         {tool.info}
       </InfoToggle>
-      <SendButton onClick={handleSend} />
+
+      <SendButton onClick={handleSend} loading={loading} />
     </ToolPageWrapper>
   );
 }
