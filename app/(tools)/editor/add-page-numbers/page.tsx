@@ -10,13 +10,12 @@ import ModeSelect from "@/components/ModeSelect";
 import InfoToggle from "@/components/InfoToggle";
 import { MdOutlineNumbers } from "react-icons/md";
 import { useState } from "react";
-import { toast } from "react-toastify";
 
 export default function AddPageNumber() {
   const { t } = useI18n();
   const tool = t.tools["add-page-numbers"];
 
-  // 將 i18n 轉成 ModeSelect 需要的 {value,label} 陣列
+  // Options for selects
   const marginOptions = Object.entries(tool.modes1).map(([value, label]) => ({
     value,
     label,
