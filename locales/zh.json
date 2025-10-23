@@ -246,7 +246,38 @@
       "description": "為 PDF 檔案新增頁碼。",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "modeLabel1": "邊距大小：",
+      "modes1": {
+        "sm": "S",
+        "md": "M",
+        "lg": "L",
+        "xl": "XL"
+      },
+      "modeLabel2": "字體：",
+      "modes2": {
+        "font1": "Times New Roman",
+        "font2": "Helvetica",
+        "font3": "Courier New"
+      },
+      "info": "為 PDF 檔案新增頁碼。您可以自訂頁碼的邊距大小與字體樣式。\n\n使用「指定編號頁面」欄位來選擇要添加頁碼的特定頁面範圍。\n\n在「自訂頁碼文字」欄位中，您可以加入前綴或後綴文字，例如：第 {page} 頁，共 {total} 頁。",
+      "fields": {
+        "starting-number": {
+          "label": "起始頁碼：",
+          "hint": "設定頁碼起始數字，預設為 1",
+          "placeholder": "1"
+        },
+        "pages-to-number": {
+          "label": "指定編號頁面：",
+          "hint": "預設為所有頁面，輸入頁碼範圍以指定（如：1-5,8,10-12）",
+          "placeholder": "1-5"
+        },
+        "custom-text": {
+          "label": "自訂頁碼文字：",
+          "hint": "可加入前綴或後綴文字，如：第 {page} 頁，共 {total} 頁",
+          "placeholder": ""
+        }
+      }
     }
   },
   "page": {

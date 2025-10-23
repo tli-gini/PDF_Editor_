@@ -246,7 +246,38 @@
       "description": "Add page numbers to your PDF.",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "modeLabel1": "Margin Size",
+      "modes1": {
+        "sm": "Small",
+        "md": "Medium",
+        "lg": "Large",
+        "xl": "Extra Large"
+      },
+      "modeLabel2": "Font",
+      "modes2": {
+        "font1": "Times New Roman",
+        "font2": "Helvetica",
+        "font3": "Courier New"
+      },
+      "info": "Add page numbers to your PDF document to enhance navigation and organization.",
+      "fields": {
+        "starting-number": {
+          "label": "Starting Number",
+          "hint": "Defaults to 1",
+          "placeholder": "1"
+        },
+        "pages-to-number": {
+          "label": "Pages to Number",
+          "hint": "Default: all, also accepts 1-5 or 2, 5, 9 etc.",
+          "placeholder": "1-5"
+        },
+        "custom-text": {
+          "label": "Custom Text",
+          "hint": "Defaults to {n}, also accepts 'Page {n} of {total}', 'Text-{n}', '{filename} - {n}'",
+          "placeholder": ""
+        }
+      }
     }
   },
   "page": {
