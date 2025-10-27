@@ -36,7 +36,7 @@ _(Visual reference and layout blueprint for implementation)_
 
 ```bash
 git clone https://github.com/tli-gini/PDF_Editor_.git
-cd pdf-editor
+cd PDF_Editor_
 npm install
 ```
 
@@ -48,52 +48,23 @@ npm run dev
 
 ### 3. Configure PDF API Endpoint
 
-Create a `.env.local` file:
+Create a `.env` file:
 
 ```env
+# Example: point to your local or company Stirling PDF backend
 
-NEXT_PUBLIC_API_URL=https://xxx.xxx.xxx
+NEXT_PUBLIC_API_URL=http://stirling.internal:8080
 
 ```
 
-## 📦 Deployment Options
+## 📦 Deployment
 
-### Public / Portfolio Use (Vercel + Fly.io)
+### Vercel + Fly.io
 
 - Frontend hosted on Vercel
 - Stirling PDF backend hosted on Fly.io
 - Proxy requests securely through Next.js API routes
 - Suitable for demos, academic showcases, and testing
-
-### Internal Company Use (Docker in Intranet)
-
-- Frontend and Stirling PDF backend hosted within internal network
-- Requests routed through API proxy to avoid exposing endpoints
-
-## 🐳 Dockerfile
-
-```dockerfile
-# Build Stage
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY . .
-RUN npm install && npm run build
-
-# Production Stage
-FROM node:20-alpine
-WORKDIR /app
-COPY --from=builder /app .
-ENV NODE_ENV=production
-EXPOSE 3000
-CMD ["npm", "start"]
-```
-
-## 📄 .env.example
-
-```env
-# Public API URL for Stirling PDF server
-NEXT_PUBLIC_API_URL=https://xxx.xxx.xxx
-```
 
 ## 🧩 Integration
 
