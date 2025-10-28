@@ -11,7 +11,7 @@ import {
   MdOutlineZoomInMap,
   MdOutlineWaterDrop,
   MdOutlineCompare,
-  MdOutlinePhotoLibrary,
+  // MdOutlinePhotoLibrary,
   MdManageSearch,
   MdOutlineNumbers,
 } from "react-icons/md";
@@ -98,11 +98,11 @@ export default function ToolSidebar() {
         key: "compare",
         icon: <MdOutlineCompare />,
       },
-      {
-        href: "/editor/extract-images",
-        key: "extract-images",
-        icon: <MdOutlinePhotoLibrary />,
-      },
+      // {
+      //   href: "/editor/extract-images",
+      //   key: "extract-images",
+      //   icon: <MdOutlinePhotoLibrary />,
+      // },
       {
         href: "/editor/ocr-pdf",
         key: "ocr-pdf",
