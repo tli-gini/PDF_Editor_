@@ -273,7 +273,7 @@
           "placeholder": "1-5"
         },
         "font-size": {
-          "label": "字型大小",
+          "label": "字型大小：",
           "hint": "",
           "placeholder": "12"
         },
@@ -318,6 +318,10 @@
       "apply": "套用",
       "select": "選取",
       "unselect": "取消"
+    },
+    "positionSelector": {
+      "label": "頁碼位置：",
+      "previewHint": "輸出會依字體與頁面邊距有所差異。"
     }
   },
   "toast": {

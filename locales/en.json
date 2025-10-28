@@ -278,7 +278,7 @@
           "placeholder": "12"
         },
         "custom-text": {
-          "label": "Custom Text",
+          "label": "Custom Text Format",
           "hint": "",
           "placeholder": ""
         }
@@ -318,6 +318,10 @@
       "apply": "Apply",
       "select": "Select",
       "unselect": "Unselect"
+    },
+    "positionSelector": {
+      "label": "Position Selection",
+      "previewHint": "Final output may vary due to PDF font/margins."
     }
   },
   "toast": {

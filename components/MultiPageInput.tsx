@@ -40,7 +40,7 @@ export default function MultiPageInput({
           : field.type ?? "text";
 
         return (
-          <div key={field.key} className="mt-6 text-left">
+          <div key={field.key} className="mt-6 text-left ">
             {/* Label */}
             <label
               htmlFor={id}

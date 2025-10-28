@@ -9,6 +9,7 @@ import ToolPageWrapper from "@/components/ToolPageWrapper";
 import MultiPageInput from "@/components/MultiPageInput";
 import type { FieldSpec } from "@/components/MultiPageInput";
 import ModeSelect from "@/components/ModeSelect";
+import PositionSelector from "@/components/PositionSelector";
 import InfoToggle from "@/components/InfoToggle";
 import { MdOutlineNumbers } from "react-icons/md";
 import { useState } from "react";
@@ -16,6 +17,7 @@ import { useState } from "react";
 export default function AddPageNumber() {
   const { t } = useI18n();
   const tool = t.tools["add-page-numbers"];
+  const [position, setPosition] = useState(8);
 
   const [formVals, setFormVals] = useState<Record<string, string>>({});
   const onFieldChange = (k: string, v: string) =>
@@ -72,6 +74,8 @@ export default function AddPageNumber() {
       />
 
       <DropzoneCard multiple={false} />
+
+      <PositionSelector value={position} onChange={setPosition} />
 
       {/* 1. Margin Size */}
       <ModeSelect
