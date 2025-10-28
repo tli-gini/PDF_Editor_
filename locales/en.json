@@ -254,27 +254,32 @@
         "lg": "Large",
         "xl": "Extra Large"
       },
-      "modeLabel2": "Font",
+      "modeLabel2": "Font Name",
       "modes2": {
         "font1": "Times New Roman",
         "font2": "Helvetica",
         "font3": "Courier New"
       },
-      "info": "Add page numbers to your PDF document to enhance navigation and organization.",
+      "info": "Add page numbers to your PDF document to enhance navigation and organization.\n\nMargin Size:\nDistance between the page number and the edge of the page.\n\nFont Name:\nFont family for the page numbers.\nChoose based on your document style.\n\nFont Size:\nSize of the page number text in points.\nLarger numbers create bigger text.\nDefaults to 12, minimum 1.\n\nStarting Number:\nThe first number to display.\nSubsequent pages will increment from this number.\nDefaults to 1.\n\nPages to Number:\nCustom page selection.\nEnter a comma-separated list of page numbers like 1,5,6 or patterns like 2n+1.\n\nCustom Text Format:\nOptional custom format for page numbers.\nUse {n} as a placeholder for the number.\nExample: 'Page {n}' will show 'Page 1', 'Page 2', etc.",
       "fields": {
         "starting-number": {
           "label": "Starting Number",
-          "hint": "Defaults to 1",
+          "hint": "",
           "placeholder": "1"
         },
         "pages-to-number": {
           "label": "Pages to Number",
-          "hint": "Default: all, also accepts 1-5 or 2, 5, 9 etc.",
+          "hint": "",
           "placeholder": "1-5"
+        },
+        "font-size": {
+          "label": "Font Size",
+          "hint": "",
+          "placeholder": "12"
         },
         "custom-text": {
           "label": "Custom Text",
-          "hint": "Defaults to {n}, also accepts 'Page {n} of {total}', 'Text-{n}', '{filename} - {n}'",
+          "hint": "",
           "placeholder": ""
         }
       }
