@@ -113,9 +113,11 @@ export default function AddPageNumber() {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-    } catch (e: any) {
+    } catch (e: unknown) {
+      const message =
+        e instanceof Error ? e.message : "Failed to add page numbers.";
       console.error(e);
-      alert(e.message || "Failed to add page numbers.");
+      alert(message);
     } finally {
       setLoading(false);
     }
