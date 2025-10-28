@@ -32,7 +32,7 @@ export default function InfoToggle({
 
       <div
         className={`overflow-hidden transition-all duration-300 ${
-          open ? "max-h-96 opacity-100 mt-3" : "max-h-0 opacity-0"
+          open ? " opacity-100 mt-3" : "max-h-0 opacity-0"
         }`}
       >
         <div className="text-sm font-light whitespace-pre-line">{children}</div>
