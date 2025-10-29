@@ -9,6 +9,11 @@ export type FieldSpec = {
   hint?: string;
   placeholder?: string;
   type?: "text" | "password" | "email" | "number";
+  min?: number;
+  max?: number;
+  step?: number;
+  pattern?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
 };
 
 interface MultiPageInputProps {
@@ -65,6 +70,11 @@ export default function MultiPageInput({
                 placeholder={field.placeholder ?? ""}
                 className="w-full px-4 py-2 pr-12 font-semibold border shadow-inner rounded-xl border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary placeholder:text-primary-light dark:text-background"
                 autoComplete={isPwd ? "new-password" : undefined}
+                min={field.min}
+                max={field.max}
+                step={field.step}
+                pattern={field.pattern}
+                inputMode={field.inputMode}
               />
 
               {isPwd && (

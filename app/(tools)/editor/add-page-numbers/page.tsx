@@ -12,6 +12,7 @@ import PositionSelector from "@/components/PositionSelector";
 import InfoToggle from "@/components/InfoToggle";
 import { MdOutlineNumbers } from "react-icons/md";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function AddPageNumber() {
   const { t } = useI18n();
@@ -31,7 +32,7 @@ export default function AddPageNumber() {
   }));
 
   const [margin, setMargin] = useState(marginOptions[0]?.value ?? "");
-  const [font, setFont] = useState(fontOptions[0]?.value ?? "");
+  const [font, setFont] = useState(fontOptions[0]?.value ?? "12");
   const [position, setPosition] = useState(8); // default to bottom-center (8)
 
   // MultiPageInput controlled values
@@ -46,6 +47,10 @@ export default function AddPageNumber() {
       hint: tool.fields["font-size"].hint,
       placeholder: tool.fields["font-size"].placeholder,
       type: "number",
+      min: 1,
+      step: 1,
+      inputMode: "numeric",
+      pattern: "^\\d+$",
     },
     {
       key: "starting-number",
@@ -53,6 +58,10 @@ export default function AddPageNumber() {
       hint: tool.fields["starting-number"].hint,
       placeholder: tool.fields["starting-number"].placeholder,
       type: "number",
+      min: 1,
+      step: 1,
+      inputMode: "numeric",
+      pattern: "^\\d+$",
     },
     {
       key: "pages-to-number",
@@ -72,22 +81,44 @@ export default function AddPageNumber() {
 
   // 3) Submit -> POST /api/add-page-numbers
   const [loading, setLoading] = useState(false);
+
+  function hasAtMostOneDecimal(x: string) {
+    return /^\d+(\.\d)?$/.test(x);
+  }
+
   const handleSubmit = async () => {
     if (!file) {
-      alert("Please upload a PDF first.");
+      toast.warn(t.toast.missingFile);
       return;
     }
+
+    // Pull values with sensible defaults
+    const fontSizeStr = (formVals["font-size"] ?? "12").trim();
+    const startStr = (formVals["starting-number"] ?? "1").trim();
+
+    // Validate font size: >=1 and max one decimal
+    const fontSize = Number(fontSizeStr);
+    if (!(fontSize >= 1) || !hasAtMostOneDecimal(fontSizeStr)) {
+      toast.error(t.toast.invalidFontSize);
+      return;
+    }
+
+    // Validate starting number: integer >=1
+    const startingNumber = Number(startStr);
+    if (!(startingNumber >= 1) || !Number.isInteger(startingNumber)) {
+      toast.error(t.toast.invalidStartingNumber);
+      return;
+    }
+
     setLoading(true);
     try {
       const fd = new FormData();
-      // Required fields
       fd.append("fileInput", file);
-      fd.append("fontSize", String(formVals["font-size"] || 12));
-      fd.append("fontType", font); // font family key
-      fd.append("position", String(position)); // 1..9
-      fd.append("startingNumber", String(formVals["starting-number"] || 1));
+      fd.append("fontSize", String(fontSize));
+      fd.append("fontType", font);
+      fd.append("position", String(position));
+      fd.append("startingNumber", String(startingNumber));
 
-      // Optional fields
       if (formVals["pages-to-number"])
         fd.append("pagesToNumber", formVals["pages-to-number"]);
       if (formVals["custom-text"])
@@ -103,7 +134,6 @@ export default function AddPageNumber() {
         throw new Error(txt || `Request failed (${resp.status})`);
       }
 
-      // Route returns a PDF stream with Content-Disposition set. Trigger download on client.
       const blob = await resp.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -113,11 +143,11 @@ export default function AddPageNumber() {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-    } catch (e: unknown) {
-      const message =
-        e instanceof Error ? e.message : "Failed to add page numbers.";
+
+      toast.success(t.toast.success);
+    } catch (e) {
       console.error(e);
-      alert(message);
+      toast.error(t.toast.fail);
     } finally {
       setLoading(false);
     }

@@ -260,7 +260,8 @@
         "font2": "Helvetica",
         "font3": "Courier New"
       },
-      "info": "Add page numbers to your PDF document to enhance navigation and organization.\n\nMargin Size:\nDistance between the page number and the edge of the page.\n\nFont Name:\nFont family for the page numbers.\nChoose based on your document style.\n\nFont Size:\nSize of the page number text in points.\nLarger numbers create bigger text.\nDefaults to 12, minimum 1.\n\nStarting Number:\nThe first number to display.\nSubsequent pages will increment from this number.\nDefaults to 1.\n\nPages to Number:\nCustom page selection.\nEnter a comma-separated list of page numbers like 1,5,6 or patterns like 2n+1.\n\nCustom Text Format:\nOptional custom format for page numbers.\nUse {n} as a placeholder for the number.\nExample: 'Page {n}' will show 'Page 1', 'Page 2', etc.",
+      "info": "Add page numbers to your PDF document to enhance navigation and organization.\n\nMargin Size:\nDistance between the page number and the edge of the page.\n\nFont Name:\nFont family for the page numbers.\nChoose based on your document style.\n\nFont Size:\nSize of the page number text in points.\nLarger numbers create bigger text.\nDefaults to 12, minimum 1.\n\nStarting Number:\nThe first number to display.\nSubsequent pages will increment from this number.\nDefaults to 1.\n\nPages to Number:\nCustom page selection.\nEnter a comma-separated list of page numbers like 1,5,6 or patterns like 2n+1.\n\nCustom Text Format:\nOptional custom format for page numbers.\nUse placeholders to dynamically insert values:\n{n} = current page number\n{total} = total number of pages\n{filename} = original filename\n\nExample:\n- 'Page {n}' → Page 1, Page 2\n- '{filename} - {n}/{total}' → MyFile - 1/10, MyFile - 2/10",
+
       "fields": {
         "starting-number": {
           "label": "Starting Number",
@@ -341,7 +342,9 @@
     "cloudHint": "If this is the cloud demo, the conversion server may be under-provisioned. Running locally against the intranet server should work.",
     "networkTimeout": "Network timeout. Please try again.",
     "missingPassword": "Please enter the password.",
-    "passwordMismatch": "Passwords do not match. Please try again."
+    "passwordMismatch": "Passwords do not match. Please try again.",
+    "invalidFontSize": "Font size must be ≥ 1 and at most one decimal place.",
+    "invalidStartingNumber": "Starting number must be an integer ≥ 1."
   },
   "misc": {
     "showInfo": "Info",
