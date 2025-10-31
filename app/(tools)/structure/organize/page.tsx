@@ -7,6 +7,7 @@ import ToolTitle from "@/components/ToolTitle";
 import SendButton from "@/components/SendButton";
 import ModeSelect from "@/components/ModeSelect";
 import PageInput from "@/components/PageInput";
+import InfoToggle from "@/components/InfoToggle";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
 import { MdMoveUp } from "react-icons/md";
 import { useState } from "react";
@@ -96,6 +97,10 @@ export default function OrganizePage() {
       {mode === "CUSTOM" && (
         <PageInput labelKey="organize" value={pages} onChange={setPages} />
       )}
+
+      <InfoToggle title={t.misc.showInfo} hideTitle={t.misc.hideInfo}>
+        {t.tools.organize.info}
+      </InfoToggle>
 
       <SendButton onClick={handleUpload} loading={loading} />
     </ToolPageWrapper>

@@ -40,8 +40,9 @@
       "label": "Organize",
       "description": "Reorder or arrange PDF pages.",
       "inputLabel": "Custom Page Order",
-      "inputHint": "Enter a comma-separated list of page numbers: 4,7,12-16 \nor Functions like 2n+1",
-      "placeholder": "4,7,12-16",
+      "inputHint": "",
+      "placeholder": "4-7,2,13,10-12",
+      "info": "Use a custom sequence of page numbers or expressions to define a new order.\n\nCustom Page Order:\nProvide a comma-separated list, e.g., 4,7,12-16 or use functions like 2n+1.\n\nExamples:\n4-7,2,13,10-12 → Pages 4 to 7, then page 2, followed by page 13, and finally pages 10 to 12.\n\nFunction Explanation:\n・n = total number of pages\n・2n+1 = all odd-numbered pages\n・2n = all even-numbered pages",
       "modeLabel": "Mode",
       "modes": {
         "CUSTOM": "Custom Page Order",
@@ -246,7 +247,7 @@
         "force": "Force (re-OCR all, replace text)",
         "strict": "Strict (abort if text found)"
       },
-      "info": "",
+      "info": "Optical Character Recognition (OCR) helps you turn scanned or screenshotted pages into text you can search, copy, or highlight.\n\nOCR Mode:\n・Auto skips pages that already contain text layers.\n・Force re-OCRs every page and replaces all the text.\n・Strict halts if any selectable text is found.\n\nLanguages:\nImprove OCR accuracy by specifying the expected languages.\nChoose one or more languages to guide detection.",
       "checkboxLabel": "Compatibility Mode (larger file, better compatibility)"
     },
     "add-page-numbers": {
