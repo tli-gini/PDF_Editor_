@@ -36,7 +36,9 @@ export default function AddPageNumber() {
   const [position, setPosition] = useState(8); // default to bottom-center (8)
 
   // MultiPageInput controlled values
-  const [formVals, setFormVals] = useState<Record<string, string>>({});
+  const [formVals, setFormVals] = useState<Record<string, string>>({
+    "font-size": "12",
+  });
   const onFieldChange = (k: string, v: string) =>
     setFormVals((s) => ({ ...s, [k]: v }));
 

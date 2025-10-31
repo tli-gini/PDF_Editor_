@@ -239,7 +239,15 @@
       "description": "對掃描的 PDF 進行文字辨識 (OCR) 並清理檔案。",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "modeLabel1": "OCR 模式：",
+      "modes1": {
+        "auto": "自動（僅處理無文字的頁面）",
+        "force": "強制（所有頁面皆進行 OCR）",
+        "strict": "嚴格（檢測到文字頁面則中止 OCR）"
+      },
+      "info": "",
+      "checkboxLabel": "相容模式（檔案較大，相容性佳）"
     },
     "add-page-numbers": {
       "label": "新增頁碼",
@@ -256,9 +264,9 @@
       },
       "modeLabel2": "字體：",
       "modes2": {
-        "font1": "Times New Roman",
-        "font2": "Helvetica",
-        "font3": "Courier New"
+        "times": "Times New Roman",
+        "helvetica": "Helvetica",
+        "courier": "Courier New"
       },
       "info": "在 PDF 文件中新增頁碼。\n\n邊距大小：\n設定頁碼與頁面邊緣的距離。\n\n字體：\n頁碼文字所使用的字體，可依文件風格選擇。\n\n字型大小：\n頁碼文字的大小，數值越大文字越大。\n預設為 12，最小值為 1。\n\n起始頁碼：\n設定第一個顯示的頁碼，預設為 1。後續頁面會依序遞增。\n\n指定編號頁面：\n可自訂要加頁碼的頁面範圍。\n輸入以逗號分隔的頁碼，如：1,5,6 或 2n+1。\n\n自訂頁碼文字：\n可加入前綴或後綴文字。\n使用以下變數：\n{n} = 目前頁碼\n{total} = 總頁數\n{filename} = 原始檔案名稱\n\n範例：\n- '第 {n} 頁' → 第 1 頁、第 2 頁\n- '{filename} - {n}/{total}' → MyFile - 1/10、MyFile - 2/10",
       "fields": {

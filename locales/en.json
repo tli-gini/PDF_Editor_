@@ -239,7 +239,15 @@
       "description": "Enhance scanned PDFs with OCR and cleanup.",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "modeLabel1": "OCR Mode",
+      "modes1": {
+        "auto": "Auto (skip text layers)",
+        "force": "Force (re-OCR all, replace text)",
+        "strict": "Strict (abort if text found)"
+      },
+      "info": "",
+      "checkboxLabel": "Compatibility Mode (larger file, better compatibility)"
     },
     "add-page-numbers": {
       "label": "Add Page Numbers",
@@ -256,9 +264,9 @@
       },
       "modeLabel2": "Font Name",
       "modes2": {
-        "font1": "Times New Roman",
-        "font2": "Helvetica",
-        "font3": "Courier New"
+        "times": "Times New Roman",
+        "helvetica": "Helvetica",
+        "courier": "Courier New"
       },
       "info": "Add page numbers to your PDF document to enhance navigation and organization.\n\nMargin Size:\nDistance between the page number and the edge of the page.\n\nFont Name:\nFont family for the page numbers.\nChoose based on your document style.\n\nFont Size:\nSize of the page number text in points.\nLarger numbers create bigger text.\nDefaults to 12, minimum 1.\n\nStarting Number:\nThe first number to display.\nSubsequent pages will increment from this number.\nDefaults to 1.\n\nPages to Number:\nCustom page selection.\nEnter a comma-separated list of page numbers like 1,5,6 or patterns like 2n+1.\n\nCustom Text Format:\nOptional custom format for page numbers.\nUse placeholders to dynamically insert values:\n{n} = current page number\n{total} = total number of pages\n{filename} = original filename\n\nExample:\n- 'Page {n}' → Page 1, Page 2\n- '{filename} - {n}/{total}' → MyFile - 1/10, MyFile - 2/10",
 
