@@ -219,7 +219,54 @@
       "description": "為 PDF 檔案新增浮水印。",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "modeLabel1": "浮水印類型：",
+      "modes1": {
+        "text": "文字",
+        "image": "圖片"
+      },
+      "modeLabel2": "語言：",
+      "modes2": {
+        "roman": "羅馬字母",
+        "arabic": "阿拉伯數字",
+        "japanese": "日本語",
+        "korean": "한국어",
+        "chinese": "中文"
+      },
+      "fields": {
+        "watermark-text": {
+          "label": "文本：",
+          "hint": "",
+          "placeholder": "PDF_Editor_"
+        },
+        "font-size": {
+          "label": "字型大小：",
+          "hint": "",
+          "placeholder": "12"
+        },
+        "opacity": {
+          "label": "透明度：",
+          "hint": "",
+          "placeholder": "50%"
+        },
+        "rotation": {
+          "label": "旋轉角度：",
+          "hint": "",
+          "placeholder": "45°"
+        },
+        "position-x": {
+          "label": "水平間距：",
+          "hint": "",
+          "placeholder": "50"
+        },
+        "position-y": {
+          "label": "垂直間距：",
+          "hint": "",
+          "placeholder": "50"
+        }
+      },
+      "checkboxLabel": "將PDF轉換為圖片",
+      "info": "為 PDF 文件新增浮水印以保護內容或標示文件狀態。\n\n浮水印類型：\n・文字：輸入自訂文字作為浮水印。\n・圖片：上傳圖片檔案作為浮水印。\n\n語言：\n選擇適合浮水印內容的語言，以確保正確顯示特殊字元。\n\n字型大小：\n設定浮水印文字的大小。\n\n透明度：\n調整浮水印的透明度，範圍從 0%（完全透明）到 100%（完全不透明）。\n\n旋轉角度：\n設定浮水印的旋轉角度，以改變其傾斜程度。\n\n水平/垂直間距：\n調整浮水印在頁面上的位置。\n水平間距控制左右位置，垂直間距控制上下位置。"
     },
     "compare": {
       "label": "比較",
@@ -243,9 +290,9 @@
       "placeholder": "",
       "modeLabel1": "OCR 模式：",
       "modes1": {
-        "auto": "自動（僅處理無文字的頁面）",
-        "force": "強制（所有頁面皆進行 OCR）",
-        "strict": "嚴格（檢測到文字頁面則中止 OCR）"
+        "skip-text": "自動（僅處理無文字的頁面）",
+        "force-ocr": "強制（所有頁面皆進行 OCR）",
+        "Normal": "嚴格（檢測到文字頁面則中止 OCR）"
       },
       "info": "光學字元辨識（OCR）可將掃描或螢幕截圖的頁面轉換為可搜尋、複製或標註的文字。\n\nOCR 模式：\n・自動：跳過已包含文字圖層的頁面。\n・強制：對每個頁面重新進行 OCR，並取代所有文字。\n・嚴格：在發現任何可選取文字時中止處理。\n\n語言：\n透過指定預期語言提升 OCR 準確度。\n選擇一種或多種語言以協助辨識。",
       "checkboxLabel": "相容模式（檔案較大，相容性佳）"

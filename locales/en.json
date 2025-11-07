@@ -219,7 +219,54 @@
       "description": "Add a watermark to your PDF.",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "modeLabel1": "Watermark Type",
+      "modes1": {
+        "text": "Text",
+        "image": "Image"
+      },
+      "modeLabel2": "Language",
+      "modes2": {
+        "roman": "Roman",
+        "arabic": "Arabic",
+        "japanese": "日本語",
+        "korean": "한국어",
+        "chinese": "中文"
+      },
+      "fields": {
+        "watermark-text": {
+          "label": "Watermark Text",
+          "hint": "",
+          "placeholder": "PDF_Editor_"
+        },
+        "font-size": {
+          "label": "Font Size",
+          "hint": "",
+          "placeholder": "12"
+        },
+        "opacity": {
+          "label": "Opacity",
+          "hint": "",
+          "placeholder": "50%"
+        },
+        "rotation": {
+          "label": "Rotation",
+          "hint": "",
+          "placeholder": "45°"
+        },
+        "position-x": {
+          "label": "Position X",
+          "hint": "",
+          "placeholder": "50"
+        },
+        "position-y": {
+          "label": "Position Y",
+          "hint": "",
+          "placeholder": "50"
+        }
+      },
+      "checkboxLabel": "Flatten PDF pages to images",
+      "info": "Add a watermark to your PDF to indicate its status or ownership.\n\nWatermark Type:\nChoose between text or image watermarks.\n\nLanguage:\nSelect the language for text watermarks to ensure proper rendering and style.\n\nFont Size:\nSize of the watermark text in points.\nLarger sizes create bigger text.\n\nOpacity:\nTransparency level of the watermark.\n0% is fully transparent, 100% is fully opaque.\n\nRotation:\nAngle to rotate the watermark text or image.\nSpecify in degrees (e.g., 45° for diagonal).\n\nPosition X/Y:\nCoordinates to place the watermark on the page.\nMeasured in points from the bottom-left corner."
     },
     "compare": {
       "label": "Compare",
@@ -243,9 +290,9 @@
       "placeholder": "",
       "modeLabel1": "OCR Mode",
       "modes1": {
-        "auto": "Auto (skip text layers)",
-        "force": "Force (re-OCR all, replace text)",
-        "strict": "Strict (abort if text found)"
+        "skip-text": "Auto (skip text layers)",
+        "force-ocr": "Force (re-OCR all, replace text)",
+        "Normal": "Strict (abort if text found)"
       },
       "info": "Optical Character Recognition (OCR) helps you turn scanned or screenshotted pages into text you can search, copy, or highlight.\n\nOCR Mode:\n・Auto skips pages that already contain text layers.\n・Force re-OCRs every page and replaces all the text.\n・Strict halts if any selectable text is found.\n\nLanguages:\nImprove OCR accuracy by specifying the expected languages.\nChoose one or more languages to guide detection.",
       "checkboxLabel": "Compatibility Mode (larger file, better compatibility)"
