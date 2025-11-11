@@ -14,11 +14,12 @@ import CheckboxOption from "@/components/CheckboxOption";
 import InfoToggle from "@/components/InfoToggle";
 import { MdManageSearch } from "react-icons/md";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const langOptions: MCOption[] = [
   { value: "eng", label: "English" },
   { value: "chi_sim", label: "Chinese" },
-  { value: "fre", label: "French" },
+  { value: "fra", label: "French" },
   { value: "deu", label: "German" },
   { value: "por", label: "Portuguese" },
 ];
@@ -37,6 +38,55 @@ export default function OcrPdf() {
   const [mode, setMode] = useState(modeOptions[0]?.value ?? "");
   const [compatibility, setCompatibility] = useState(false);
 
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSend() {
+    if (!file) {
+      toast.error(t.toast.missingFile);
+      return;
+    }
+    try {
+      setLoading(true);
+      const fd = new FormData();
+      fd.append("fileInput", file);
+
+      // languages -> array<string>
+      langs.forEach((lang) => fd.append("languages", lang));
+
+      // ocrType from select (skip-text / force-ocr / Normal)
+      fd.append("ocrType", mode);
+
+      // Compatibility Mode -> render type
+      fd.append("ocrRenderType", compatibility ? "sandwich" : "hocr");
+
+      const res = await fetch("/api/ocr-pdf", { method: "POST", body: fd });
+      if (!res.ok) {
+        let msg = "OCR failed";
+        try {
+          const data = await res.json();
+          if (data?.error) msg = data.error;
+        } catch {}
+        throw new Error(msg);
+      }
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${file.name}_ocr.pdf`;
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      toast.success(t.toast.success);
+    } catch (e) {
+      console.error(e);
+      toast.error(t.toast.fail);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <ToolPageWrapper>
       <ToolTitle
@@ -44,7 +94,10 @@ export default function OcrPdf() {
         label={tool.label}
       />
 
-      <DropzoneCard multiple={false} />
+      <DropzoneCard
+        multiple={false}
+        onFilesUpload={(files) => setFile(files[0])}
+      />
 
       {/* Languages */}
       <MultiCheckboxList
@@ -67,7 +120,7 @@ export default function OcrPdf() {
 
       {/* Compatibility Mode */}
       <CheckboxOption
-        id="add-border"
+        id="compatibility-mode"
         checked={compatibility}
         onChange={setCompatibility}
         labelKey="ocr-pdf"
@@ -78,7 +131,7 @@ export default function OcrPdf() {
         {tool.info}
       </InfoToggle>
 
-      <SendButton />
+      <SendButton onClick={handleSend} loading={loading} />
     </ToolPageWrapper>
   );
 }
