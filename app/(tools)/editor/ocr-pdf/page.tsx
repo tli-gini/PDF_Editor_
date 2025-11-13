@@ -101,7 +101,7 @@ export default function OcrPdf() {
 
       {/* Languages */}
       <MultiCheckboxList
-        label="Languages"
+        label={tool.languagesLabel}
         options={langOptions}
         values={langs}
         onChange={setLangs}

@@ -294,7 +294,8 @@
         "force-ocr": "Force (re-OCR all, replace text)",
         "Normal": "Strict (abort if text found)"
       },
-      "info": "Optical Character Recognition (OCR) helps you turn scanned or screenshotted pages into text you can search, copy, or highlight.\n\nOCR Mode:\n・Auto skips pages that already contain text layers.\n・Force re-OCRs every page and replaces all the text.\n・Strict halts if any selectable text is found.\n\nLanguages:\nImprove OCR accuracy by specifying the expected languages.\nChoose one or more languages to guide detection.",
+      "info": "Optical Character Recognition (OCR) helps you turn scanned or screenshotted pages into text you can search, copy, or highlight.\n\nLanguages:\nImprove OCR accuracy by specifying the expected languages.\nChoose one or more languages to guide detection.\n\nOCR Mode:\n・Auto skips pages that already contain text layers.\n・Force re-OCRs every page and replaces all the text.\n・Strict halts if any selectable text is found.",
+      "languagesLabel": "Languages",
       "checkboxLabel": "Compatibility Mode (larger file, better compatibility)"
     },
     "add-page-numbers": {
