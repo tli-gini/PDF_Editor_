@@ -8,12 +8,13 @@ export type FieldSpec = {
   label: string;
   hint?: string;
   placeholder?: string;
-  type?: "text" | "password" | "email" | "number";
+  type?: "text" | "password" | "email" | "number" | "color";
   min?: number;
   max?: number;
   step?: number;
   pattern?: string;
   inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
+  unit?: string;
 };
 
 interface MultiPageInputProps {
