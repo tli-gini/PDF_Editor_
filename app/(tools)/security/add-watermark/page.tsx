@@ -13,6 +13,8 @@ import InfoToggle from "@/components/InfoToggle";
 import { MdOutlineWaterDrop } from "react-icons/md";
 import { useState, useMemo } from "react";
 
+type WatermarkType = "text" | "image";
+
 export default function AddWatermark() {
   const { t } = useI18n();
   const tool = t.tools["add-watermark"];
@@ -23,8 +25,9 @@ export default function AddWatermark() {
       Object.entries(tool.modes1).map(([value, label]) => ({ value, label })),
     [tool.modes1]
   );
-  const [type, setType] = useState<"text" | "image">(
-    (typeOptions[0]?.value as any) ?? "text"
+  const firstType = typeOptions[0]?.value;
+  const [type, setType] = useState<WatermarkType>(
+    firstType === "image" ? "image" : "text"
   );
 
   // Font/Language（Alphabet）
@@ -185,7 +188,7 @@ export default function AddWatermark() {
         label={tool.modeLabel1}
         value={type}
         options={typeOptions}
-        onChange={(v) => setType(v as any)}
+        onChange={(v) => setType(v === "image" ? "image" : "text")}
       />
 
       {/* 3 Section（Text: Wording / Image: Watermark File） */}
