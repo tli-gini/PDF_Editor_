@@ -56,7 +56,7 @@ export default function AddWatermark() {
   const [flatten, setFlatten] = useState(false);
 
   const onFieldChange = (k: string, v: string) =>
-    setFormVals((s) => ({ ...s, watermarkText: "" }));
+    setFormVals((s) => ({ ...s, [k]: v }));
 
   // Field specs
   // Text
