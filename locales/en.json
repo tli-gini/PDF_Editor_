@@ -254,15 +254,20 @@
           "hint": "",
           "placeholder": "45°"
         },
-        "position-x": {
+        "width-spacer": {
           "label": "Position X",
           "hint": "",
           "placeholder": "50"
         },
-        "position-y": {
+        "height-spacer": {
           "label": "Position Y",
           "hint": "",
           "placeholder": "50"
+        },
+        "custom-color": {
+          "label": "Custom Color",
+          "hint": "",
+          "placeholder": "#FF0000"
         }
       },
       "checkboxLabel": "Flatten PDF pages to images",

@@ -254,15 +254,20 @@
           "hint": "",
           "placeholder": "45°"
         },
-        "position-x": {
+        "width-spacer": {
           "label": "水平間距：",
           "hint": "",
           "placeholder": "50"
         },
-        "position-y": {
+        "height-spacer": {
           "label": "垂直間距：",
           "hint": "",
           "placeholder": "50"
+        },
+        "custom-color": {
+          "label": "自訂顏色：",
+          "hint": "",
+          "placeholder": "#FF0000"
         }
       },
       "checkboxLabel": "將PDF轉換為圖片",
