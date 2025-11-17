@@ -71,7 +71,7 @@ NEXT_PUBLIC_API_URL=http://stirling.internal:8080
 - Requests are routed through Next.js API routes to ensure:
   - Cross-origin safety: avoids CORS issues
   - Credential privacy: sensitive API info stays server-side
-- By changing the NEXT_PUBLIC_PDF_API_URL environment variable, the same UI can connect to:
+- By changing the NEXT_PUBLIC_API_URL environment variable, the same UI can connect to:
   - A public backend (e.g. Fly.io)
   - A private server (e.g. intranet Docker deployment)
 - No additional backend logic or database is required

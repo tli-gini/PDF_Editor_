@@ -47,12 +47,15 @@ export async function POST(req: NextRequest) {
       body: form,
       signal: ac.signal,
     });
-  } catch (err: any) {
+  } catch (err) {
     clearTimeout(timeout);
+    const e = err as Error;
+
     const msg =
-      err?.name === "AbortError"
+      e.name === "AbortError"
         ? "Upstream timeout"
-        : err?.message || "Upstream fetch failed";
+        : e.message || "Upstream fetch failed";
+
     return new Response(msg, { status: 502 });
   } finally {
     clearTimeout(timeout);
