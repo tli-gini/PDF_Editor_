@@ -191,10 +191,10 @@ export default function AddWatermark() {
         onChange={(v) => setType(v === "image" ? "image" : "text")}
       />
 
-      {/* 3 Section（Text: Wording / Image: Watermark File） */}
+      {/* 3 Section（Text / Image） */}
       {type === "text" ? (
-        <div className="w-full max-w-lg">
-          <div className="mb-2 text-base font-semibold text-secondary">
+        <div key="wording-text" className="w-full max-w-lg">
+          <div className="mb-2 text-base font-semibold text-left text-secondary">
             Wording
           </div>
           <input
@@ -206,8 +206,8 @@ export default function AddWatermark() {
           />
         </div>
       ) : (
-        <div className="w-full max-w-lg">
-          <div className="mb-2 text-base font-semibold text-secondary">
+        <div key="wording-image" className="w-full max-w-lg">
+          <div className="mb-2 text-base font-semibold text-left text-secondary">
             Watermark File
           </div>
           <input
@@ -227,13 +227,9 @@ export default function AddWatermark() {
 
       {/* 4 Style */}
       {type === "text" && (
-        <div className="w-full max-w-lg">
-          <div className="mb-2 text-base font-semibold text-secondary">
-            Style
-          </div>
-
+        <div className="w-full max-w-lg text-left">
           {/* Watermark Colour */}
-          <label className="block mb-1 text-sm font-medium text-secondary">
+          <label className="block mb-1 text-base font-semibold text-secondary">
             {tool.fields["custom-color"]?.label ?? "Watermark Color"}
           </label>
           <div className="flex items-center gap-3">
@@ -266,9 +262,6 @@ export default function AddWatermark() {
 
       {/* 5 Formatting */}
       <div className="w-full max-w-lg">
-        <div className="mb-2 text-base font-semibold text-secondary">
-          Formatting
-        </div>
         <MultiPageInput
           fields={
             type === "text" ? textFormattingFields : imageFormattingFields
