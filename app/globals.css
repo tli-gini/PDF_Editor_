@@ -93,3 +93,31 @@ select:hover {
   background-color: var(--color-primary);
   color: white;
 }
+
+/* 40px color input */
+.color-circle {
+  @apply w-10 h-10 rounded-full cursor-pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  background: transparent;
+  border: 2px solid var(--color-white);
+}
+
+/* Chrome / Edge / Safari */
+.color-circle::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 9999px;
+}
+
+.color-circle::-webkit-color-swatch {
+  border-radius: 9999px;
+  border: none;
+}
+
+/* Firefox */
+.color-circle::-moz-color-swatch {
+  border-radius: 9999px;
+  border: none;
+}
