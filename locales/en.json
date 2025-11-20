@@ -239,6 +239,11 @@
           "hint": "",
           "placeholder": "PDF_Editor_"
         },
+        "watermark-img": {
+          "label": "Watermark Image",
+          "hint": "",
+          "placeholder": "Choose Image"
+        },
         "font-size": {
           "label": "Font Size",
           "hint": "",
@@ -271,7 +276,7 @@
         }
       },
       "checkboxLabel": "Flatten PDF pages to images",
-      "info": "Add a watermark to your PDF to indicate its status or ownership.\n\nWatermark Type:\nChoose between text or image watermarks.\n\nLanguage:\nSelect the language for text watermarks to ensure proper rendering and style.\n\nFont Size:\nSize of the watermark text in points.\nLarger sizes create bigger text.\n\nOpacity:\nTransparency level of the watermark.\n0% is fully transparent, 100% is fully opaque.\n\nRotation:\nAngle to rotate the watermark text or image.\nSpecify in degrees (e.g., 45° for diagonal).\n\nPosition X/Y:\nCoordinates to place the watermark on the page.\nMeasured in points from the bottom-left corner."
+      "info": "Add a watermark to your PDF to indicate its status or ownership.\n\nWatermark Type:\nChoose between text or image watermarks.\n\nLanguage:\nSelect the language for text watermarks to ensure proper rendering and style.\n\nFont Size:\nSize of the watermark text in points.\nLarger sizes create bigger text.\n\nRotation:\nAngle to rotate the watermark text or image.\nSpecify in degrees (e.g., 45° for diagonal).\n\nOpacity:\nTransparency level of the watermark.\n0% is fully transparent, 100% is fully opaque.\n\nPosition X/Y:\nCoordinates to place the watermark on the page.\nMeasured in points from the bottom-left corner."
     },
     "compare": {
       "label": "Compare",
