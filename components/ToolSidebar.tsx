@@ -10,7 +10,7 @@ import {
   MdOutlineRotateRight,
   MdOutlineZoomInMap,
   MdOutlineWaterDrop,
-  MdOutlineCompare,
+  // MdOutlineCompare,
   // MdOutlinePhotoLibrary,
   MdManageSearch,
   MdOutlineNumbers,
@@ -93,11 +93,11 @@ export default function ToolSidebar() {
       },
     ],
     "/editor": [
-      {
-        href: "/editor/compare",
-        key: "compare",
-        icon: <MdOutlineCompare />,
-      },
+      // {
+      //   href: "/editor/compare",
+      //   key: "compare",
+      //   icon: <MdOutlineCompare />,
+      // },
       // {
       //   href: "/editor/extract-images",
       //   key: "extract-images",
