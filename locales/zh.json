@@ -275,7 +275,7 @@
           "placeholder": "#FF0000"
         }
       },
-      "checkboxLabel": "將PDF轉換為圖片",
+      "checkboxLabel": "將 PDF 轉換為圖片",
       "info": "為 PDF 文件新增浮水印以保護內容或標示文件狀態。\n\n浮水印類型：\n・文字：輸入自訂文字作為浮水印。\n・圖片：上傳圖片檔案作為浮水印。\n\n語言：\n選擇適合浮水印內容的語言，以確保正確顯示特殊字元。\n\n字型大小：\n設定浮水印文字的大小。\n\n旋轉角度：\n設定浮水印的旋轉角度，以改變其傾斜程度。\n\n透明度：\n調整浮水印的透明度，範圍從 0%（完全透明）到 100%（完全不透明）。\n\n水平/垂直間距：\n調整浮水印在頁面上的位置。\n水平間距控制左右位置，垂直間距控制上下位置。"
     },
     "compare": {
@@ -410,7 +410,14 @@
     "missingPassword": "請輸入密碼。",
     "passwordMismatch": "密碼不符，請重新輸入。",
     "invalidFontSize": "字型大小需 ≥ 1，且只允許到小數點後一位。",
-    "invalidStartingNumber": "起始頁碼需為 ≥ 1 的整數。"
+    "invalidStartingNumber": "起始頁碼需為 ≥ 1 的整數。",
+    "watermarkMissingText": "請輸入浮水印文字。",
+    "watermarkMissingImage": "請選擇浮水印圖片。",
+    "watermarkInvalidOpacity": "透明度需為 0–100 之間的數字。",
+    "watermarkInvalidRotation": "旋轉角度需為有效的數字。",
+    "watermarkProcessing": "正在新增浮水印…",
+    "watermarkDone": "浮水印新增成功！",
+    "watermarkFailed": "新增浮水印失敗。"
   },
   "misc": {
     "showInfo": "提示",

@@ -411,7 +411,14 @@
     "missingPassword": "Please enter the password.",
     "passwordMismatch": "Passwords do not match. Please try again.",
     "invalidFontSize": "Font size must be ≥ 1 and at most one decimal place.",
-    "invalidStartingNumber": "Starting number must be an integer ≥ 1."
+    "invalidStartingNumber": "Starting number must be an integer ≥ 1.",
+    "watermarkMissingText": "Please enter watermark text.",
+    "watermarkMissingImage": "Please select a watermark image.",
+    "watermarkInvalidOpacity": "Opacity must be a number between 0 and 100.",
+    "watermarkInvalidRotation": "Rotation must be a valid number.",
+    "watermarkProcessing": "Applying watermark…",
+    "watermarkDone": "Watermark applied successfully!",
+    "watermarkFailed": "Failed to apply watermark."
   },
   "misc": {
     "showInfo": "Info",
