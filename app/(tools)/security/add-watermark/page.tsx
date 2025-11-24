@@ -13,12 +13,15 @@ import InfoToggle from "@/components/InfoToggle";
 import { MdOutlineWaterDrop, MdClose } from "react-icons/md";
 import { BiImageAdd, BiSolidImageAlt } from "react-icons/bi";
 import { useState, useMemo } from "react";
+import { toast } from "react-toastify";
 
 type WatermarkType = "text" | "image";
 
 export default function AddWatermark() {
   const { t } = useI18n();
   const tool = t.tools["add-watermark"];
+  const [pdfFiles, setPdfFiles] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
 
   // Watermark Type
   const typeOptions = useMemo(
@@ -50,10 +53,11 @@ export default function AddWatermark() {
     heightSpacer: "50",
   });
 
-  // Image watermark name
+  // Image watermark
   const [wmImageName, setWmImageName] = useState("");
+  const [wmImageFile, setWmImageFile] = useState<File | null>(null);
 
-  // Flatten（convertPDFToImage）
+  // Flatten
   const [flatten, setFlatten] = useState(false);
 
   const onFieldChange = (k: string, v: string) =>
@@ -132,6 +136,139 @@ export default function AddWatermark() {
     { ...textGridFields[2] },
     { ...textGridFields[3] },
   ];
+
+  const handleSubmit = async () => {
+    // 1) Files
+    if (!pdfFiles[0]) {
+      toast.error(t.toast.missingFile);
+      return;
+    }
+
+    // 2) Text mode
+    if (type === "text" && !formVals.watermarkText.trim()) {
+      toast.error(t.toast.watermarkMissingText);
+      return;
+    }
+
+    // 3) Image mode
+    if (type === "image" && !wmImageFile) {
+      toast.error(t.toast.watermarkMissingImage);
+      return;
+    }
+
+    // 4) opacity（0–100）
+    const opacityPercent = Number(formVals.opacityPercent ?? "");
+    if (
+      Number.isNaN(opacityPercent) ||
+      opacityPercent < 0 ||
+      opacityPercent > 100
+    ) {
+      toast.error(t.toast.watermarkInvalidOpacity);
+      return;
+    }
+
+    // 5) rotation
+    if (formVals.rotation.trim() !== "") {
+      const rot = Number(formVals.rotation);
+      if (Number.isNaN(rot)) {
+        toast.error(t.toast.watermarkInvalidRotation);
+        return;
+      }
+    }
+
+    setLoading(true);
+
+    // loading
+    const pendingId = toast.info(t.toast.watermarkProcessing, {
+      autoClose: false,
+    });
+
+    try {
+      const fd = new FormData();
+
+      // mandatory
+      fd.append("fileInput", pdfFiles[0]);
+      fd.append("watermarkType", type);
+
+      if (type === "text") {
+        fd.append("watermarkText", formVals.watermarkText ?? "");
+        fd.append("alphabet", alphabet);
+        if (formVals.customColor) {
+          fd.append("customColor", formVals.customColor);
+        }
+      } else if (wmImageFile) {
+        fd.append("watermarkImage", wmImageFile);
+      }
+
+      if (formVals.fontSize) {
+        fd.append("fontSize", formVals.fontSize);
+      }
+      if (formVals.rotation) {
+        fd.append("rotation", formVals.rotation);
+      }
+
+      // opacity: UI 0–100 → API 0–1
+      const normalizedOpacity = Math.min(Math.max(opacityPercent / 100, 0), 1);
+      fd.append("opacity", String(normalizedOpacity));
+
+      if (formVals.widthSpacer) {
+        fd.append("widthSpacer", formVals.widthSpacer);
+      }
+      if (formVals.heightSpacer) {
+        fd.append("heightSpacer", formVals.heightSpacer);
+      }
+
+      // Flatten
+      fd.append("convertPDFToImage", flatten ? "true" : "false");
+
+      const res = await fetch("/api/add-watermark", {
+        method: "POST",
+        body: fd,
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+
+        if (res.status === 502) {
+          toast.error(t.toast.serverBusy502);
+        } else if (res.status === 413) {
+          toast.error(t.toast.payloadTooLarge);
+        } else if (res.status >= 500) {
+          toast.error(
+            t.toast.serverUnavailableWithCode.replace(
+              "{code}",
+              String(res.status)
+            )
+          );
+        } else {
+          toast.error(text || t.toast.watermarkFailed);
+        }
+        throw new Error(text || `Request failed (${res.status})`);
+      }
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "_watermarked.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      // success
+      toast.success(t.toast.watermarkDone || t.toast.success);
+    } catch (err) {
+      console.error(err);
+
+      toast.error(t.toast.watermarkFailed);
+    } finally {
+      setLoading(false);
+      toast.dismiss(pendingId);
+    }
+  };
+
   return (
     <ToolPageWrapper>
       <ToolTitle
@@ -140,7 +277,12 @@ export default function AddWatermark() {
       />
 
       {/* 1 Files */}
-      <DropzoneCard multiple={false} />
+      <DropzoneCard
+        multiple={false}
+        onFilesUpload={(files) => {
+          setPdfFiles(files);
+        }}
+      />
 
       {/* 2 Watermark Type */}
       <ModeSelect
@@ -176,8 +318,9 @@ export default function AddWatermark() {
             accept="image/*"
             className="hidden"
             onChange={(e) => {
-              const f = e.target.files?.[0];
+              const f = e.target.files?.[0] ?? null;
               setWmImageName(f ? f.name : "");
+              setWmImageFile(f);
             }}
           />
 
@@ -294,7 +437,7 @@ export default function AddWatermark() {
         {tool.info}
       </InfoToggle>
 
-      <SendButton />
+      <SendButton onClick={handleSubmit} loading={loading} />
     </ToolPageWrapper>
   );
 }
