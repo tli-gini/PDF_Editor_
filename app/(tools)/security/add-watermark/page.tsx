@@ -229,23 +229,23 @@ export default function AddWatermark() {
       if (!res.ok) {
         const text = await res.text();
 
-        if (text && text.includes("No glyph for")) {
-          toast.error(t.toast.watermarkLanguageMismatch);
-        } else if (res.status === 502) {
-          toast.error(t.toast.serverBusy502);
-        } else if (res.status === 413) {
-          toast.error(t.toast.payloadTooLarge);
-        } else if (res.status >= 500) {
-          toast.error(
-            t.toast.serverUnavailableWithCode.replace(
-              "{code}",
-              String(res.status)
-            )
-          );
-        } else {
-          toast.error(text || t.toast.watermarkFailed);
+        if (res.status === 502 || res.status === 503) {
+          toast.error(t.toast.watermarkServerHeavy);
+          toast.info(t.toast.cloudHint);
+          return;
         }
 
+        if (
+          text.includes("Server overloaded") ||
+          text.includes("capacity") ||
+          text.includes("Too many requests") ||
+          text.includes("memory")
+        ) {
+          toast.error(t.toast.watermarkServerHeavy);
+          return;
+        }
+
+        toast.error(t.toast.watermarkFailed);
         throw new Error(text || `Request failed (${res.status})`);
       }
 

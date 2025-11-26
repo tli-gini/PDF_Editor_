@@ -420,7 +420,8 @@
     "watermarkProcessing": "正在新增浮水印…",
     "watermarkDone": "浮水印新增成功！",
     "watermarkFailed": "新增浮水印失敗。",
-    "watermarkLanguageMismatch": "目前語言設定不支援部分字元，請重新檢查語言選擇（例如含英文字母或數字時，請使用「羅馬字母」）。"
+    "watermarkLanguageMismatch": "目前語言設定不支援部分字元，請重新檢查語言選擇（例如含英文字母或數字時，請使用「羅馬字母」）。",
+    "watermarkServerHeavy": "對大型檔案或圖片浮水印可能需要較高的伺服器資源。"
   },
   "misc": {
     "showInfo": "提示",

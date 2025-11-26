@@ -420,7 +420,8 @@
     "watermarkProcessing": "Applying watermark…",
     "watermarkDone": "Watermark applied successfully!",
     "watermarkFailed": "Failed to apply watermark.",
-    "watermarkLanguageMismatch": "Some characters are not supported by the selected language/font. Please check your language setting (e.g., use Roman for A–Z and digits)."
+    "watermarkLanguageMismatch": "Some characters are not supported by the selected language/font. Please check your language setting (e.g., use Roman for A–Z and digits).",
+    "watermarkServerHeavy": "Watermarking large files or images may require more server resources."
   },
   "misc": {
     "showInfo": "Info",
