@@ -212,7 +212,8 @@
       "description": "為 PDF 檔案新增簽章。",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "info": "使用多種方法為 PDF 文件簽名，以符合您的需求。\n\n手繪：\n使用滑鼠或觸控螢幕直接在畫布上繪製簽名。\n\n文字：\n輸入您的姓名，並從多種字型中選擇，打造專業簽名。\n\n圖片：\n上傳手寫簽名的圖片檔案（PNG、JPG、BMP），並將其放置於文件中。"
     },
     "add-watermark": {
       "label": "新增浮水印",
@@ -233,6 +234,7 @@
         "korean": "한국어",
         "chinese": "中文"
       },
+      "languageHint": "請確認「語言」設定與浮水印文字相符。若包含英文或數字，建議選擇「羅馬字母」。",
       "fields": {
         "watermark-text": {
           "label": "浮水印文字：",
@@ -247,7 +249,7 @@
         "font-size": {
           "label": "字型大小：",
           "hint": "",
-          "placeholder": "12"
+          "placeholder": "20"
         },
         "opacity": {
           "label": "透明度：",
@@ -417,7 +419,8 @@
     "watermarkInvalidRotation": "旋轉角度需為有效的數字。",
     "watermarkProcessing": "正在新增浮水印…",
     "watermarkDone": "浮水印新增成功！",
-    "watermarkFailed": "新增浮水印失敗。"
+    "watermarkFailed": "新增浮水印失敗。",
+    "watermarkLanguageMismatch": "目前語言設定不支援部分字元，請重新檢查語言選擇（例如含英文字母或數字時，請使用「羅馬字母」）。"
   },
   "misc": {
     "showInfo": "提示",

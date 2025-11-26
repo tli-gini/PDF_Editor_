@@ -46,7 +46,7 @@ export default function AddWatermark() {
   const [formVals, setFormVals] = useState<Record<string, string>>({
     watermarkText: "",
     customColor: "#d3d3d3",
-    fontSize: "12",
+    fontSize: "20",
     rotation: "0",
     opacityPercent: "50",
     widthSpacer: "50",
@@ -69,7 +69,7 @@ export default function AddWatermark() {
     key: "fontSize",
     label: tool.fields["font-size"].label,
     hint: tool.fields["font-size"].hint,
-    placeholder: "12",
+    placeholder: "20",
     type: "number",
     min: 1,
     step: 0.5,
@@ -229,7 +229,9 @@ export default function AddWatermark() {
       if (!res.ok) {
         const text = await res.text();
 
-        if (res.status === 502) {
+        if (text && text.includes("No glyph for")) {
+          toast.error(t.toast.watermarkLanguageMismatch);
+        } else if (res.status === 502) {
           toast.error(t.toast.serverBusy502);
         } else if (res.status === 413) {
           toast.error(t.toast.payloadTooLarge);
@@ -243,6 +245,7 @@ export default function AddWatermark() {
         } else {
           toast.error(text || t.toast.watermarkFailed);
         }
+
         throw new Error(text || `Request failed (${res.status})`);
       }
 
@@ -251,7 +254,12 @@ export default function AddWatermark() {
 
       const a = document.createElement("a");
       a.href = url;
-      a.download = "_watermarked.pdf";
+
+      const originalName = pdfFiles[0]?.name ?? "file.pdf";
+      const baseName = originalName.replace(/\.pdf$/i, "");
+
+      a.download = `${baseName}__watermarked.pdf`;
+
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -395,6 +403,11 @@ export default function AddWatermark() {
               options={langOptions}
               onChange={setAlphabet}
             />
+            {tool.languageHint && (
+              <p className="mt-2 text-xs text-secondary/70">
+                {tool.languageHint}
+              </p>
+            )}
           </div>
         </div>
       )}

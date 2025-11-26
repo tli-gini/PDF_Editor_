@@ -212,7 +212,8 @@
       "description": "Add signatures to your PDF by drawing, text or image.",
       "inputLabel": "",
       "inputHint": "",
-      "placeholder": ""
+      "placeholder": "",
+      "info": "Sign your PDF document using various methods to suit your needs.\n\nDrawing:\nDraw your signature directly on the canvas using a mouse or touchscreen.\n\nText:\nType your name and choose from a selection of fonts to create a professional-looking signature.\n\nImage:\nUpload an image file of your handwritten signature (PNG, JPG, BMP) to place it on the document."
     },
     "add-watermark": {
       "label": "Add Watermark",
@@ -233,6 +234,7 @@
         "korean": "한국어",
         "chinese": "中文"
       },
+      "languageHint": "Make sure the selected language matches your watermark text. For English letters, digits, and basic symbols, use Roman.",
       "fields": {
         "watermark-text": {
           "label": "Watermark Text",
@@ -247,7 +249,7 @@
         "font-size": {
           "label": "Font Size",
           "hint": "",
-          "placeholder": "12"
+          "placeholder": "20"
         },
         "opacity": {
           "label": "Opacity",
@@ -328,7 +330,6 @@
         "courier": "Courier New"
       },
       "info": "Add page numbers to your PDF document to enhance navigation and organization.\n\nMargin Size:\nDistance between the page number and the edge of the page.\n\nFont Name:\nFont family for the page numbers.\nChoose based on your document style.\n\nFont Size:\nSize of the page number text in points.\nLarger numbers create bigger text.\nDefaults to 12, minimum 1.\n\nStarting Number:\nThe first number to display.\nSubsequent pages will increment from this number.\nDefaults to 1.\n\nPages to Number:\nCustom page selection.\nEnter a comma-separated list of page numbers like 1,5,6 or patterns like 2n+1.\n\nCustom Text Format:\nOptional custom format for page numbers.\nUse placeholders to dynamically insert values:\n{n} = current page number\n{total} = total number of pages\n{filename} = original filename\n\nExample:\n- 'Page {n}' → Page 1, Page 2\n- '{filename} - {n}/{total}' → MyFile - 1/10, MyFile - 2/10",
-
       "fields": {
         "starting-number": {
           "label": "Starting Number",
@@ -418,7 +419,8 @@
     "watermarkInvalidRotation": "Rotation must be a valid number.",
     "watermarkProcessing": "Applying watermark…",
     "watermarkDone": "Watermark applied successfully!",
-    "watermarkFailed": "Failed to apply watermark."
+    "watermarkFailed": "Failed to apply watermark.",
+    "watermarkLanguageMismatch": "Some characters are not supported by the selected language/font. Please check your language setting (e.g., use Roman for A–Z and digits)."
   },
   "misc": {
     "showInfo": "Info",
