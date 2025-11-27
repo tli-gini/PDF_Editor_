@@ -209,11 +209,41 @@
     },
     "sign": {
       "label": "Sign",
-      "description": "Add signatures to your PDF by drawing, text or image.",
+      "description": "Add signatures to your PDF by drawing, text, or image.",
       "inputLabel": "",
       "inputHint": "",
       "placeholder": "",
-      "info": "Sign your PDF document using various methods to suit your needs.\n\nDrawing:\nDraw your signature directly on the canvas using a mouse or touchscreen.\n\nText:\nType your name and choose from a selection of fonts to create a professional-looking signature.\n\nImage:\nUpload an image file of your handwritten signature (PNG, JPG, BMP) to place it on the document."
+      "info": "Sign your PDF document using various methods to suit your needs.\n\nDrawing:\nDraw your signature directly on the canvas using a mouse or touchscreen.\n\nText:\nType your name and choose from a selection of fonts to create a professional-looking signature.\n\nImage:\nUpload an image file of your handwritten signature (PNG, JPG, BMP) to place it on the document.",
+      "previewTitle": "Signature Preview",
+      "modeLabel": "Signature Type",
+      "tabs": {
+        "canvas": "Canvas",
+        "image": "Image",
+        "text": "Text"
+      },
+      "actions": {
+        "undo": "Undo",
+        "redo": "Redo",
+        "apply": "Apply Signatures"
+      },
+      "sections": {
+        "canvasTitle": "Draw your signature",
+        "canvasHint": "Click to open drawing canvas",
+        "imageTitle": "Upload signature image",
+        "imageSelect": "Select image file",
+        "imageHint": "Upload a PNG or JPG image of your signature",
+        "textTitle": "Signer Name",
+        "textPlaceholder": "John Doe",
+        "fontLabel": "Font",
+        "fontSizeLabel": "Font Size",
+        "textColorLabel": "Text Color"
+      },
+      "howTo": {
+        "title": "How to add signature",
+        "canvasBody": "After drawing your signature in the canvas, close the modal then click anywhere on the PDF to place it.",
+        "imageBody": "After uploading your signature image above, click anywhere on the PDF to place it.",
+        "textBody": "After entering your name above, click anywhere on the PDF to place your signature."
+      }
     },
     "add-watermark": {
       "label": "Add Watermark",
@@ -407,7 +437,7 @@
     "payloadTooLarge": "Request payload is too large for this deployment.",
     "serverUnavailable": "Server unavailable or over capacity.",
     "serverUnavailableWithCode": "Server unavailable or over capacity (HTTP {code}).",
-    "cloudHint": "If this is the cloud demo, the conversion server may be under-provisioned. Running locally against the intranet server should work.",
+    "cloudHint": "Running locally against the intranet server should work.",
     "networkTimeout": "Network timeout. Please try again.",
     "missingPassword": "Please enter the password.",
     "passwordMismatch": "Passwords do not match. Please try again.",
@@ -417,10 +447,10 @@
     "watermarkMissingImage": "Please select a watermark image.",
     "watermarkInvalidOpacity": "Opacity must be a number between 0 and 100.",
     "watermarkInvalidRotation": "Rotation must be a valid number.",
-    "watermarkProcessing": "Applying watermark…",
+    "watermarkProcessing": "Applying watermark...",
     "watermarkDone": "Watermark applied successfully!",
     "watermarkFailed": "Failed to apply watermark.",
-    "watermarkLanguageMismatch": "Some characters are not supported by the selected language/font. Please check your language setting (e.g., use Roman for A–Z and digits).",
+    "watermarkLanguageMismatch": "Some characters are not supported by the selected language/font. Please check your language setting.",
     "watermarkServerHeavy": "Watermarking large files or images may require more server resources."
   },
   "misc": {
