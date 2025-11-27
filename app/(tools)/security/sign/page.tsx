@@ -83,7 +83,7 @@ export default function SignPDF() {
           return (
             <div className="flex flex-col w-full gap-3">
               {/* Configure Signature */}
-              <div className="flex flex-col gap-3 p-4 text-sm rounded-md bg-white/80 text-secondary dark:text-background">
+              <div className="flex flex-col gap-3 pt-2 text-sm rounded-md bg-white/80 text-secondary dark:text-background">
                 {/* Tabs：Canvas / Image / Text */}
                 <div className="flex flex-col gap-1">
                   <div className="grid w-full grid-cols-3 text-base font-semibold text-center">
@@ -104,9 +104,9 @@ export default function SignPDF() {
                     />
                   </div>
 
-                  <div className="h-0.5 w-full bg-white">
+                  <div className="h-0.5 w-full bg-white dark:bg-background">
                     <div
-                      className="h-0.5 bg-primary transition-all"
+                      className="h-0.5 bg-primary transition-all dark:bg-white"
                       style={{
                         width: "33.3333%",
                         transform:
@@ -125,14 +125,15 @@ export default function SignPDF() {
                   <button
                     type="button"
                     onClick={handleUndo}
-                    className="flex-1 px-4 py-2 text-base font-semibold transition bg-white border rounded-lg text-primary border-primary hover:bg-primary/5"
+                    className="flex-1 px-4 py-2 text-base font-semibold transition-all duration-150 ease-in-out bg-white border rounded-xl border-primary text-primary hover:bg-primary/5 hover:shadow-box active:scale-95 active:bg-primary/10"
                   >
                     {tool.actions?.undo ?? "Undo"}
                   </button>
+
                   <button
                     type="button"
                     onClick={handleRedo}
-                    className="flex-1 px-4 py-2 text-base font-semibold transition bg-white border rounded-lg text-primary border-primary hover:bg-primary/5"
+                    className="flex-1 px-4 py-2 text-base font-semibold transition-all duration-150 ease-in-out bg-white border rounded-xl border-primary text-primary hover:bg-primary/5 hover:shadow-box active:scale-95 active:bg-primary/10"
                   >
                     {tool.actions?.redo ?? "Redo"}
                   </button>
@@ -140,20 +141,20 @@ export default function SignPDF() {
 
                 {/* Canvas */}
                 {mode === "draw" && (
-                  <div className="flex flex-col gap-3 pt-1">
+                  <div className="flex flex-col gap-3 pt-2 mt-2">
                     <div className="text-base font-semibold text-left text-secondary">
                       {tool.sections?.canvasTitle ?? "Draw your signature"}
                     </div>
                     <button
                       type="button"
-                      className="flex flex-col items-center justify-center w-full h-32 text-xs border rounded-md border-primary-light bg-white/60 text-secondary hover:bg-primary/5"
+                      className="flex flex-col items-center justify-center w-full h-32 text-xs border rounded-md border-primary-light dark:border-indigo-300 bg-white/60 text-secondary hover:bg-primary/5"
                       // canvas
                       onClick={() =>
                         toast.info("Drawing canvas is not implemented yet.")
                       }
                     >
-                      <div className="w-full h-full border border-dashed rounded-md border-primary-light bg-white/80" />
-                      <span className="my-1 text-sm text-secondary/80">
+                      <div className="w-full h-full border-2 border-dotted rounded-md border-primary-light dark:border-indigo-300 bg-white/80" />
+                      <span className="my-1 text-sm font-normal text-secondary/80 hover:text-primary dark:hover:text-indigo-300 ">
                         {tool.sections?.canvasHint ??
                           "Click to open drawing canvas"}
                       </span>
@@ -163,8 +164,8 @@ export default function SignPDF() {
 
                 {/* Image */}
                 {mode === "image" && (
-                  <div className="flex flex-col gap-3 pt-1">
-                    <div className="text-base font-semibold text-secondary">
+                  <div className="flex flex-col gap-3 pt-2 mt-2">
+                    <div className="text-base font-semibold text-left text-secondary">
                       {tool.sections?.imageTitle ?? "Upload signature image"}
                     </div>
 
@@ -374,8 +375,8 @@ function TabButton({ label, active, onClick }: ModeButtonProps) {
       onClick={onClick}
       className={`pb-1 border-b-2 ${
         active
-          ? "border-transparent text-primary"
-          : "border-transparent text-secondary/70 hover:text-primary"
+          ? "border-transparent text-primary dark:text-white"
+          : "border-transparent text-secondary dark:text-primary hover:text-primary hover:dark:text-white"
       }`}
     >
       {label}
