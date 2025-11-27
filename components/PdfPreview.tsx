@@ -49,6 +49,10 @@ type PdfPreviewProps = {
   current: number;
   setCurrent: (n: number) => void;
   features?: PdfPreviewFeatures;
+  renderOverlay?: (args: {
+    current: number;
+    numPages: number;
+  }) => React.ReactNode;
 };
 
 type Angle = "90" | "-90" | "180" | "reset";
@@ -66,6 +70,7 @@ export default function PdfPreview(props: PdfPreviewProps) {
       batchControls: true,
       selectionControls: false,
     },
+    renderOverlay,
   } = props;
 
   const { t } = useI18n();
@@ -353,9 +358,15 @@ export default function PdfPreview(props: PdfPreviewProps) {
       {/* Canvas container */}
       <div
         ref={containerRef}
-        className="w-full overflow-hidden bg-white rounded-md"
+        className="relative w-full overflow-hidden bg-white rounded-md"
       >
         <canvas ref={canvasRef} className="block mx-auto" />
+
+        {renderOverlay && (
+          <div className="absolute inset-0 pointer-events-none">
+            {renderOverlay({ current, numPages })}
+          </div>
+        )}
       </div>
 
       {/* Batch rotation — hidden on CSV */}
