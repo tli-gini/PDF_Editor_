@@ -227,16 +227,17 @@
         "apply": "套用簽名"
       },
       "sections": {
-        "canvasTitle": "手寫簽名",
+        "canvasTitle": "手寫簽名：",
         "canvasHint": "點擊開啟簽名畫布",
-        "imageTitle": "上傳簽名圖片",
+        "imageTitle": "上傳簽名圖片：",
         "imageSelect": "選擇圖片檔",
         "imageHint": "上傳簽名圖片（PNG 或 JPG）",
         "textTitle": "您的簽名：",
         "textPlaceholder": "John Doe",
         "fontLabel": "字體：",
         "fontSizeLabel": "字型大小：",
-        "textColorLabel": "文字顏色："
+        "textColorLabel": "文字顏色：",
+        "sizeLabel": "簽名大小："
       },
       "howTo": {
         "title": "如何加入簽名",

@@ -236,7 +236,8 @@
         "textPlaceholder": "John Doe",
         "fontLabel": "Font",
         "fontSizeLabel": "Font Size",
-        "textColorLabel": "Text Color"
+        "textColorLabel": "Text Color",
+        "sizeLabel": "Signature Size"
       },
       "howTo": {
         "title": "How to add signature",
