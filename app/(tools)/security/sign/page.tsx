@@ -3,7 +3,7 @@
 // app/(tools)/security/sign/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import { TbSignature } from "react-icons/tb";
 import { BiImageAdd, BiSolidImageAlt } from "react-icons/bi";
@@ -125,7 +125,7 @@ export default function SignPDF() {
                   <button
                     type="button"
                     onClick={handleUndo}
-                    className="flex-1 px-4 py-2 text-base font-semibold transition-all duration-150 ease-in-out bg-white border rounded-xl border-primary text-primary hover:bg-primary/5 hover:shadow-box active:scale-95 active:bg-primary/10"
+                    className="flex-1 px-4 py-2 text-base font-semibold transition-all duration-150 ease-in-out bg-white border rounded-xl border-primary text-primary hover:bg-primary/5 hover:shadow-box hover:ring-1 hover:ring-primary active:scale-95 active:bg-primary/10"
                   >
                     {tool.actions?.undo ?? "Undo"}
                   </button>
@@ -133,7 +133,7 @@ export default function SignPDF() {
                   <button
                     type="button"
                     onClick={handleRedo}
-                    className="flex-1 px-4 py-2 text-base font-semibold transition-all duration-150 ease-in-out bg-white border rounded-xl border-primary text-primary hover:bg-primary/5 hover:shadow-box active:scale-95 active:bg-primary/10"
+                    className="flex-1 px-4 py-2 text-base font-semibold transition-all duration-150 ease-in-out bg-white border rounded-xl border-primary text-primary hover:bg-primary/5 hover:shadow-box hover:ring-1 hover:ring-primary active:scale-95 active:bg-primary/10"
                   >
                     {tool.actions?.redo ?? "Redo"}
                   </button>
@@ -326,6 +326,36 @@ export default function SignPDF() {
                   </div>
                 )}
 
+                {mode === "text" && (
+                  <SignatureTextRenderer
+                    text={signatureText}
+                    fontFamily={fontFamily}
+                    fontSize={Number(fontSize) || 16}
+                    color={textColor}
+                    onRendered={(url) => {
+                      setSignatureUrl(url);
+                    }}
+                  />
+                )}
+
+                {/* Signature size slider */}
+                {/* <div className="flex flex-col gap-1 pt-1">
+                  <label className="text-base font-semibold text-left text-secondary">
+                    {tool.sections?.sizeLabel ?? "Signature size"}
+                  </label>
+                  <input
+                    type="range"
+                    min={0.1}
+                    max={2}
+                    step={0.01}
+                    value={signatureScale}
+                    onChange={(e) =>
+                      setSignatureScale(parseFloat(e.target.value))
+                    }
+                    className="w-full cursor-pointer accent-primary"
+                  />
+                </div>  */}
+
                 {/* Hints */}
                 {/* {currentHowTo && (
                   <div className="mt-2 text-xs rounded-md bg-primary/5">
@@ -382,4 +412,73 @@ function TabButton({ label, active, onClick }: ModeButtonProps) {
       {label}
     </button>
   );
+}
+
+type SignatureTextRendererProps = {
+  text: string;
+  fontFamily: string;
+  fontSize: number;
+  color: string;
+  onRendered: (url: string | null) => void;
+};
+
+function SignatureTextRenderer({
+  text,
+  fontFamily,
+  fontSize,
+  color,
+  onRendered,
+}: SignatureTextRendererProps) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      onRendered(null);
+      return;
+    }
+
+    const trimmed = text.trim();
+    if (!trimmed) {
+      onRendered(null);
+      return;
+    }
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      onRendered(null);
+      return;
+    }
+
+    const px = Math.max(8, fontSize || 16);
+    const padding = px * 0.6;
+
+    ctx.font = `${px}px "${fontFamily}"`;
+    const metrics = ctx.measureText(trimmed);
+    const textWidth = metrics.width;
+
+    const width = Math.max(1, textWidth + padding * 2);
+    const height = Math.max(1, px + padding * 2);
+
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx2 = canvas.getContext("2d");
+    if (!ctx2) {
+      onRendered(null);
+      return;
+    }
+
+    ctx2.clearRect(0, 0, width, height);
+    ctx2.font = `${px}px "${fontFamily}"`;
+    ctx2.fillStyle = color;
+    ctx2.textBaseline = "middle";
+
+    ctx2.fillText(trimmed, padding, height / 2);
+
+    const dataUrl = canvas.toDataURL("image/png");
+    onRendered(dataUrl);
+  }, [text, fontFamily, fontSize, color, onRendered]);
+
+  return <canvas ref={canvasRef} className="hidden" />;
 }
