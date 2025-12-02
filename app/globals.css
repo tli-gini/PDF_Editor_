@@ -121,3 +121,31 @@ select:hover {
   border-radius: 9999px;
   border: none;
 }
+
+/* Signature size slider（Canvas / Image） */
+input.range-primary::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  transition: box-shadow 150ms ease, transform 150ms ease;
+}
+
+input.range-primary:hover::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px var(--color-primary-light);
+  transform: scale(1.05);
+}
+
+/* Firefox */
+input.range-primary::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  transition: box-shadow 150ms ease, transform 150ms ease;
+}
+
+input.range-primary:hover::-moz-range-thumb {
+  box-shadow: 0 0 0 4px var(--color-primary-light);
+  transform: scale(1.05);
+}

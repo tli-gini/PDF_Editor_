@@ -7,11 +7,13 @@ import PdfPreview, { type PageState } from "./PdfPreview";
 type SignPdfPreviewProps = {
   file: File | null;
   signatureUrl: string | null;
+  scale?: number;
 };
 
 export default function SignPdfPreview({
   file,
   signatureUrl,
+  scale = 1,
 }: SignPdfPreviewProps) {
   const [pageState, setPageState] = useState<PageState[]>([]);
   const [current, setCurrent] = useState(1);
@@ -87,7 +89,8 @@ export default function SignPdfPreview({
               <img
                 src={signatureUrl}
                 alt="Signature preview"
-                className="h-auto max-w-[250px] select-none"
+                className="h-auto select-none"
+                style={{ maxWidth: `${150 * scale}px` }}
                 draggable={false}
               />
             </div>

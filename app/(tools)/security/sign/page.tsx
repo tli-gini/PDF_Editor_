@@ -31,6 +31,9 @@ export default function SignPDF() {
   const [signatureUrl, setSignatureUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // Signature scale for Canvas and Image modes
+  const [signatureScale, setSignatureScale] = useState(1);
+
   // Image signature state（for upload）
   const [imageFileName, setImageFileName] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -338,23 +341,25 @@ export default function SignPDF() {
                   />
                 )}
 
-                {/* Signature size slider */}
-                {/* <div className="flex flex-col gap-1 pt-1">
-                  <label className="text-base font-semibold text-left text-secondary">
-                    {tool.sections?.sizeLabel ?? "Signature size"}
-                  </label>
-                  <input
-                    type="range"
-                    min={0.1}
-                    max={2}
-                    step={0.01}
-                    value={signatureScale}
-                    onChange={(e) =>
-                      setSignatureScale(parseFloat(e.target.value))
-                    }
-                    className="w-full cursor-pointer accent-primary"
-                  />
-                </div>  */}
+                {/* Signature size slider (Canvas/Image mode)*/}
+                {(mode === "draw" || mode === "image") && (
+                  <div className="flex flex-col gap-1 pt-2">
+                    <label className="mb-1 text-base font-semibold text-left text-secondary">
+                      {tool.sections?.sizeLabel ?? "Signature size"}
+                    </label>
+                    <input
+                      type="range"
+                      min={0.1}
+                      max={2}
+                      step={0.05}
+                      value={signatureScale}
+                      onChange={(e) =>
+                        setSignatureScale(parseFloat(e.target.value))
+                      }
+                      className="w-full cursor-pointer accent-primary range-primary"
+                    />
+                  </div>
+                )}
 
                 {/* Hints */}
                 {/* {currentHowTo && (
@@ -376,6 +381,7 @@ export default function SignPDF() {
                 <SignPdfPreview
                   file={first ? first.file : null}
                   signatureUrl={signatureUrl}
+                  scale={mode === "text" ? 1 : signatureScale}
                 />
               </div>
             </div>
