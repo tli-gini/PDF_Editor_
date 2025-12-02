@@ -75,7 +75,10 @@ export default function SignPdfPreview({
           >
             <div
               className="absolute cursor-move pointer-events-auto"
-              style={{ left: pos.x, top: pos.y, width: 150 }}
+              style={{
+                left: pos.x,
+                top: pos.y,
+              }}
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
@@ -84,7 +87,7 @@ export default function SignPdfPreview({
               <img
                 src={signatureUrl}
                 alt="Signature preview"
-                className="w-full h-auto select-none"
+                className="h-auto max-w-[250px] select-none"
                 draggable={false}
               />
             </div>
