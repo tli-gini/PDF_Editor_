@@ -224,7 +224,8 @@
       "actions": {
         "undo": "復原",
         "redo": "重做",
-        "apply": "套用簽名"
+        "clear": "清除",
+        "apply": "套用"
       },
       "sections": {
         "canvasTitle": "手寫簽名：",

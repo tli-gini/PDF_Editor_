@@ -224,7 +224,8 @@
       "actions": {
         "undo": "Undo",
         "redo": "Redo",
-        "apply": "Apply Signatures"
+        "clear": "Clear",
+        "apply": "Apply"
       },
       "sections": {
         "canvasTitle": "Draw your signature",
