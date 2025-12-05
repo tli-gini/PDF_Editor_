@@ -261,7 +261,13 @@
         "placementHint": "在 PDF 預覽上放置簽名。",
         "needSignature": "請先建立簽名。",
         "applied": "簽名已套用，送出 PDF 時將使用此簽名。",
-        "previewReady": "簽名預覽已就緒。"
+        "previewReady": "簽名預覽已就緒。",
+        "downloadReady": "簽名已套用，開始下載檔案。",
+        "serverError": "伺服器錯誤，請稍後再試。",
+        "processing": "正在套用簽名…",
+        "serverHeavy": "伺服器處理簽名時資源不足，請稍後再試。",
+        "failed": "簽名處理失敗，請再試一次。",
+        "done": "簽名已完成並開始下載。"
       }
     },
     "add-watermark": {

@@ -54,12 +54,95 @@ export default function SignPDF() {
 
   const active = files[0] ?? null;
 
-  const handleSignClick = async () => {
+  // 在 SignPDF 裡，加這個函式，取代原本單純 toast 的 handleSignClick
+  const handleSubmit = async () => {
     if (!active) {
-      toast.warn(t.toast.missingFile);
+      toast.error(t.toast.missingFile);
       return;
     }
-    toast.info(tool.toast?.previewReady ?? "Signing preview UI ready.");
+
+    if (!signatureUrl) {
+      toast.error(
+        tool.toast?.needSignature ?? "Please create a signature first."
+      );
+      return;
+    }
+
+    setLoading(true);
+
+    // 跟 add-watermark 一樣用 pending toast
+    const pendingId = toast.info(
+      tool.toast?.processing ?? "Processing signature...",
+      { autoClose: false }
+    );
+
+    try {
+      const fd = new FormData();
+
+      // 1) 原始 PDF
+      fd.append("fileInput", active.file);
+
+      // 2) 簽名圖（可能是 dataURL 或 blob: URL）
+      let sigFile: File;
+      if (signatureUrl.startsWith("data:")) {
+        // canvas / text mode
+        sigFile = dataUrlToFile(signatureUrl, "signature.png");
+      } else {
+        // image mode: blob: URL
+        const blob = await fetch(signatureUrl).then((r) => r.blob());
+        sigFile = new File([blob], "signature.png", {
+          type: blob.type || "image/png",
+        });
+      }
+      fd.append("imageFile", sigFile);
+
+      // 3) 位置 / 是否每頁：先給一組固定值，之後再用拖曳座標換算
+      fd.append("x", "0"); // TODO: 之後用 preview 座標換算
+      fd.append("y", "0");
+      fd.append("everyPage", "false");
+
+      const res = await fetch("/api/add-image", {
+        method: "POST",
+        body: fd,
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+
+        // 跟 add-watermark 一樣可以做 server heavy 檢測
+        if (res.status === 502 || res.status === 503) {
+          toast.error(tool.toast?.serverHeavy ?? t.toast.serverBusy502);
+          toast.info(t.toast.cloudHint);
+          throw new Error(text || `Server busy (${res.status})`);
+        }
+
+        toast.error(tool.toast?.failed ?? t.toast.fail);
+        throw new Error(text || `Request failed (${res.status})`);
+      }
+
+      // 下載簽好的 PDF
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+
+      const originalName = active.file.name ?? "file.pdf";
+      const baseName = originalName.replace(/\.pdf$/i, "");
+
+      a.href = url;
+      a.download = `${baseName}__signed.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      toast.success(tool.toast?.done ?? t.toast.success);
+    } catch (err) {
+      console.error(err);
+      toast.error(tool.toast?.failed ?? t.toast.fail);
+    } finally {
+      setLoading(false);
+      toast.dismiss(pendingId);
+    }
   };
 
   const handleClear = () => {
@@ -93,6 +176,21 @@ export default function SignPDF() {
   const handleSignatureTextRendered = useCallback((url: string | null) => {
     setSignatureUrl(url);
   }, []);
+
+  // Utility to convert data URL to File
+  function dataUrlToFile(dataUrl: string, fileName: string): File {
+    const [header, base64] = dataUrl.split(",");
+    const mimeMatch = header.match(/data:(.*?);base64/);
+    const mime = mimeMatch ? mimeMatch[1] : "image/png";
+
+    const binary = atob(base64);
+    const len = binary.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i += 1) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return new File([bytes], fileName, { type: mime });
+  }
 
   return (
     <>
@@ -412,7 +510,7 @@ export default function SignPDF() {
           {tool.info}
         </InfoToggle>
 
-        <SendButton onClick={handleSignClick} loading={loading} />
+        <SendButton onClick={handleSubmit} loading={loading} />
       </ToolPageWrapper>
 
       <SignatureCanvasModal

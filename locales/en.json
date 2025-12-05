@@ -261,7 +261,13 @@
         "placementHint": "Click on the PDF preview to place your signature.",
         "needSignature": "Please create a signature first.",
         "applied": "Signature applied. It will be used when you send the PDF.",
-        "previewReady": "Signing preview UI ready."
+        "previewReady": "Signing preview UI ready.",
+        "downloadReady": "Signed PDF is ready for download.",
+        "serverError": "Server error while applying signature. Please try again.",
+        "processing": "Applying signature...",
+        "serverHeavy": "The server is under heavy load while processing the signature. Please try again later.",
+        "failed": "Failed to apply the signature. Please try again.",
+        "done": "Signature applied successfully. Download should start shortly."
       }
     },
     "add-watermark": {
