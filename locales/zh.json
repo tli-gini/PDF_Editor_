@@ -222,8 +222,8 @@
         "text": "文字"
       },
       "actions": {
-        "undo": "復原",
-        "redo": "重做",
+        "undo": "上一步",
+        "redo": "下一步",
         "clear": "清除",
         "apply": "套用"
       },
@@ -245,6 +245,23 @@
         "canvasBody": "在畫布中完成簽名後，關閉視窗，接著在 PDF 上任一位置點擊，即可放置簽名。",
         "imageBody": "上傳簽名圖片後，在 PDF 上任一位置點擊，即可放置簽名。",
         "textBody": "輸入姓名後，在 PDF 上任一位置點擊，即可放置簽名。"
+      },
+      "toast": {
+        "noSignatureDrawn": "請先繪製簽名。",
+        "signatureApplied": "簽名已加入預覽畫面。",
+        "signatureCleared": "已清除簽名。",
+        "modalNoStroke": "請先在畫布上繪製內容。",
+        "invalidSignatureImage": "簽名圖片載入失敗。",
+        "imageTooLarge": "簽名圖片檔案過大。",
+        "canvasInitError": "初始化畫布錯誤。",
+        "applyWhileEmpty": "目前沒有簽名可套用，請先繪製內容。",
+        "inlineApplied": "已套用畫布簽名。",
+        "modalApplied": "已套用畫布簽名。",
+        "modeNotSelected": "請先選擇簽名類型。",
+        "placementHint": "在 PDF 預覽上放置簽名。",
+        "needSignature": "請先建立簽名。",
+        "applied": "簽名已套用，送出 PDF 時將使用此簽名。",
+        "previewReady": "簽名預覽已就緒。"
       }
     },
     "add-watermark": {

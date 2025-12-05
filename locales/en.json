@@ -245,6 +245,23 @@
         "canvasBody": "After drawing your signature in the canvas, close the modal then click anywhere on the PDF to place it.",
         "imageBody": "After uploading your signature image above, click anywhere on the PDF to place it.",
         "textBody": "After entering your name above, click anywhere on the PDF to place your signature."
+      },
+      "toast": {
+        "noSignatureDrawn": "Please draw your signature before applying.",
+        "signatureApplied": "Signature added to the preview.",
+        "signatureCleared": "Signature cleared.",
+        "modalNoStroke": "Please draw something before applying.",
+        "invalidSignatureImage": "Failed to load signature image.",
+        "imageTooLarge": "The signature image is too large.",
+        "canvasInitError": "Failed to initialize drawing canvas.",
+        "applyWhileEmpty": "Please draw a signature first.",
+        "inlineApplied": "Inline signature applied.",
+        "modalApplied": "Canvas signature applied.",
+        "modeNotSelected": "Please select a signature mode.",
+        "placementHint": "Click on the PDF preview to place your signature.",
+        "needSignature": "Please create a signature first.",
+        "applied": "Signature applied. It will be used when you send the PDF.",
+        "previewReady": "Signing preview UI ready."
       }
     },
     "add-watermark": {
