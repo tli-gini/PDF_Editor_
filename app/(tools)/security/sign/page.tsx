@@ -2,7 +2,7 @@
 // app/(tools)/security/sign/page.tsx
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import type React from "react";
 import { TbSignature } from "react-icons/tb";
 import { BiImageAdd, BiSolidImageAlt } from "react-icons/bi";
@@ -18,6 +18,8 @@ import ToolPageWrapper from "@/components/ToolPageWrapper";
 import SignPdfPreview from "@/components/Sign/SignPdfPreview";
 import SignatureCanvasInline from "@/components/Sign/SignatureCanvasInline";
 import SignatureCanvasModal from "@/components/Sign/SignatureCanvasModal";
+import { SignatureTextRenderer } from "@/components/Sign/SignatureTextRenderer";
+import { SignTabButton } from "@/components/Sign/SignTabButton";
 import { toast } from "react-toastify";
 
 type SignatureMode = "draw" | "text" | "image";
@@ -41,7 +43,7 @@ export default function SignPDF() {
   // Signature scale for Canvas and Image modes
   const [signatureScale, setSignatureScale] = useState(1);
 
-  // Image signature state（for upload）
+  // Image signature state (for upload)
   const [imageFileName, setImageFileName] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -57,9 +59,7 @@ export default function SignPDF() {
       toast.warn(t.toast.missingFile);
       return;
     }
-    toast.info(
-      "Signing preview UI ready. The actual PDF signing API is not wired yet."
-    );
+    toast.info(tool.toast?.previewReady ?? "Signing preview UI ready.");
   };
 
   const handleClear = () => {
@@ -81,19 +81,18 @@ export default function SignPDF() {
 
   const handleApply = () => {
     if (!signatureUrl) {
-      toast.info("Please create a signature first.");
+      toast.info(
+        tool.toast?.needSignature ?? "Please create a signature first."
+      );
       return;
     }
-
-    toast.success("Signature applied. It will be used when you send the PDF.");
+    toast.success(tool.toast?.applied ?? "Signature applied.");
   };
 
-  // const currentHowTo =
-  //   mode === "draw"
-  //     ? tool.howTo?.canvasBody
-  //     : mode === "image"
-  //     ? tool.howTo?.imageBody
-  // : tool.howTo?.textBody;
+  // useCallback to keep onRendered stable for SignatureTextRenderer
+  const handleSignatureTextRendered = useCallback((url: string | null) => {
+    setSignatureUrl(url);
+  }, []);
 
   return (
     <>
@@ -113,20 +112,20 @@ export default function SignPDF() {
               <div className="flex flex-col w-full gap-3">
                 {/* Configure Signature */}
                 <div className="flex flex-col gap-3 pt-2 text-sm rounded-md bg-white/80 text-secondary dark:text-background">
-                  {/* Tabs：Canvas / Image / Text */}
+                  {/* Tabs: Canvas / Image / Text */}
                   <div className="flex flex-col gap-1">
                     <div className="grid w-full grid-cols-3 text-base font-semibold text-center">
-                      <TabButton
+                      <SignTabButton
                         label={tool.tabs?.canvas ?? "Canvas"}
                         active={mode === "draw"}
                         onClick={() => setMode("draw")}
                       />
-                      <TabButton
+                      <SignTabButton
                         label={tool.tabs?.image ?? "Image"}
                         active={mode === "image"}
                         onClick={() => setMode("image")}
                       />
-                      <TabButton
+                      <SignTabButton
                         label={tool.tabs?.text ?? "Text"}
                         active={mode === "text"}
                         onClick={() => setMode("text")}
@@ -149,7 +148,7 @@ export default function SignPDF() {
                     </div>
                   </div>
 
-                  {/* Clear / Apply */}
+                  {/* Clear / Apply (draw mode only) */}
                   {mode === "draw" && (
                     <div className="flex gap-3 pt-1">
                       <button
@@ -170,7 +169,7 @@ export default function SignPDF() {
                     </div>
                   )}
 
-                  {/* Canvas */}
+                  {/* Canvas mode */}
                   {mode === "draw" && (
                     <div className="flex flex-col gap-3 pt-2 mt-2">
                       <div className="text-base font-semibold text-left text-secondary">
@@ -199,7 +198,7 @@ export default function SignPDF() {
                     </div>
                   )}
 
-                  {/* Image */}
+                  {/* Image mode */}
                   {mode === "image" && (
                     <div className="flex flex-col gap-3 pt-2 mt-2">
                       <div className="text-base font-semibold text-left text-secondary">
@@ -278,7 +277,7 @@ export default function SignPDF() {
                     </div>
                   )}
 
-                  {/* Text */}
+                  {/* Text mode */}
                   {mode === "text" && (
                     <div className="w-full max-w-lg pt-2 text-left">
                       {/* Signer Name + Font Size */}
@@ -364,19 +363,18 @@ export default function SignPDF() {
                     </div>
                   )}
 
+                  {/* Hidden canvas renderer for text mode */}
                   {mode === "text" && (
                     <SignatureTextRenderer
                       text={signatureText}
                       fontFamily={fontFamily}
                       fontSize={Number(fontSize) || 16}
                       color={textColor}
-                      onRendered={(url) => {
-                        setSignatureUrl(url);
-                      }}
+                      onRendered={handleSignatureTextRendered}
                     />
                   )}
 
-                  {/* Signature size slider (Canvas/Image mode)*/}
+                  {/* Signature size slider (Canvas/Image mode) */}
                   {(mode === "draw" || mode === "image") && (
                     <div className="flex flex-col gap-1 pt-2">
                       <label className="mb-1 text-base font-semibold text-left text-secondary">
@@ -395,20 +393,6 @@ export default function SignPDF() {
                       />
                     </div>
                   )}
-
-                  {/* Hints */}
-                  {/* {currentHowTo && (
-                  <div className="mt-2 text-xs rounded-md bg-primary/5">
-                    <div className="px-3 pt-3 pb-2">
-                      <div className="mb-1 text-sm font-semibold text-primary">
-                        {tool.howTo?.title ?? "How to add signature"}
-                      </div>
-                      <p className="leading-relaxed text-secondary">
-                        {currentHowTo}
-                      </p>
-                    </div>
-                  </div>
-                )} */}
                 </div>
 
                 {/* Signature Preview */}
@@ -438,95 +422,4 @@ export default function SignPDF() {
       />
     </>
   );
-}
-
-type ModeButtonProps = {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-};
-
-function TabButton({ label, active, onClick }: ModeButtonProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`pb-1 border-b-2 ${
-        active
-          ? "border-transparent text-primary dark:text-white"
-          : "border-transparent text-secondary dark:text-primary hover:text-primary hover:dark:text-white"
-      }`}
-    >
-      {label}
-    </button>
-  );
-}
-
-type SignatureTextRendererProps = {
-  text: string;
-  fontFamily: string;
-  fontSize: number;
-  color: string;
-  onRendered: (url: string | null) => void;
-};
-
-function SignatureTextRenderer({
-  text,
-  fontFamily,
-  fontSize,
-  color,
-  onRendered,
-}: SignatureTextRendererProps) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) {
-      onRendered(null);
-      return;
-    }
-
-    const trimmed = text.trim();
-    if (!trimmed) {
-      onRendered(null);
-      return;
-    }
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      onRendered(null);
-      return;
-    }
-
-    const px = Math.max(8, fontSize || 16);
-    const padding = px * 0.6;
-
-    ctx.font = `${px}px "${fontFamily}"`;
-    const metrics = ctx.measureText(trimmed);
-    const textWidth = metrics.width;
-
-    const width = Math.max(1, textWidth + padding * 2);
-    const height = Math.max(1, px + padding * 2);
-
-    canvas.width = width;
-    canvas.height = height;
-
-    const ctx2 = canvas.getContext("2d");
-    if (!ctx2) {
-      onRendered(null);
-      return;
-    }
-
-    ctx2.clearRect(0, 0, width, height);
-    ctx2.font = `${px}px "${fontFamily}"`;
-    ctx2.fillStyle = color;
-    ctx2.textBaseline = "middle";
-
-    ctx2.fillText(trimmed, padding, height / 2);
-
-    const dataUrl = canvas.toDataURL("image/png");
-    onRendered(dataUrl);
-  }, [text, fontFamily, fontSize, color, onRendered]);
-
-  return <canvas ref={canvasRef} className="hidden" />;
 }
