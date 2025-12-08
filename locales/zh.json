@@ -267,7 +267,8 @@
         "processing": "正在套用簽名…",
         "serverHeavy": "伺服器處理簽名時資源不足，請稍後再試。",
         "failed": "簽名處理失敗，請再試一次。",
-        "done": "簽名已完成並開始下載。"
+        "done": "簽名已完成並開始下載。",
+        "placementRequired": "請先在預覽畫面放置簽名，再送出 PDF。"
       }
     },
     "add-watermark": {

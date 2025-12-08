@@ -267,7 +267,8 @@
         "processing": "Applying signature...",
         "serverHeavy": "The server is under heavy load while processing the signature. Please try again later.",
         "failed": "Failed to apply the signature. Please try again.",
-        "done": "Signature applied successfully. Download should start shortly."
+        "done": "Signature applied successfully. Download should start shortly.",
+        "placementRequired": "Please place your signature on the preview before sending."
       }
     },
     "add-watermark": {

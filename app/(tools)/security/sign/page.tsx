@@ -15,7 +15,9 @@ import ToolTitle from "@/components/ToolTitle";
 import InfoToggle from "@/components/InfoToggle";
 import SendButton from "@/components/SendButton";
 import ToolPageWrapper from "@/components/ToolPageWrapper";
-import SignPdfPreview from "@/components/Sign/SignPdfPreview";
+import SignPdfPreview, {
+  type SignaturePlacement,
+} from "@/components/Sign/SignPdfPreview";
 import SignatureCanvasInline from "@/components/Sign/SignatureCanvasInline";
 import SignatureCanvasModal from "@/components/Sign/SignatureCanvasModal";
 import { SignatureTextRenderer } from "@/components/Sign/SignatureTextRenderer";
@@ -47,6 +49,10 @@ export default function SignPDF() {
   const [imageFileName, setImageFileName] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
 
+  // Placement of the signature box on the preview (reported by SignPdfPreview)
+  const [signaturePlacement, setSignaturePlacement] =
+    useState<SignaturePlacement | null>(null);
+
   // Text signature options
   const [fontFamily, setFontFamily] = useState("Helvetica");
   const [fontSize, setFontSize] = useState("16");
@@ -54,7 +60,6 @@ export default function SignPDF() {
 
   const active = files[0] ?? null;
 
-  // 在 SignPDF 裡，加這個函式，取代原本單純 toast 的 handleSignClick
   const handleSubmit = async () => {
     if (!active) {
       toast.error(t.toast.missingFile);
@@ -68,9 +73,15 @@ export default function SignPDF() {
       return;
     }
 
+    // We have a signature image, but no placement from the preview UI
+    if (!signaturePlacement) {
+      toast.error("Please place your signature on the page before sending.");
+      return;
+    }
+
     setLoading(true);
 
-    // 跟 add-watermark 一樣用 pending toast
+    // Long-running toast, same pattern as add-watermark
     const pendingId = toast.info(
       tool.toast?.processing ?? "Processing signature...",
       { autoClose: false }
@@ -79,16 +90,16 @@ export default function SignPDF() {
     try {
       const fd = new FormData();
 
-      // 1) 原始 PDF
+      // 1) Original PDF
       fd.append("fileInput", active.file);
 
-      // 2) 簽名圖（可能是 dataURL 或 blob: URL）
+      // 2) Signature image (from data URL or blob URL)
       let sigFile: File;
       if (signatureUrl.startsWith("data:")) {
-        // canvas / text mode
+        // Canvas / text modes
         sigFile = dataUrlToFile(signatureUrl, "signature.png");
       } else {
-        // image mode: blob: URL
+        // Image mode: blob: URL
         const blob = await fetch(signatureUrl).then((r) => r.blob());
         sigFile = new File([blob], "signature.png", {
           type: blob.type || "image/png",
@@ -96,10 +107,33 @@ export default function SignPDF() {
       }
       fd.append("imageFile", sigFile);
 
-      // 3) 位置 / 是否每頁：先給一組固定值，之後再用拖曳座標換算
-      fd.append("x", "0"); // TODO: 之後用 preview 座標換算
-      fd.append("y", "0");
+      // 3) Placement (preview pixels) → PDF coordinates
+      const {
+        pageIndex,
+        xPx,
+        yPx,
+        widthPx,
+        heightPx,
+        pageScale,
+        pageHeightPx,
+      } = signaturePlacement;
+
+      // pageScale ~ (screenPixelWidth / internalCanvasWidth)
+      const scale = pageScale || 1;
+
+      // x: left-to-right is the same direction
+      const xPdf = xPx / scale;
+
+      // y: convert from top-left (preview) to bottom-left (PDF)
+      const yPdf = (pageHeightPx - (yPx + heightPx)) / scale;
+
+      fd.append("x", xPdf.toString());
+      fd.append("y", yPdf.toString());
       fd.append("everyPage", "false");
+
+      // If your /api/add-image route supports targeting a single page,
+      // this matches Stirling's typical parameter name.
+      fd.append("page", pageIndex.toString());
 
       const res = await fetch("/api/add-image", {
         method: "POST",
@@ -109,7 +143,6 @@ export default function SignPDF() {
       if (!res.ok) {
         const text = await res.text();
 
-        // 跟 add-watermark 一樣可以做 server heavy 檢測
         if (res.status === 502 || res.status === 503) {
           toast.error(tool.toast?.serverHeavy ?? t.toast.serverBusy502);
           toast.info(t.toast.cloudHint);
@@ -120,7 +153,7 @@ export default function SignPDF() {
         throw new Error(text || `Request failed (${res.status})`);
       }
 
-      // 下載簽好的 PDF
+      // Download signed PDF
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -499,6 +532,7 @@ export default function SignPDF() {
                     file={first ? first.file : null}
                     signatureUrl={signatureUrl}
                     scale={mode === "text" ? 1 : signatureScale}
+                    onPlacementChange={setSignaturePlacement}
                   />
                 </div>
               </div>
