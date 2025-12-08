@@ -2,8 +2,7 @@
 // app/(tools)/security/sign/page.tsx
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import type React from "react";
+import { useState, useCallback } from "react";
 import { TbSignature } from "react-icons/tb";
 import { BiImageAdd, BiSolidImageAlt } from "react-icons/bi";
 import { MdClose } from "react-icons/md";
@@ -245,21 +244,6 @@ export default function SignPDF() {
   const handleSignatureTextRendered = useCallback((url: string | null) => {
     setSignatureUrl(url);
   }, []);
-
-  // Utility to convert data URL to File
-  function dataUrlToFile(dataUrl: string, fileName: string): File {
-    const [header, base64] = dataUrl.split(",");
-    const mimeMatch = header.match(/data:(.*?);base64/);
-    const mime = mimeMatch ? mimeMatch[1] : "image/png";
-
-    const binary = atob(base64);
-    const len = binary.length;
-    const bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i += 1) {
-      bytes[i] = binary.charCodeAt(i);
-    }
-    return new File([bytes], fileName, { type: mime });
-  }
 
   return (
     <>

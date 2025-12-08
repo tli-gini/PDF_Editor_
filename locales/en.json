@@ -213,7 +213,7 @@
       "inputLabel": "",
       "inputHint": "",
       "placeholder": "",
-      "info": "Sign your PDF document using various methods to suit your needs.\n\nDrawing:\nDraw your signature directly on the canvas using a mouse or touchscreen.\n\nText:\nType your name and choose from a selection of fonts to create a professional-looking signature.\n\nImage:\nUpload an image file of your handwritten signature (PNG, JPG, BMP) to place it on the document.",
+      "info": "Use one of the three signing methods below, then click anywhere on the PDF preview to place your signature.\n\nCanvas (Draw):\nDraw your signature in the canvas modal. After finishing, close the modal and click on the PDF to place it.\n\nImage Upload:\nUpload a PNG or JPG image of your handwritten signature. After uploading, click on the PDF to position it.\n\nText Signature:\nType your name above and adjust the font, size, and color. Then click on the PDF to place your signature.",
       "previewTitle": "Signature Preview",
       "modeLabel": "Signature Type",
       "tabs": {
@@ -240,12 +240,6 @@
         "textColorLabel": "Text Color",
         "sizeLabel": "Signature Size"
       },
-      "howTo": {
-        "title": "How to add signature",
-        "canvasBody": "After drawing your signature in the canvas, close the modal then click anywhere on the PDF to place it.",
-        "imageBody": "After uploading your signature image above, click anywhere on the PDF to place it.",
-        "textBody": "After entering your name above, click anywhere on the PDF to place your signature."
-      },
       "toast": {
         "noSignatureDrawn": "Please draw your signature before applying.",
         "signatureApplied": "Signature added to the preview.",
@@ -263,9 +257,7 @@
         "applied": "Signature applied. It will be used when you send the PDF.",
         "previewReady": "Signing preview UI ready.",
         "downloadReady": "Signed PDF is ready for download.",
-        "serverError": "Server error while applying signature. Please try again.",
         "processing": "Applying signature...",
-        "serverHeavy": "The server is under heavy load while processing the signature. Please try again later.",
         "failed": "Failed to apply the signature. Please try again.",
         "done": "Signature applied successfully. Download should start shortly.",
         "placementRequired": "Please place your signature on the preview before sending."

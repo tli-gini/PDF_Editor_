@@ -213,7 +213,7 @@
       "inputLabel": "",
       "inputHint": "",
       "placeholder": "",
-      "info": "使用多種方法為 PDF 文件簽名，以符合您的需求。\n\n手繪：\n使用滑鼠或觸控螢幕直接在畫布上繪製簽名。\n\n文字：\n輸入您的姓名，並從多種字型中選擇，打造專業簽名。\n\n圖片：\n上傳手寫簽名的圖片檔案（PNG、JPG、BMP），並將其放置於文件中。",
+      "info": "選擇一種簽名方式，建立簽名後，點擊 PDF 預覽畫面上的任意位置即可放置簽名。\n\n畫布：\n在畫布上手寫您的簽名，完成後選擇套用，並在 PDF 上點擊要放置的位置。\n\n圖片：\n上傳您的簽名圖片（PNG 或 JPG）。上傳後，直接在 PDF 上點擊即可放置簽名。\n\n文字：\n輸入您的姓名，調整字型、大小與顏色，然後在 PDF 預覽上點擊以放置簽名。",
       "previewTitle": "簽名預覽",
       "modeLabel": "簽名類型",
       "tabs": {
@@ -233,18 +233,12 @@
         "imageTitle": "上傳簽名圖片：",
         "imageSelect": "選擇圖片檔",
         "imageHint": "上傳簽名圖片（PNG 或 JPG）",
-        "textTitle": "您的簽名：",
+        "textTitle": "您的姓名：",
         "textPlaceholder": "John Doe",
         "fontLabel": "字體：",
         "fontSizeLabel": "字型大小：",
         "textColorLabel": "文字顏色：",
         "sizeLabel": "簽名大小："
-      },
-      "howTo": {
-        "title": "如何加入簽名",
-        "canvasBody": "在畫布中完成簽名後，關閉視窗，接著在 PDF 上任一位置點擊，即可放置簽名。",
-        "imageBody": "上傳簽名圖片後，在 PDF 上任一位置點擊，即可放置簽名。",
-        "textBody": "輸入姓名後，在 PDF 上任一位置點擊，即可放置簽名。"
       },
       "toast": {
         "noSignatureDrawn": "請先繪製簽名。",
@@ -263,9 +257,7 @@
         "applied": "簽名已套用，送出 PDF 時將使用此簽名。",
         "previewReady": "簽名預覽已就緒。",
         "downloadReady": "簽名已套用，開始下載檔案。",
-        "serverError": "伺服器錯誤，請稍後再試。",
         "processing": "正在套用簽名…",
-        "serverHeavy": "伺服器處理簽名時資源不足，請稍後再試。",
         "failed": "簽名處理失敗，請再試一次。",
         "done": "簽名已完成並開始下載。",
         "placementRequired": "請先在預覽畫面放置簽名，再送出 PDF。"

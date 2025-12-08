@@ -152,13 +152,7 @@ export default function SignPdfPreview({
       pageWidthPx,
       pageHeightPx,
     });
-  }, [
-    pos,
-    scale,
-    signatureUrl,
-    onPlacementChange,
-    current, // <<-- 關鍵修正: 新增 current，確保切換頁面時觸發更新
-  ]);
+  }, [pos, scale, signatureUrl, onPlacementChange, current]);
 
   return (
     <PdfPreview
