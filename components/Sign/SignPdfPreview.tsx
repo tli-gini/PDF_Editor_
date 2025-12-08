@@ -58,12 +58,20 @@ export default function SignPdfPreview({
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging || !overlayRef.current) return;
+    if (!isDragging || !overlayRef.current || !boxRef.current) return;
 
     const overlayRect = overlayRef.current.getBoundingClientRect();
+    const boxRect = boxRef.current.getBoundingClientRect();
 
-    const newX = e.clientX - overlayRect.left - dragOffset.current.x;
-    const newY = e.clientY - overlayRect.top - dragOffset.current.y;
+    let newX = e.clientX - overlayRect.left - dragOffset.current.x;
+    let newY = e.clientY - overlayRect.top - dragOffset.current.y;
+
+    // Restrict dragging range: prevent the signature box from moving outside the PDF page area
+    const maxX = overlayRect.width - boxRect.width;
+    const maxY = overlayRect.height - boxRect.height;
+
+    newX = Math.max(0, Math.min(newX, maxX));
+    newY = Math.max(0, Math.min(newY, maxY));
 
     setPos({
       x: newX,
@@ -79,9 +87,10 @@ export default function SignPdfPreview({
 
   /**
    * Emit SignaturePlacement whenever:
-   * - position changes
+   * - position (pos) changes
    * - scale changes
    * - signatureUrl changes
+   * - current page (current) changes <<-- New dependency
    *
    * IMPORTANT: coordinates are now measured relative to the actual PDF canvas,
    * not the outer white container. This is what makes preview and final PDF match.
@@ -110,13 +119,15 @@ export default function SignPdfPreview({
     const container = overlayContainer?.parentElement as HTMLDivElement | null;
     if (!container) return;
 
+    // Find the <canvas> element rendering the PDF
     const canvas = container.querySelector("canvas");
     if (!canvas) return;
 
-    const pageRect = canvas.getBoundingClientRect();
-    const boxRect = boxRef.current.getBoundingClientRect();
+    const pageRect = canvas.getBoundingClientRect(); // Canvas on-screen size (in CSS pixels)
+    const boxRect = boxRef.current.getBoundingClientRect(); // Signature box on-screen size (in CSS pixels)
 
     // Coordinates relative to the visible PDF page (canvas)
+    // This is key: (xPx, yPx) must be the offset of the signature box's top-left corner relative to the PDF Canvas's top-left corner
     const xPx = boxRect.left - pageRect.left;
     const yPx = boxRect.top - pageRect.top;
     const widthPx = boxRect.width;
@@ -125,7 +136,9 @@ export default function SignPdfPreview({
     const pageHeightPx = pageRect.height;
 
     // pageScale: ratio from screen pixels → canvas internal pixels
-    // (this is often ~= devicePixelRatio; we keep it in case we need it on the server).
+    // internalWidth is the width of the PDF page in pdf.js pixels (e.g., 595)
+    // pageWidthPx is the width on screen (e.g., 793)
+    // pageScale = 793 / 595 ≈ 1.33
     const internalWidth = canvas.width || pageWidthPx || 1;
     const pageScale = pageWidthPx > 0 ? pageWidthPx / internalWidth : 1;
 
@@ -139,7 +152,13 @@ export default function SignPdfPreview({
       pageWidthPx,
       pageHeightPx,
     });
-  }, [pos, scale, signatureUrl, onPlacementChange]);
+  }, [
+    pos,
+    scale,
+    signatureUrl,
+    onPlacementChange,
+    current, // <<-- 關鍵修正: 新增 current，確保切換頁面時觸發更新
+  ]);
 
   return (
     <PdfPreview

@@ -73,96 +73,79 @@ export default function SignPDF() {
       return;
     }
 
-    // We have a signature image, but no placement from the preview UI
     if (!signaturePlacement) {
-      toast.error("Please place your signature on the page before sending.");
+      toast.error(
+        tool.toast?.placementRequired ??
+          "Please place the signature on the PDF."
+      );
       return;
     }
 
     setLoading(true);
 
-    // Long-running toast, same pattern as add-watermark
     const pendingId = toast.info(
       tool.toast?.processing ?? "Processing signature...",
       { autoClose: false }
     );
 
     try {
-      const fd = new FormData();
+      const { PDFDocument } = await import("pdf-lib");
 
-      // 1) Original PDF
-      fd.append("fileInput", active.file);
+      // 1) Load PDF bytes
+      const pdfBytes = new Uint8Array(await active.file.arrayBuffer());
+      const pdfDoc = await PDFDocument.load(pdfBytes);
 
-      // 2) Signature image (from data URL or blob URL)
-      let sigFile: File;
-      if (signatureUrl.startsWith("data:")) {
-        // Canvas / text modes
-        sigFile = dataUrlToFile(signatureUrl, "signature.png");
+      // 2) Load signature image bytes (data: or blob:)
+      const { bytes: sigBytes, mime: sigMime } = await readImageBytes(
+        signatureUrl
+      );
+
+      // 3) Embed image (png/jpg). If other types, convert to png first.
+      let embedded;
+      if (sigMime === "image/jpeg" || sigMime === "image/jpg") {
+        embedded = await pdfDoc.embedJpg(sigBytes);
+      } else if (sigMime === "image/png") {
+        embedded = await pdfDoc.embedPng(sigBytes);
       } else {
-        // Image mode: blob: URL
-        const blob = await fetch(signatureUrl).then((r) => r.blob());
-        sigFile = new File([blob], "signature.png", {
-          type: blob.type || "image/png",
-        });
-      }
-      fd.append("imageFile", sigFile);
-
-      // 3) Placement (preview pixels) → PDF coordinates
-      const {
-        pageIndex,
-        xPx,
-        yPx,
-        widthPx,
-        heightPx,
-        pageScale,
-        pageHeightPx,
-      } = signaturePlacement;
-
-      // pageScale ~ (screenPixelWidth / internalCanvasWidth)
-      const scale = pageScale || 1;
-
-      // x: left-to-right is the same direction
-      const xPdf = xPx / scale;
-
-      // y: convert from top-left (preview) to bottom-left (PDF)
-      const yPdf = (pageHeightPx - (yPx + heightPx)) / scale;
-
-      fd.append("x", xPdf.toString());
-      fd.append("y", yPdf.toString());
-      fd.append("everyPage", "false");
-
-      // If your /api/add-image route supports targeting a single page,
-      // this matches Stirling's typical parameter name.
-      fd.append("page", pageIndex.toString());
-
-      const res = await fetch("/api/add-image", {
-        method: "POST",
-        body: fd,
-      });
-
-      if (!res.ok) {
-        const text = await res.text();
-
-        if (res.status === 502 || res.status === 503) {
-          toast.error(tool.toast?.serverHeavy ?? t.toast.serverBusy502);
-          toast.info(t.toast.cloudHint);
-          throw new Error(text || `Server busy (${res.status})`);
-        }
-
-        toast.error(tool.toast?.failed ?? t.toast.fail);
-        throw new Error(text || `Request failed (${res.status})`);
+        const pngBytes = await convertAnyImageToPngBytes(sigBytes, sigMime);
+        embedded = await pdfDoc.embedPng(pngBytes);
       }
 
-      // Download signed PDF
-      const blob = await res.blob();
+      // 4) Pick the exact page
+      const pages = pdfDoc.getPages();
+      const pageIdx0 = Math.max(
+        0,
+        Math.min(pages.length - 1, signaturePlacement.pageIndex - 1)
+      );
+      const page = pages[pageIdx0];
+
+      // 5) Convert preview(px) -> PDF coords using ratios (WYSIWYG, ignores viewport scale)
+      const { width: pdfW, height: pdfH } = page.getSize();
+
+      const { xPx, yPx, widthPx, heightPx, pageWidthPx, pageHeightPx } =
+        signaturePlacement;
+
+      // x/yPx are measured from TOP-LEFT in the preview.
+      // pdf-lib uses BOTTOM-LEFT origin.
+      const x = (xPx / pageWidthPx) * pdfW;
+      const w = (widthPx / pageWidthPx) * pdfW;
+      const h = (heightPx / pageHeightPx) * pdfH;
+
+      const yTop = (yPx / pageHeightPx) * pdfH;
+      const y = pdfH - yTop - h;
+
+      page.drawImage(embedded, { x, y, width: w, height: h });
+
+      // 6) Save and download
+      const outBytes = await pdfDoc.save();
+      const blob = new Blob([outBytes], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
 
+      const a = document.createElement("a");
       const originalName = active.file.name ?? "file.pdf";
       const baseName = originalName.replace(/\.pdf$/i, "");
-
       a.href = url;
-      a.download = `${baseName}__signed.pdf`;
+      a.download = `${baseName}_signed.pdf`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -177,6 +160,57 @@ export default function SignPDF() {
       toast.dismiss(pendingId);
     }
   };
+
+  // --- helpers ---
+
+  async function readImageBytes(
+    url: string
+  ): Promise<{ bytes: Uint8Array; mime: string }> {
+    if (url.startsWith("data:")) {
+      const [header, base64] = url.split(",");
+      const mimeMatch = header.match(/data:(.*?);base64/);
+      const mime = mimeMatch?.[1] ?? "image/png";
+
+      const binary = atob(base64);
+      const len = binary.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i += 1) bytes[i] = binary.charCodeAt(i);
+      return { bytes, mime };
+    }
+
+    const res = await fetch(url);
+    const blob = await res.blob();
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    return { bytes, mime: blob.type || "image/png" };
+  }
+
+  // If user uploads webp/heic/etc, convert to png in browser
+  async function convertAnyImageToPngBytes(
+    bytes: Uint8Array,
+    mime: string
+  ): Promise<Uint8Array> {
+    const blob = new Blob([bytes], {
+      type: mime || "application/octet-stream",
+    });
+    const bitmap = await createImageBitmap(blob);
+
+    const canvas = document.createElement("canvas");
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas context not available");
+    ctx.drawImage(bitmap, 0, 0);
+
+    const pngBlob = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob(
+        (b) => (b ? resolve(b) : reject(new Error("toBlob failed"))),
+        "image/png"
+      );
+    });
+
+    return new Uint8Array(await pngBlob.arrayBuffer());
+  }
 
   const handleClear = () => {
     // clear current signatureUrl / text / image
@@ -193,6 +227,8 @@ export default function SignPDF() {
 
     // inline canvas
     setInlineClearSignal((v) => v + 1);
+
+    setSignaturePlacement(null);
   };
 
   const handleApply = () => {
