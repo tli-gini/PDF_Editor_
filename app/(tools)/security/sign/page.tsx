@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // app/(tools)/security/sign/page.tsx
 "use client";
 
