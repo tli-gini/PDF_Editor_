@@ -3,18 +3,16 @@
 
 import { useEffect, useRef } from "react";
 
-export type SignatureTextRendererProps = {
+interface SignatureTextRendererProps {
   text: string;
   fontFamily: string;
-  fontSize: number;
   color: string;
-  onRendered: (url: string | null) => void;
-};
+  onRendered: (dataUrl: string | null) => void;
+}
 
 export function SignatureTextRenderer({
   text,
   fontFamily,
-  fontSize,
   color,
   onRendered,
 }: SignatureTextRendererProps) {
@@ -39,16 +37,27 @@ export function SignatureTextRenderer({
       return;
     }
 
-    const px = Math.max(8, fontSize || 16);
-    const padding = px * 0.6;
+    const basePointSize = 32;
+    const len = trimmed.length;
+    const pointSize =
+      len <= 8 ? basePointSize : Math.max(20, basePointSize - (len - 8) * 1.2);
 
-    ctx.font = `${px}px "${fontFamily}"`;
+    const dpiScale = 3; // High DPI scale to avoid blur
+
+    // Convert “points” to CSS pixels
+    const pxSize = pointSize * 1.333;
+
+    const padding = pxSize * 0.8;
+
+    // Measure text at high DPI
+    ctx.font = `${pxSize * dpiScale}px "${fontFamily}"`;
     const metrics = ctx.measureText(trimmed);
+
     const textWidth = metrics.width;
+    const width = textWidth + padding * dpiScale * 2;
+    const height = pxSize * dpiScale + padding * dpiScale * 2;
 
-    const width = Math.max(1, textWidth + padding * 2);
-    const height = Math.max(1, px + padding * 2);
-
+    // Internal canvas has full high-DPI resolution
     canvas.width = width;
     canvas.height = height;
 
@@ -59,15 +68,42 @@ export function SignatureTextRenderer({
     }
 
     ctx2.clearRect(0, 0, width, height);
-    ctx2.font = `${px}px "${fontFamily}"`;
+    ctx2.font = `${pxSize * dpiScale}px "${fontFamily}"`;
     ctx2.fillStyle = color;
     ctx2.textBaseline = "middle";
 
-    ctx2.fillText(trimmed, padding, height / 2);
+    const x = padding * dpiScale;
+    const y = height / 2;
 
-    const dataUrl = canvas.toDataURL("image/png");
+    ctx2.fillText(trimmed, x, y);
+
+    // Downsample to 1× for use in the preview / pdf-lib
+    const outputCanvas = document.createElement("canvas");
+    outputCanvas.width = width / dpiScale;
+    outputCanvas.height = height / dpiScale;
+
+    const outCtx = outputCanvas.getContext("2d");
+    if (!outCtx) {
+      onRendered(null);
+      return;
+    }
+
+    outCtx.drawImage(
+      canvas,
+      0,
+      0,
+      width,
+      height,
+      0,
+      0,
+      outputCanvas.width,
+      outputCanvas.height
+    );
+
+    const dataUrl = outputCanvas.toDataURL("image/png");
     onRendered(dataUrl);
-  }, [text, fontFamily, fontSize, color, onRendered]);
+  }, [text, fontFamily, color, onRendered]);
 
+  // Hidden canvas used only for generating the high-DPI image
   return <canvas ref={canvasRef} className="hidden" />;
 }

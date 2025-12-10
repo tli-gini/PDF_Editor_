@@ -54,7 +54,6 @@ export default function SignPDF() {
 
   // Text signature options
   const [fontFamily, setFontFamily] = useState("Helvetica");
-  const [fontSize, setFontSize] = useState("16");
   const [textColor, setTextColor] = useState("#000000");
 
   const active = files[0] ?? null;
@@ -298,7 +297,6 @@ export default function SignPDF() {
                       />
                     </div>
                   </div>
-
                   {/* Clear / Apply (draw mode only) */}
                   {mode === "draw" && (
                     <div className="flex gap-3 pt-1">
@@ -319,7 +317,6 @@ export default function SignPDF() {
                       </button>
                     </div>
                   )}
-
                   {/* Canvas mode */}
                   {mode === "draw" && (
                     <div className="flex flex-col gap-3 pt-2 mt-2">
@@ -348,7 +345,6 @@ export default function SignPDF() {
                       </div>
                     </div>
                   )}
-
                   {/* Image mode */}
                   {mode === "image" && (
                     <div className="flex flex-col gap-3 pt-2 mt-2">
@@ -427,12 +423,11 @@ export default function SignPDF() {
                       </div>
                     </div>
                   )}
-
                   {/* Text mode */}
                   {mode === "text" && (
                     <div className="w-full max-w-lg pt-2 text-left">
-                      {/* Signer Name + Font Size */}
-                      <div className="grid grid-cols-1 gap-4 mt-2 sm:grid-cols-2">
+                      {/* Signer Name only */}
+                      <div className="grid grid-cols-1 gap-4 mt-2">
                         {/* Signer Name */}
                         <div>
                           <label className="block mb-2 text-base font-semibold text-secondary">
@@ -446,20 +441,6 @@ export default function SignPDF() {
                               tool.sections?.textPlaceholder ?? "John Doe"
                             }
                             className="w-full px-4 py-2 text-base font-semibold bg-white border shadow-inner rounded-xl border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary placeholder:text-primary-light dark:text-background"
-                          />
-                        </div>
-
-                        {/* Font Size */}
-                        <div>
-                          <label className="block mb-2 text-base font-semibold text-secondary">
-                            {tool.sections?.fontSizeLabel ?? "Font Size"}
-                          </label>
-                          <input
-                            type="number"
-                            min={1}
-                            value={fontSize}
-                            onChange={(e) => setFontSize(e.target.value)}
-                            className="w-full px-4 py-2 text-base font-semibold bg-white border shadow-inner rounded-xl border-primary-light focus:outline-none focus:ring-2 focus:ring-primary text-primary"
                           />
                         </div>
                       </div>
@@ -519,21 +500,19 @@ export default function SignPDF() {
                     <SignatureTextRenderer
                       text={signatureText}
                       fontFamily={fontFamily}
-                      fontSize={Number(fontSize) || 16}
                       color={textColor}
                       onRendered={handleSignatureTextRendered}
                     />
                   )}
-
-                  {/* Signature size slider (Canvas/Image mode) */}
-                  {(mode === "draw" || mode === "image") && (
+                  {/* Signature size slider (all modes) */}
+                  {(mode === "draw" || mode === "image" || mode === "text") && (
                     <div className="flex flex-col gap-1 pt-2">
                       <label className="mb-1 text-base font-semibold text-left text-secondary">
                         {tool.sections?.sizeLabel ?? "Signature size"}
                       </label>
                       <input
                         type="range"
-                        min={0.1}
+                        min={0.3}
                         max={2}
                         step={0.05}
                         value={signatureScale}
@@ -551,7 +530,7 @@ export default function SignPDF() {
                   <SignPdfPreview
                     file={first ? first.file : null}
                     signatureUrl={signatureUrl}
-                    scale={mode === "text" ? 1 : signatureScale}
+                    scale={signatureScale}
                     onPlacementChange={setSignaturePlacement}
                   />
                 </div>
