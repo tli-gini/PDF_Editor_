@@ -236,7 +236,6 @@
         "textTitle": "Signer Name",
         "textPlaceholder": "John Doe",
         "fontLabel": "Font",
-        "fontSizeLabel": "Font Size",
         "textColorLabel": "Text Color",
         "sizeLabel": "Signature Size"
       },
